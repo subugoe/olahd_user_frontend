@@ -21,7 +21,6 @@
             :title="item.title"
             target="_blank"
           >
-            <!-- {{ item.title }} -->
             <b-img
               height="80px"
               width="160px"
@@ -29,7 +28,6 @@
               style="margin-right: 10px;object-fit:contain;"
               :src="require(`@/assets/${item.image}`)"
             />
-            <!-- <img :src="item.image" class="mr-2 mr-md-4"> -->
           </a>
         </b-col>
 
