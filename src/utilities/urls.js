@@ -1,11 +1,11 @@
 export default [
   {
-    image: 'logo-uni-goettingen.svg',
+    image: 'gwdg_logo.svg',
     title: 'Georg August University Goettingen',
     to: 'https://www.gwdg.de/',
   },
   {
-    image: 'SUB_left_horizontal_white.svg',
+    image: 'SUB_centered_white.svg',
     title: 'State- and University Library Goettingen',
     to: 'https://www.sub.uni-goettingen.de/sub-aktuell/',
   },
