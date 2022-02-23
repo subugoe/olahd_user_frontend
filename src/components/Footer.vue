@@ -1,38 +1,57 @@
 <template>
-    <footer>
-        <div class="container-fluid">
-            <div class="row py-3">
-                <div class="col-md-7 align-self-center text-center text-md-left">
-                    <ul class="list-inline mb-0">
-                        <li class="list-inline-item mx-0">
-                            <router-link to="/about">Über das Projekt</router-link>
-                            <span class="mx-2">&#183;</span>
-                        </li>
-                        <li class="list-inline-item mx-0">
-                            <router-link to="/contact">Kontakt</router-link>
-                            <span class="mx-2">&#183;</span>
-                        </li>
-                        <!--<li class="list-inline-item mx-0">
-                            <router-link to="/terms-of-use">Terms of Use</router-link>
-                            <span class="mx-2">&#183;</span>
-                        </li>-->
-                        <li class="list-inline-item mx-0">
-                            <router-link to="/impressum">Impressum</router-link>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-md-5 align-self-center text-center text-md-right">
-                    <div>&copy; GWDG 2019. All Rights Reserved.</div>
-                </div>
-            </div>
-        </div>
-    </footer>
+  <footer
+    padless
+    dark
+  >
+    <b-container>
+      <b-row align-h="center">
+        <b-col class="" align-self="center">
+          <router-link to="/about">Über das Projekt</router-link>
+          <span class="mx-2">&#183;</span>
+
+          <router-link to="/contact">Kontakt</router-link>
+          <span class="mx-2">&#183;</span>
+        </b-col>
+
+        <b-col cols="auto" class="d-flex justify-space-between align-center">
+          <a
+            v-for="(item, index) in urls"
+            :key="index"
+            :href="item.to"
+            :title="item.title"
+            target="_blank"
+          >
+            <b-img
+              height="80px"
+              width="160px"
+              block
+              style="margin-right: 10px;object-fit:contain;"
+              :src="require(`@/assets/${item.image}`)"
+            />
+          </a>
+        </b-col>
+
+        <b-col class="" align-self="center">
+          <div>&copy; GWDG 2019. All Rights Reserved.</div>
+        </b-col>
+      </b-row>
+
+      <b-row>
+
+      </b-row>
+    </b-container>
+  </footer>
 </template>
 
 <script>
-    export default {
-        name: "Footer"
-    }
+import urls from "../utilities/urls";
+
+export default {
+  name: "Footer",
+  data: () => ({
+    urls,
+  }),
+}
 </script>
 
 <!-- To keep the footer at the bottom of the page -->
