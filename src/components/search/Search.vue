@@ -33,25 +33,41 @@
 
             <!-- Search status -->
             <div class="row my-3">
-                <div class="col-6">{{ totalMessage }} ({{ time }} ms)</div>
-                <div class="col-6 text-right">{{ paginationMessage }}</div>
+                <div class="col-6">{{ totalMessage }} ({{ time }} ms). {{ paginationMessage }}.</div>
             </div>
+          <b-pagination
+              align="center"
+              v-model="currentPage"
+              :total-rows="results.total"
+              :per-page="maxResultsSize"
+              last-number
+              aria-controls="searchResults"
+          ></b-pagination>
 
             <!-- Search result -->
             <div class="row mb-3"
+                 id = "searchResults"
                  v-for="(result, index) in results.hits" :key="index">
                 <div class="col">
                     <app-search-result :item="result"></app-search-result>
                 </div>
             </div>
 
-            <!-- Navigation -->
+          <b-pagination
+              align="center"
+              v-model="currentPage"
+              :total-rows="results.total"
+              :per-page="maxResultsSize"
+              last-number
+              aria-controls="searchResults"
+          ></b-pagination>
+            <!-- Navigation
             <div class="row mb-3">
                 <div class="col-12 text-center">
                     <button class="btn btn-primary mr-5" v-if="hasPreviousPage" @click="search(-1)">Previous</button>
                     <button class="btn btn-primary" v-if="hasNextPage" @click="search(1)">Next</button>
                 </div>
-            </div>
+            </div> -->
         </template>
     </div>
 </template>
@@ -71,6 +87,8 @@
                 maxResultsSize: 10,
                 paginationLowerBound: 1,
                 scrolls: [''],
+                currentPage: 1,
+                previousPage: 1,
                 time: 0,
                 results: null
             }
@@ -110,54 +128,42 @@
             appSearchResult: SearchResult
         },
         methods: {
-            search(pageChange) {
-
+            search(pageChange, direction) {
                 // Reset the state
                 this.loading = true;
                 this.error = null;
                 this.results = {};
-
+                // Update the pagination message
+                this.paginationLowerBound = (pageChange-1) * this.maxResultsSize + 1;
                 let scroll = '';
-
                 // What kind of search is it?
-                switch (pageChange) {
-
-                    // Go to next page?
+                switch (direction) {
+                    // Forward?
                     case 1:
                         // Update the scroll state
                         scroll = this.scrolls[this.scrolls.length - 1];
-
-                        // Update the pagination message
-                        this.paginationLowerBound += this.maxResultsSize;
-
                         break;
-
-                    // Go to previous page?
+                    // Backwards?
                     case -1:
                         // Remove 2 top scroll to get the scroll of the previous page
                         this.scrolls.pop();
                         this.scrolls.pop();
-
                         // Update the scroll state
                         scroll = this.scrolls[this.scrolls.length - 1];
-
-                        // Update the pagination message
-                        this.paginationLowerBound -= this.maxResultsSize;
                         break;
-
                     // New search?
                     default:
                         this.scrolls = [''];
                         this.paginationLowerBound = 1;
                 }
-
+                console.log(this.paginationLowerBound);
                 // Start the timer
                 let start = performance.now();
 
                 // Execute the search
                 lzaApi.search(this.query, this.maxResultsSize, scroll)
                     .then(response => {
-
+                        console.log(response);
                         // Calculate the elapsed time
                         let end = performance.now();
                         this.time = Math.round(end - start);
@@ -178,14 +184,23 @@
             }
         },
         created() {
-            this.search(0);
+            this.search(1, 0);
         },
         watch: {
-            '$route': 'search'
+            '$route': 'search',
+          currentPage (value) {
+            let direction = 1;
+            if (value < this.previousPage)
+              direction = -1;
+            this.previousPage = value;
+            this.search(value, direction);
+          },
         }
     }
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+.container {
+  padding-bottom: $footer-height;
+}
 </style>

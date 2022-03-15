@@ -1,6 +1,6 @@
 <template>
-    <div class="container">
 
+    <div class="container">
         <!-- Error message -->
         <div class="row my-3" v-if="error">
             <div class="col">
@@ -451,4 +451,8 @@
             color: $primary;
         }
     }
+
+   .container {
+     padding-bottom: $footer-height;
+   }
 </style>

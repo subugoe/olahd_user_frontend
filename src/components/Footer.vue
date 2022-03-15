@@ -66,14 +66,14 @@ export default {
         overflow: hidden;
         display: block;
         position: relative;
-        padding-bottom: 80px; /* height of your footer */
+        padding-bottom: $footer-height; /* height of your footer */
 
         @include media-breakpoint-down(xs) {
             padding-bottom: 104px;
         }
 
         @include media-breakpoint-up(sm) {
-            padding-bottom: 56px;
+           padding-bottom: 56px;
         }
     }
 

@@ -2,7 +2,7 @@
     <div id="app">
 
         <!-- Navigation -->
-        <nav class="navbar navbar-expand-md bg-light p-0">
+        <b-navbar fixed = "top" class="navbar navbar-expand-md bg-light p-0">
             <!-- Hamburger button -->
             <button class="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarNavDropdown"
@@ -34,11 +34,15 @@
                     </li>
                 </ul>
             </div>
-        </nav>
+        </b-navbar>
 
+      <!-- <div id = "scrollable-view"> -->
         <app-header></app-header>
         <router-view/>
+      <!-- </div> -->
+      <b-navbar fixed = "bottom" class="navbar navbar-expand-md bg-light p-0">
         <app-footer></app-footer>
+      </b-navbar>
     </div>
 </template>
 
@@ -54,6 +58,34 @@
     }
 </script>
 
+<style lang="scss">
+body {
+  scrollbar-color: $primary $secondary;
+  scrollbar-width: medium;
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    box-shadow: 0 1px 3px 0 rgba(49, 185, 141, 0.3);
+    background: $secondary;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $primary;
+  }
+}
+#scrollable-view {
+  position: absolute;
+  overflow: auto;
+  height: 500px;
+  width: 100%;
+}
+section {
+  margin-bottom: $footer-height;
+}
+</style>
 <style lang="scss" scoped>
     .navbar {
 

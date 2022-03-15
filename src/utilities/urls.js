@@ -1,12 +1,12 @@
 export default [
   {
     image: 'gwdg_logo.svg',
-    title: 'Georg August University Goettingen',
+    title: 'Gesellschaft für wissenschaftliche Datenverarbeitung mbH Göttingen',
     to: 'https://www.gwdg.de/',
   },
   {
     image: 'SUB_centered_white.svg',
-    title: 'State- and University Library Goettingen',
+    title: 'Göttingen State and University Library',
     to: 'https://www.sub.uni-goettingen.de/sub-aktuell/',
   },
   {
