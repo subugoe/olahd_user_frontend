@@ -19,4 +19,4 @@ services:
 
 networks:
   olahd:
-    name: ola-hd
+    external: true
