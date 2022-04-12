@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from './views/Home.vue';
-import Search from './components/search/Search.vue';
-import SearchDetail from './components/search/SearchDetail.vue';
+import Home from '@/pages/home/index.vue';
+import Search from '@/pages/search/index.vue';
+import SearchDetail from '@/pages/search-detail/index.vue';
 
 Vue.use(Router);
 
@@ -33,17 +33,17 @@ export default new Router({
             // route level code-splitting
             // this generates a separate chunk (about.[hash].js) for this route
             // which is lazy-loaded when the route is visited.
-            component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
+            component: () => import(/* webpackChunkName: "about" */ './pages/about/index.vue')
         },
         {
             path: '/contact',
             name: 'contact',
-            component: () => import(/* webpackChunkName: "about" */ './views/Contact.vue')
+            component: () => import(/* webpackChunkName: "about" */ './pages/contact/index.vue')
         },
         {
             path: '/impressum',
             name: 'impressum',
-            component: () => import(/* webpackChunkName: "about" */ './views/Impressum.vue')
+            component: () => import(/* webpackChunkName: "about" */ './pages/impressum/index.vue')
         }
     ]
 });
