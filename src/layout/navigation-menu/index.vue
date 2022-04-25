@@ -1,6 +1,9 @@
 <template>
   <!-- Navigation -->
-  <nav class="navbar navbar-expand-md bg-light p-0">
+  <div
+    class="navbar-expand-md bg-light p-0 fixed top-0 left-0 right-0 z-10 shadow"
+    style="position: fixed"
+  >
     <!-- Hamburger button -->
     <button
       class="navbar-toggler"
@@ -18,7 +21,7 @@
 
     <!-- Navigation menu -->
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav ml-auto">
+      <ul class="navbar-nav ml-auto flex-1">
         <router-link
           tag="li"
           class="nav-item px-2"
@@ -28,6 +31,7 @@
         >
           <a class="nav-link">Home</a>
         </router-link>
+        <div class="flex-1" />
         <router-link
           tag="li"
           class="nav-item px-2"
@@ -52,7 +56,7 @@
         </li>
       </ul>
     </div>
-  </nav>
+  </div>
 </template>
 
 <script>
