@@ -3,6 +3,39 @@
     <div class="container-fluid">
       <!-- Feature Detail -->
       <div class="row">
+        <div class="card">
+          <div class="card-body">
+            <h3 class="card-title">Willkommen</h3>
+            <p class="card-text lead">
+              Das Ziel von OLA-HD Service ist die Entwicklung eines produktiven
+              Dienstes für die Langzeitarchivierung von historischen Drucken im
+              Rahmen von
+              <a href="https://ocr-d.de/">OCR-D</a>
+              Auf dieser Website kann die prototypische Implementierung des
+              Projekts ausprobiert werden. Über die Suche können in Kürze
+              Archivobjekte gefunden, angesehen und heruntergeladen werden.
+            </p>
+
+            <br />
+
+            <p class="card-text lead">
+              OLA-HD Service wird im Rahmen der DFG-Initiative
+              <a href="https://ocr-d.de/">OCR-D</a>
+              gefördert. Das Hauptziel von OCR-D ist die konzeptionelle und
+              technische Vorbereitung der Volltexttransformation der im
+              deutschen Sprachraum erschienenen Drucke des 16.-18. Jahrhunderts.
+              Die Aufgabe der automatischen Volltexterkennung wird in ihre
+              einzelnen Prozessschritte zerlegt, die in der Open Source
+              OCR-D-Software nachvollzogen werden können. Dies ermöglicht es,
+              optimale Workflows für die zu prozessierenden Drucke zu erstellen
+              und damit wissenschaftlich verwertbare Volltexte zu generieren.
+              OLA-HD Service bietet einen Dienst für die Langzeitarchivierung
+              dieser Ergebnisse.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
         <div class="col-md-6 align-self-center">
           <div class="card">
             <div class="card-body">
