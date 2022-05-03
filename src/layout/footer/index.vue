@@ -26,7 +26,7 @@
               width="160px"
               block
               style="margin-right: 10px;object-fit:contain;"
-              :src="require(`@/assets/${item.image}`)"
+              :src="require(`/public/assets/${item.image}`)"
             />
           </a>
         </b-col>
@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import urls from "../utilities/urls";
+import urls from "../../utilities/urls";
 
 export default {
   name: "Footer",
