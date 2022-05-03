@@ -17,6 +17,12 @@ services:
       - "traefik.http.routers.olahds_user_frontend.middlewares=stripprefix_home"
       - "traefik.http.middlewares.stripprefix_home.stripprefix.prefixes=/home"
 
+      - "traefik.http.routers.umleitung.rule=PathPrefix(`/`)"
+      - "traefik.http.routers.umleitung.middlewares=redirectmware"
+      - "traefik.http.middlewares.redirectmware.redirectregex.regex=^http[s]{0,1}:\\/\\/([^\\/]+)\\/?$$"
+      - "traefik.http.middlewares.redirectmware.redirectregex.replacement=/home"
+      - "traefik.http.middlewares.redirectmware.redirectregex.permanent=true"
+
 networks:
   olahd:
     external: true
