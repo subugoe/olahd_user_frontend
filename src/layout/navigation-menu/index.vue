@@ -45,21 +45,49 @@
             <router-link as="nav" active-class="active" to="/contact">
               <a class="nav-link text-sky-500 hover:text-slate-700">Kontakt</a>
             </router-link>
-            <a
-              href="#"
-              class="
-                bg-sky-600
-                font-medium
-                px-4
-                py-2
-                rounded-md
-                shadow-sm
-                text-white
-                hover:bg-sky-700
-              "
-            >
-              Sign in
-            </a>
+            <div class="ml-3 relative">
+              <div v-if="!username">
+                <button
+                  type="button"
+                  class="
+                    bg-sky-600
+                    font-medium
+                    px-4
+                    py-2
+                    shadow-sm
+                    text-white
+                    hover:bg-sky-700
+                  "
+                  id="user-menu-button"
+                  aria-expanded="false"
+                  aria-haspopup="true"
+                  @click="openLoginModal"
+                >
+                  Sign In
+                </button>
+                <LoginModal :open="isOpen" :onClose="onClose" />
+              </div>
+              <div v-else>
+                <button
+                  type="button"
+                  class="
+                    bg-sky-600
+                    font-medium
+                    px-4
+                    py-2
+                    shadow-sm
+                    text-white
+                    hover:bg-sky-700
+                  "
+                  id="user-menu-button"
+                  aria-expanded="false"
+                  aria-haspopup="true"
+                  @click="handleLogout"
+                >
+                  Logout
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -68,7 +96,33 @@
 </template>
 
 <script>
+import LoginModal from "../../components/login/Login.vue";
+
+export default {
+  components: { LoginModal },
+  data() {
+    return {
+      isOpen: false,
+    };
+  },
+  methods: {
+    onClose() {
+      this.isOpen = false;
+    },
+    openLoginModal() {
+      this.isOpen = true;
+    },
+    handleLogout() {
+      this.$store.dispatch("logout");
+      this.$router.push("/");
+    },
+  },
+  computed: {
+    username() {
+      return this.$store.getters["username"];
+    },
+  },
+};
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
