@@ -52,8 +52,8 @@
             <div class="custom-file">
               <input
                 type="file"
-                class="custom-file-input"
-                id="file-upload"
+                class="border px-3 py-2.5 mt-4 rounded-md w-full"
+                aria-describedby="help-text"
                 @change="processFile($event)"
               />
               <label
@@ -72,10 +72,9 @@
             >
             <input
               type="text"
-              class="form-control"
-              id="prev-version"
-              aria-describedby="help-text"
               placeholder="PID of the previous version"
+              class="border px-3 py-2.5 mt-4 rounded-md w-full"
+              aria-describedby="help-text"
               v-model="prevPid"
             />
             <small id="help-text" class="form-text text-muted">
@@ -99,7 +98,23 @@
             </div>
           </template>
 
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+          <button
+            type="submit"
+            class="
+              bg-blue-500
+              text-white
+              px-2
+              py-2.5
+              mt-4
+              rounded-md
+              focus:ring
+              font-semibold
+              tracking-wider
+            "
+          >
+            Submit
+          </button>
         </form>
       </div>
     </div>
