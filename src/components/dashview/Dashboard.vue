@@ -23,7 +23,11 @@
                 <tr v-for="(record, index) in records" :key="index">
                   <td>{{ record.trackingInfo.timestamp | formatDate }}</td>
                   <td>
-                    <a :href="buildUrl(record)" target="_blank">
+                    <a
+                      :href="buildUrl(record)"
+                      class="text-sky-500 hover:text-slate-700"
+                      target="_blank"
+                    >
                       {{ record.trackingInfo.pid }}
                     </a>
                   </td>

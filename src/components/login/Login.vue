@@ -88,7 +88,9 @@ export default {
         .then((result) => {
           // Closing modal
           this.onClose();
-          this.$router.replace(this.redirect ? this.redirect : "/dashview");
+          this.$router.replace(
+            this.redirect ? this.redirect : "/dashview/dashboard"
+          );
         })
         .catch(() => {
           this.isFailed = true;

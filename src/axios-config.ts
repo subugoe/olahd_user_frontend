@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-    baseURL: 'http://ola-hd.sub.uni-goettingen.de/api/',
+    baseURL: 'http://141.5.99.53/api/',
     headers: {
         'Content-Type': 'application/json'
     }

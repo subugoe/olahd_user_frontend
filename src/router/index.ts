@@ -59,11 +59,6 @@ export default new Router({
       props: true,
       children: [
         {
-          path: "",
-          component: Dashboard,
-          name: "home",
-        },
-        {
           path: "dashboard",
           component: Dashboard,
           name: "dashboard",

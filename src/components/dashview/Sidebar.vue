@@ -2,7 +2,7 @@
   <!-- Sidebar -->
   <div :class="'bg-blue-500 py-4 flex flex-col flex-1 duration-200 ' + (isExpanded ? 'w-72' : 'w-32')">
     <router-link
-      to="/dashview"
+      to="/dashview/dashboard"
       class="text-3xl font-semibold text-center text-blue-800"
       exact
     >
@@ -16,7 +16,7 @@
     <hr class="bg-white mt-4" />
     <ul class="mt-4">
       <router-link
-        to="/dashview"
+        to="/dashview/dashboard"
         tag="li"
         :class="'flex items-center rounded-md px-3 text-white/50 hover:text-white/100 ' + (isExpanded ? 'text-left' : 'text-center')"
         active-class="text-white/100"
