@@ -64,8 +64,10 @@ export default {
     #app {
         min-height: 100vh; /* will cover the 100% of viewport */
         overflow: hidden;
-        display: block;
+        display: flex;
         position: relative;
+        flex-direction: column;
+        flex: 1;
         padding-bottom: 80px; /* height of your footer */
 
         @include media-breakpoint-down(xs) {
