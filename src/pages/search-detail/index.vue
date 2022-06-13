@@ -29,73 +29,59 @@
     <template v-if="!loading">
       <div class="row">
         <div class="col">
-          <button type="button" class="btn btn-link" @click="$router.go(-1)">
+          <button
+            type="button"
+            class="btn btn-link text-sky-500 hover:text-slate-700"
+            @click="$router.go(-1)"
+          >
             &laquo; Back
           </button>
         </div>
       </div>
 
       <!-- Full details -->
-      <div class="row">
-        <div class="col">
-          <div class="card">
-            <div class="card-header">
-              <div class="row align-items-center">
-                <div class="col-8">
-                  <h5 class="m-0">Archive ID: {{ archiveInfo.id }}</h5>
-                </div>
-                <div class="col-4 text-right">
-                  <button
-                    type="button"
-                    class="btn btn-primary"
-                    :disabled="!isOpen"
-                    @click="exportArchive"
-                  >
-                    <i class="fas fa-download" />
-                    Export
-                  </button>
-                </div>
-              </div>
+      <section class="border rounded">
+        <div
+          class="
+            bg-gray-100
+            text-gray-700
+            flex
+            items-center
+            justify-between
+            flex-1
+            px-4
+            py-2
+            rounded-t
+            border-b
+          "
+        >
+          <h4 class="text-base">{{ title }}</h4>
+          <button
+            @click="toggleExpand"
+            class="
+              rounded
+              border
+              px-4
+              py-1
+              border-sky-500
+              bg-sky-500
+              text-white
+            "
+          >
+            {{ isExpanded ? "Collapse" : "Expand" }}
+          </button>
+        </div>
+        <div class="p-4 space-y-2">
+          <div class="grid grid-cols-6" v-for="item in info" :key="item.label">
+            <div class="col-span-2">
+              <h5 class="text-gray-800 font-semibold">{{ item.label }}</h5>
             </div>
-            <div class="card-body">
-              <table class="table table-borderless table-sm">
-                <tbody>
-                  <tr>
-                    <td class="w-25">State:</td>
-                    <td class="w-75">{{ archiveInfo.state }}</td>
-                  </tr>
-                  <tr>
-                    <td class="w-25">Total file:</td>
-                    <td class="w-75">{{ archiveInfo.file_count }}</td>
-                  </tr>
-                  <tr>
-                    <td class="w-25">Created time:</td>
-                    <td class="w-75">{{ archiveInfo.created | formatDate }}</td>
-                  </tr>
-                  <tr>
-                    <td class="w-25">Last modified time:</td>
-                    <td class="w-75">
-                      {{ archiveInfo.modified | formatDate }}
-                    </td>
-                  </tr>
-                  <tr
-                    v-if="archiveInfo.meta"
-                    v-for="(value, name) in archiveInfo.meta"
-                  >
-                    <td class="w-25">{{ name }}:</td>
-                    <td class="w-75">
-                      <div v-for="data in value">
-                        <span>{{ data }}</span>
-                        <br />
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+            <div class="col-span-4">
+              <p class="text-gray-600">{{ item.value }}</p>
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
       <!-- File structure -->
       <div class="row mt-4">
@@ -233,9 +219,69 @@ export default {
       loading: true,
       value: [],
       options: [],
+      response: null,
+      isExpanded: false,
     };
   },
   computed: {
+    info() {
+      if (!this.response) {
+        return [];
+      }
+      const source = this.response._source;
+      const MAX_DATA = 4;
+      return [
+        {
+          label: "Creator",
+          value: source.bycreator || "N/A",
+        },
+        {
+          label: "Publish Year",
+          value: (source.publish_infos || {}).year_publish || "N/A",
+        },
+        {
+          label: "Parent Url",
+          value:
+            ((source.parent || {}).purl || "").replace(/\|LOG.*/g, "") || "N/A",
+        },
+        {
+          label: "Parent Tittle",
+          value: ((source.parent || {}).title || {}).title || "N/A",
+        },
+        {
+          label: "Label",
+          value: source.label || "N/A",
+        },
+        {
+          label: "Owner",
+          value: (source.rights_info || {}).rights_owner || "N/A",
+        },
+        {
+          label: "Year of Digitization",
+          value:
+            (source.digitization_infos || {}).year_digitization_string || "N/A",
+        },
+        {
+          label: "Identifier",
+          value: source.record_identifier || "N/A",
+        },
+        {
+          label: "Place Infos",
+          value:
+            ((source.publish_infos || {}).place_publish || []).join(", ") ||
+            "N/A",
+        },
+      ].slice(0, this.isExpanded ? undefined : MAX_DATA);
+    },
+    title() {
+      if (!this.response) {
+        return "";
+      }
+      return (
+        this.response._source.bytitle ||
+        this.response._source.parent.title.title + "(Parent Info)"
+      );
+    },
     isOpen() {
       // Check if the archive is on disk
       return this.archiveInfo.state !== "archived";
@@ -265,34 +311,18 @@ export default {
     },
   },
   methods: {
+    toggleExpand() {
+      this.isExpanded = !this.isExpanded;
+    },
     async loadData() {
-      const limit = 1000;
-      let offset = 0,
-        firstCall = true;
-
       try {
-        while (true) {
-          let response = await lzaApi.getArchiveInfo(this.id, limit, offset);
+        this.loading = true;
+        const response = await lzaApi.getMetaLogById(
+          this.id,
+          this.$route.query.collection
+        );
 
-          if (firstCall) {
-            // Store all data for the first call
-            this.archiveInfo = response.data;
-            firstCall = false;
-          } else {
-            // Otherwise, just add more files to the file array
-            this.archiveInfo.files = this.archiveInfo.files.concat(
-              response.data.files
-            );
-          }
-
-          // There is no more file to get? Stop
-          if (response.data.files.length < limit) {
-            break;
-          } else {
-            // Get new files by increasing the offset
-            offset += limit;
-          }
-        }
+        this.response = response.data;
       } catch (error) {
         this.error = true;
         console.log(error);
@@ -301,17 +331,17 @@ export default {
       }
 
       // Get version information
-      lzaApi
-        .getVersionInfo(this.id)
-        .then((response) => {
-          this.versionInfo = response.data;
-        })
-        .catch((error) => {
-          this.error = true;
-          console.log(error);
-        });
+      // lzaApi
+      //   .getVersionInfo(this.id)
+      //   .then((response) => {
+      //     this.versionInfo = response.data;
+      //   })
+      //   .catch((error) => {
+      //     this.error = true;
+      //     console.log(error);
+      //   });
 
-      this.options = this.buildTree();
+      // this.options = this.buildTree();
     },
 
     buildTree() {
@@ -499,11 +529,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-.card .card-header {
-  h5 {
-    color: $primary;
-  }
-}
-</style>
