@@ -123,7 +123,7 @@ export default {
       if (!this.results.hits) {
         return [];
       }
-      return this.results.hits.hits;
+      return this.results.hits;
     },
     maxRecord() {
       const limit = (this.page - 1) * this.perPageData + this.perPageData;

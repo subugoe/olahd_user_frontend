@@ -9,7 +9,7 @@ const instance = axios.create({
 
 export default {
     search(query: string, from: number=0, size: number=10) {
-        return instance.get('/meta.log,meta.phys/_search', {
+        return instance.get('/search-es/query-all', {
             params: {
                 q: query,
                 from,
@@ -19,7 +19,7 @@ export default {
     },
 
     getMetaLogById(id: string, collection: string) {
-        return instance.get(`/meta.${collection}/_doc/${id}`);
+        return instance.get(`/search-es/meta.${collection}/${id}`);
     },
 
     getArchiveInfo(id: string, limit: number, offset: number) {
