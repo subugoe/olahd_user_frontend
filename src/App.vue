@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <navigation-menu></navigation-menu>
-    <app-header></app-header>
+    <div class="h-14" />
+    <app-header v-if="isHeaderVisible"></app-header>
     <router-view />
     <app-footer></app-footer>
   </div>
@@ -17,6 +18,11 @@ export default {
     appFooter: Footer,
     appHeader: Header,
     navigationMenu: NavigationMenu,
+  },
+  computed: {
+    isHeaderVisible() {
+      return this.$route.path === "/";
+    },
   },
 };
 </script>
