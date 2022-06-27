@@ -1,10 +1,11 @@
 <template>
   <div>
-    <form @submit.prevent="submit">
+    <form @submit.prevent="submit" id="search-header-small">
       <div class="relative text-gray-600 focus-within:text-gray-400">
         <input
           type="text"
           name="q"
+          id="search-input"
           class="
             py-1.5
             text-sm text-black

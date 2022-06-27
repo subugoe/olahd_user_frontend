@@ -160,10 +160,7 @@ export default {
       if (!this.results) {
         return 0;
       }
-      if (!this.results.hits) {
-        return 0;
-      }
-      return this.results.hits.total;
+      return this.results.totalHits;
     },
     isLastPage() {
       return (

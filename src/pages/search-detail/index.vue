@@ -245,7 +245,7 @@ export default {
             ((source.parent || {}).purl || "").replace(/\|LOG.*/g, "") || "N/A",
         },
         {
-          label: "Parent Tittle",
+          label: "Parent Title",
           value: ((source.parent || {}).title || {}).title || "N/A",
         },
         {
