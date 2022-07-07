@@ -142,7 +142,6 @@ export default {
     maxRecord() {
       const limit = (this.page - 1) * this.maxResultsSize + this.maxResultsSize;
 
-      console.log("temp", this.total, limit, this.page, this.maxResultsSize);
       if (this.total < limit) {
         return this.total;
       }
@@ -248,7 +247,6 @@ export default {
         })
         .catch((error) => {
           this.error = true;
-          console.log(error);
         })
         .finally(() => {
           this.loading = false;
