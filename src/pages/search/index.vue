@@ -47,8 +47,19 @@
           </div>
 
           <div class="flex items-center justify-between col-span-4">
+            <div>
+              Items per Page:
+              <select
+                v-model="maxResultsSize"
+                @change="handlePageSizeChange($event)"
+              >
+                <option v-for="size in pageSizes" :key="size" :value="size">
+                  {{ size }}
+                </option>
+              </select>
+            </div>
             <p>
-              Showing {{ (this.page - 1) * this.perPageData + 1 }} -
+              Showing {{ (this.page - 1) * this.maxResultsSize + 1 }} -
               {{ maxRecord }} of {{ total }} hits
             </p>
             <div class="space-x-3">
@@ -108,14 +119,17 @@ export default {
     return {
       loading: true,
       error: null,
-      maxResultsSize: 10,
       paginationLowerBound: 1,
       scrolls: [""],
       time: 0,
       results: null,
+      pageSizes: [10, 20, 30],
     };
   },
   computed: {
+    maxResultsSize() {
+      return Number(this.$route.query.perPageRecords || 10);
+    },
     data() {
       if (!this.results) {
         return [];
@@ -126,14 +140,15 @@ export default {
       return this.results.hits;
     },
     maxRecord() {
-      const limit = (this.page - 1) * this.perPageData + this.perPageData;
+      const limit = (this.page - 1) * this.maxResultsSize + this.maxResultsSize;
+
       if (this.total < limit) {
         return this.total;
       }
       return limit;
     },
     pagintation() {
-      const count = Math.ceil(this.total / this.perPageData);
+      const count = Math.ceil(this.total / this.maxResultsSize);
       const current = this.page;
       var shownPages = 3;
       var result = [];
@@ -143,9 +158,6 @@ export default {
         result.push(current, current + 1, current + 2);
       }
       return result;
-    },
-    perPageData() {
-      return 10;
     },
     hasResult() {
       return this.results;
@@ -164,7 +176,8 @@ export default {
     },
     isLastPage() {
       return (
-        (this.page - 1) * this.perPageData + this.perPageData >= this.total
+        (this.page - 1) * this.maxResultsSize + this.maxResultsSize >=
+        this.total
       );
     },
   },
@@ -182,7 +195,7 @@ export default {
       this.$router.push({
         name: "search",
         query: {
-          q: this.query,
+          ...this.$route.query,
           page,
         },
       });
@@ -191,7 +204,7 @@ export default {
       this.$router.push({
         name: "search",
         query: {
-          q: this.query,
+          ...this.$route.query,
           page: this.page - 1,
         },
       });
@@ -200,8 +213,17 @@ export default {
       this.$router.push({
         name: "search",
         query: {
-          q: this.query,
+          ...this.$route.query,
           page: this.page + 1,
+        },
+      });
+    },
+    handlePageSizeChange(event) {
+      this.$router.push({
+        name: "search",
+        query: {
+          ...this.$route.query,
+          perPageRecords: event.target.value,
         },
       });
     },
@@ -216,8 +238,8 @@ export default {
       lzaApi
         .search(
           this.query,
-          (this.page - 1) * this.perPageData,
-          this.perPageData
+          (this.page - 1) * this.maxResultsSize,
+          this.maxResultsSize
         )
         .then((response) => {
           // Render the results
@@ -225,7 +247,6 @@ export default {
         })
         .catch((error) => {
           this.error = true;
-          console.log(error);
         })
         .finally(() => {
           this.loading = false;
