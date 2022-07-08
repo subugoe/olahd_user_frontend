@@ -29,7 +29,7 @@ OLA-HD Service wird im Rahmen der DFG-Initiative [OCR-D](https://ocr-d.de/) gef√
 
 ### Prerequisites
 
-To get TIDO up and running you should have the following software installed:
+To get OLA-HD up and running you should have the following software installed:
 
 - **curl**
 - **yarn**
