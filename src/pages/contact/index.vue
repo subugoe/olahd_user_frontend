@@ -35,7 +35,7 @@
             37073 Göttingen
           </p>
           <iframe
-            src="https://www.geodata.uni-goettingen.de/Lageplan_mobile/?zoom=1&piz=5383&etage=EG"
+            src="https://www.openstreetmap.org/way/24693617"
             width="100%"
             height="450"
             frameborder="0"
@@ -53,7 +53,7 @@
             37077 Göttingen
           </p>
           <iframe
-            src="https://www.geodata.uni-goettingen.de/Lageplan_mobile/?zoom=1&piz=0775&etage=EG"
+            src="https://www.openstreetmap.org/way/1050216622#map=18/51.56008/9.95726"
             width="100%"
             height="450"
             frameborder="0"
