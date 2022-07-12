@@ -29,38 +29,48 @@
       </div>
       <div class="row">
         <div class="col-6">
-          <p>
+          <p class="mb-3">
             Niedersächsische Staats- und Universitätsbibliothek<br />
             Platz der Göttinger Sieben 1<br />
             37073 Göttingen
           </p>
+          <small
+            ><a
+              target="_blank"
+              href="https://www.openstreetmap.org/#map=18/51.53948/9.93525"
+              >View Larger Map</a
+            ></small
+          >
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2481.5679692807053!2d9.934229452490921!3d51.53948349233777!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47a4d4c1219da0a5%3A0xace1444b395f347b!2sG%C3%B6ttingen%20State%20and%20University%20Library!5e0!3m2!1sen!2sde!4v1595012969765!5m2!1sen!2sde"
             width="100%"
-            height="450"
+            height="350"
             frameborder="0"
-            style="border: 0"
-            allowfullscreen=""
-            aria-hidden="false"
-            tabindex="0"
+            scrolling="no"
+            src="https://www.openstreetmap.org/export/embed.html?bbox=9.933303594589235%2C51.53837457803422%2C9.937203526496889%2C51.54059003724594&amp;layer=mapnik"
+            style="border: 1px solid black"
           ></iframe>
         </div>
         <div class="col-6">
-          <p>
+          <p class="mb-3">
             Gesellschaft für wissenschaftliche Datenverarbeitung mbH
             Göttingen<br />
             Burckhardtweg 4<br />
             37077 Göttingen
           </p>
+          <small>
+            <a
+              target="_blank"
+              href="https://www.openstreetmap.org/#map=19/51.56100/9.95702"
+              >View Larger Map</a
+            >
+          </small>
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2480.3946194240125!2d9.96558541337793!3d51.5609989219582!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x230e28ac4054dc44!2sGesellschaft%20f%C3%BCr%20wissenschaftliche%20Datenverarbeitung%20mbH%20G%C3%B6ttingen!5e0!3m2!1sen!2sde!4v1595012909464!5m2!1sen!2sde"
             width="100%"
-            height="450"
+            height="350"
             frameborder="0"
-            style="border: 0"
-            allowfullscreen=""
-            aria-hidden="false"
-            tabindex="0"
+            scrolling="no"
+            src="https://www.openstreetmap.org/export/embed.html?bbox=9.955710768699648%2C51.56044761236335%2C9.957660734653475%2C51.561554818121394&amp;layer=mapnik"
+            style="border: 1px solid black"
           ></iframe>
         </div>
       </div>
