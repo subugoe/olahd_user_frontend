@@ -29,38 +29,48 @@
       </div>
       <div class="row">
         <div class="col-6">
-          <p>
+          <p class="mb-3">
             Niedersächsische Staats- und Universitätsbibliothek<br />
             Platz der Göttinger Sieben 1<br />
             37073 Göttingen
           </p>
+          <small
+            ><a
+              target="_blank"
+              href="https://www.openstreetmap.org/#map=18/51.53948/9.93525"
+              >View Larger Map</a
+            ></small
+          >
           <iframe
-            src="https://www.openstreetmap.org/way/24693617"
             width="100%"
-            height="450"
+            height="350"
             frameborder="0"
-            style="border: 0"
-            allowfullscreen=""
-            aria-hidden="false"
-            tabindex="0"
+            scrolling="no"
+            src="https://www.openstreetmap.org/export/embed.html?bbox=9.933303594589235%2C51.53837457803422%2C9.937203526496889%2C51.54059003724594&amp;layer=mapnik"
+            style="border: 1px solid black"
           ></iframe>
         </div>
         <div class="col-6">
-          <p>
+          <p class="mb-3">
             Gesellschaft für wissenschaftliche Datenverarbeitung mbH
             Göttingen<br />
             Burckhardtweg 4<br />
             37077 Göttingen
           </p>
+          <small>
+            <a
+              target="_blank"
+              href="https://www.openstreetmap.org/#map=19/51.56100/9.95702"
+              >View Larger Map</a
+            >
+          </small>
           <iframe
-            src="https://www.openstreetmap.org/way/1050216622#map=18/51.56008/9.95726"
             width="100%"
-            height="450"
+            height="350"
             frameborder="0"
-            style="border: 0"
-            allowfullscreen=""
-            aria-hidden="false"
-            tabindex="0"
+            scrolling="no"
+            src="https://www.openstreetmap.org/export/embed.html?bbox=9.955710768699648%2C51.56044761236335%2C9.957660734653475%2C51.561554818121394&amp;layer=mapnik"
+            style="border: 1px solid black"
           ></iframe>
         </div>
       </div>
