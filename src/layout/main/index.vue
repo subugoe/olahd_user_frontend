@@ -1,5 +1,8 @@
 <template>
-  <div class="h-96 bg-cover bg-gray-400 bg-center p-12 home-img">
+  <div
+    id="search-header"
+    class="h-96 bg-cover bg-gray-400 bg-center p-12 home-img"
+  >
     <h4 class="flex justify-center m-5 text-3xl text-gray-600">
       OLA-HD - OCR Langzeitarchiv
     </h4>
@@ -16,6 +19,7 @@
               pl-3
               pr-10
             "
+            id="search-box"
             type="text"
             placeholder="Suchen"
             v-model="query"
