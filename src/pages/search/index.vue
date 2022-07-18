@@ -38,72 +38,37 @@
 
     <template v-if="hasResult">
       <!-- Search result -->
+
       <div class="mb-3 grid grid-cols-5">
+        <div class="col-span-4 flex items-center justify-between my-6">
+          <p>
+            Showing {{ (this.page - 1) * this.maxResultsSize + 1 }} -
+            {{ maxRecord }} of {{ total }} hits
+          </p>
+
+          <div>
+            Items per Page:
+            <select
+              :value="maxResultsSize"
+              @change="handlePageSizeChange($event)"
+            >
+              <option v-for="size in pageSizes" :key="size" :value="size">
+                {{ size }}
+              </option>
+            </select>
+          </div>
+        </div>
         <div class="space-y-4 col-span-4">
           <div v-for="(result, index) in data" :key="index">
             <div class="col">
               <SearchResult :item="result"></SearchResult>
             </div>
           </div>
-
-          <div class="flex items-center justify-between col-span-4">
-            <div>
-              Items per Page:
-              <select
-                v-model="maxResultsSize"
-                @change="handlePageSizeChange($event)"
-              >
-                <option v-for="size in pageSizes" :key="size" :value="size">
-                  {{ size }}
-                </option>
-              </select>
-            </div>
-            <p>
-              Showing {{ (this.page - 1) * this.maxResultsSize + 1 }} -
-              {{ maxRecord }} of {{ total }} hits
-            </p>
-            <div class="space-x-3">
-              <button
-                class="
-                  px-4
-                  py-2
-                  bg-sky-600
-                  rounded-md
-                  text-white
-                  font-semibold
-                  hover:bg-sky-400
-                "
-                @click="handlePrevious"
-                :disabled="page === 1"
-              >
-                Previous
-              </button>
-              <button
-                v-for="number in pagintation"
-                :key="number"
-                :disabled="number === page"
-                :class="buttonClass(number)"
-                @click="handlePageChange(number)"
-              >
-                {{ number }}
-              </button>
-              <button
-                class="
-                  px-4
-                  py-2
-                  bg-sky-600
-                  rounded-md
-                  text-white
-                  font-semibold
-                  hover:bg-sky-400
-                "
-                @click="handleNext"
-                :disabled="isLastPage"
-              >
-                Next
-              </button>
-            </div>
-          </div>
+          <Pagination
+            :current="page"
+            :total="total"
+            @page-changed="current = $event"
+          />
         </div>
       </div>
     </template>
@@ -113,6 +78,7 @@
 <script>
 import lzaApi from "@/services/lzaApi";
 import SearchResult from "@/components/search/SearchResult";
+import Pagination from "@/components/pagination/Pagination";
 
 export default {
   data() {
@@ -147,18 +113,6 @@ export default {
       }
       return limit;
     },
-    pagintation() {
-      const count = Math.ceil(this.total / this.maxResultsSize);
-      const current = this.page;
-      var shownPages = 3;
-      var result = [];
-      if (current > count - shownPages) {
-        result.push(count - 2, count - 1, count);
-      } else {
-        result.push(current, current + 1, current + 2);
-      }
-      return result;
-    },
     hasResult() {
       return this.results;
     },
@@ -174,15 +128,10 @@ export default {
       }
       return this.results.totalHits;
     },
-    isLastPage() {
-      return (
-        (this.page - 1) * this.maxResultsSize + this.maxResultsSize >=
-        this.total
-      );
-    },
   },
   components: {
     SearchResult,
+    Pagination,
   },
   methods: {
     buttonClass(number) {
@@ -190,33 +139,6 @@ export default {
         return "px-4 py-2 text-sky-500 border-sky-500 rounded-md border";
       }
       return "px-4 py-2 bg-sky-500 border-sky-500 rounded-md text-white";
-    },
-    handlePageChange(page) {
-      this.$router.push({
-        name: "search",
-        query: {
-          ...this.$route.query,
-          page,
-        },
-      });
-    },
-    handlePrevious() {
-      this.$router.push({
-        name: "search",
-        query: {
-          ...this.$route.query,
-          page: this.page - 1,
-        },
-      });
-    },
-    handleNext() {
-      this.$router.push({
-        name: "search",
-        query: {
-          ...this.$route.query,
-          page: this.page + 1,
-        },
-      });
     },
     handlePageSizeChange(event) {
       this.$router.push({
@@ -232,8 +154,6 @@ export default {
       this.loading = true;
       this.error = null;
       this.results = {};
-      // Start the timer
-      let start = performance.now();
       // Execute the search
       lzaApi
         .search(

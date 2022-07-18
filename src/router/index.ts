@@ -6,7 +6,6 @@ import SearchDetail from "@/pages/search-detail/index.vue";
 import DashView from '@/pages/dashview/index.vue'
 import Dashboard from '@/components/dashview/Dashboard.vue'
 import Import from '@/components/dashview/Import.vue'
-import { rule } from "postcss";
 
 Vue.use(Router);
 

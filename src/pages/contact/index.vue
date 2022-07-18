@@ -27,7 +27,7 @@
           <h4>Anschrift</h4>
         </div>
       </div>
-      <div class="row">
+      <div class="row mb-2">
         <div class="col-6">
           <p class="mb-3">
             Niedersächsische Staats- und Universitätsbibliothek<br />

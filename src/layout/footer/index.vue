@@ -1,19 +1,25 @@
 <template>
-  <footer
-    padless
-    dark
-  >
-    <b-container>
-      <b-row align-h="center">
-        <b-col class="" align-self="center">
-          <router-link to="/about">Über das Projekt</router-link>
-          <span class="mx-2">&#183;</span>
+  <footer>
+    <div class="bg-gray-700">
+      <div
+        class="
+          flex
+          justify-between
+          items-center
+          py-2
+          md:justify-start md:space-x-10
+        "
+      >
+        <div class="flex lg:flex-1 justify-content-center">
+          <router-link as="nav" active-class="active" to="/about">
+            <a class="nav-link text-white hover:text-sky-700">About</a>
+          </router-link>
+          <router-link as="nav" active-class="active" to="/contact">
+            <a class="nav-link text-white hover:text-sky-700">Kontakt</a>
+          </router-link>
+        </div>
 
-          <router-link to="/contact">Kontakt</router-link>
-          <span class="mx-2">&#183;</span>
-        </b-col>
-
-        <b-col cols="auto" class="d-flex justify-space-between align-center">
+        <div class="grid-cols-3 gap-4 flex items-center">
           <a
             v-for="(item, index) in urls"
             :key="index"
@@ -21,79 +27,34 @@
             :title="item.title"
             target="_blank"
           >
-            <b-img
+            <img
               height="80px"
               width="160px"
-              block
-              style="margin-right: 10px;object-fit:contain;"
               :src="require(`/public/assets/${item.image}`)"
             />
           </a>
-        </b-col>
+        </div>
 
-        <b-col class="" align-self="center">
-          <div>&copy; GWDG 2019. All Rights Reserved.</div>
-        </b-col>
-      </b-row>
-
-      <b-row>
-
-      </b-row>
-    </b-container>
+        <div class="flex lg:flex-1 justify-content-center">
+          <div class="text-white">Version {{ packageVersion }}</div>
+        </div>
+      </div>
+    </div>
   </footer>
 </template>
 
 <script>
 import urls from "../../utilities/urls";
+import packageInfo from "../../../package.json";
 
 export default {
   name: "Footer",
   data: () => ({
+    packageVersion: "",
     urls,
   }),
-}
+  created() {
+    this.packageVersion = packageInfo.version;
+  },
+};
 </script>
-
-<!-- To keep the footer at the bottom of the page -->
-<style lang="scss">
-    html, body {
-        height: 100%;
-        position: relative;
-    }
-
-    #app {
-        min-height: 100vh; /* will cover the 100% of viewport */
-        overflow: hidden;
-        display: flex;
-        position: relative;
-        flex-direction: column;
-        flex: 1;
-        padding-bottom: 80px; /* height of your footer */
-
-        @include media-breakpoint-down(xs) {
-            padding-bottom: 104px;
-        }
-
-        @include media-breakpoint-up(sm) {
-            padding-bottom: 56px;
-        }
-    }
-
-    footer {
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-    }
-</style>
-
-<style lang="scss" scoped>
-    footer {
-        background-color: $secondary;
-        color: white;
-
-        ul li.list-inline-item a {
-            color: white;
-            text-decoration: none;
-        }
-    }
-</style>

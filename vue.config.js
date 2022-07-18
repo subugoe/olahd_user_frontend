@@ -10,5 +10,4 @@ module.exports = {
             }
         }
     },
-    publicPath: '/home'
 };
