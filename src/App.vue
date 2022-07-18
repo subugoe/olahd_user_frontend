@@ -1,23 +1,25 @@
 <template>
-  <div id="app">
-    <navigation-menu></navigation-menu>
+  <div id="app" class="min-h-screen flex flex-col flex-1">
+    <NavigationMenu />
     <div class="h-14" />
-    <app-header v-if="isHeaderVisible"></app-header>
-    <router-view />
-    <app-footer></app-footer>
+    <Main v-if="isHeaderVisible"></Main>
+    <div class="flex flex-1 flex-col">
+      <router-view />
+    </div>
+    <Footer />
   </div>
 </template>
 
 <script>
 import Footer from "@/layout/footer/index.vue";
-import Header from "@/layout/header/index.vue";
+import Main from "@/layout/main/index.vue";
 import NavigationMenu from "@/layout/navigation-menu/index.vue";
 
 export default {
   components: {
-    appFooter: Footer,
-    appHeader: Header,
-    navigationMenu: NavigationMenu,
+    Footer,
+    Main,
+    NavigationMenu,
   },
   computed: {
     isHeaderVisible() {
