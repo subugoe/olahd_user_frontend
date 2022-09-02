@@ -7,7 +7,7 @@
           id: item._id,
         },
         query: {
-          collection: item._index === 'meta.log' ? 'log' : 'phys',
+          collection: item._index === 'meta.olahds_log' ? 'olahds_log' : 'olahds_phys',
         },
       }"
       class="search-item-link"
