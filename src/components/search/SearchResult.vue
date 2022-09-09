@@ -7,7 +7,8 @@
           id: item._id,
         },
         query: {
-          collection: item._index === 'meta.log' ? 'log' : 'phys',
+          collection:
+            item._index === 'meta.olahds_log' ? 'olahds_log' : 'olahds_phys',
         },
       }"
       class="search-item-link"
@@ -53,6 +54,7 @@ export default {
     title() {
       return (
         this.item._source.bytitle ||
+        this.item._source.label ||
         this.item._source.parent.title.title + " (Parent Info)"
       );
     },
@@ -60,10 +62,10 @@ export default {
       return this.item._source.bycreator || "N/A";
     },
     yearPublish() {
-      return this.item._source.publish_infos.year_publish;
+      return this.item._source.publish_infos.year_publish || "N/A";
     },
     dateCreated() {
-      return this.item._source.date_indexed;
+      return this.item._source.reindexedat;
     },
   },
 };

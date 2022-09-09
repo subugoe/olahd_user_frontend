@@ -39,7 +39,7 @@
     <template v-if="hasResult">
       <!-- Search result -->
 
-      <div class="mb-3 grid grid-cols-5">
+      <div class="mb-3 grid grid-cols-5 gap-4">
         <div class="col-span-4 flex items-center justify-between my-6">
           <p>
             Showing {{ (this.page - 1) * this.maxResultsSize + 1 }} -
@@ -70,6 +70,10 @@
             @page-changed="current = $event"
           />
         </div>
+
+        <!-- <div class="px-2 border rounded-md py-2 bg-gray-50">
+          <search-group :item="data" placeholder="Search for creator..." />
+        </div> -->
       </div>
     </template>
   </div>
@@ -79,6 +83,7 @@
 import lzaApi from "@/services/lzaApi";
 import SearchResult from "@/components/search/SearchResult";
 import Pagination from "@/components/pagination/Pagination";
+// import SearchGroup from "../../components/search/Facets.vue";
 
 export default {
   data() {
@@ -130,8 +135,9 @@ export default {
     },
   },
   components: {
-    SearchResult,
     Pagination,
+    // SearchGroup,
+    SearchResult,
   },
   methods: {
     buttonClass(number) {

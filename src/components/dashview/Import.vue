@@ -180,7 +180,6 @@ export default {
           }.bind(this),
         })
         .then((response) => {
-          console.log(response);
           this.isSuccess = true;
           this.newPid = response.data.pid;
         })

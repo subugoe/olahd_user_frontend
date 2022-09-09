@@ -56,20 +56,21 @@
           "
         >
           <h4 class="text-base">{{ title }}</h4>
-          <button
-            @click="toggleExpand"
-            class="
-              rounded
-              border
-              px-4
-              py-1
-              border-sky-500
-              bg-sky-500
-              text-white
-            "
-          >
-            {{ isExpanded ? "Collapse" : "Expand" }}
-          </button>
+          <div>
+            <button @click="toggleExpand" :class="buttonClass">
+              <i
+                :class="[
+                  isExpanded ? 'fa-angle-double-up' : 'fa-angle-double-down',
+                  'fas mr-1',
+                ]"
+              />
+              {{ isExpanded ? "Collapse" : "Expand" }}
+            </button>
+            <button @click="exportArchive" :class="buttonClass">
+              <i class="fas fa-download mr-1" />
+              {{ "Export" }}
+            </button>
+          </div>
         </div>
         <div class="p-4 space-y-2">
           <div class="grid grid-cols-6" v-for="item in info" :key="item.label">
@@ -84,62 +85,20 @@
       </section>
 
       <!-- File structure -->
-      <div class="row mt-4">
-        <div class="col">
-          <div class="card">
-            <div class="card-header">
-              <div class="row align-items-center">
-                <div class="col-8">
-                  <h5 class="m-0">File structure</h5>
-                </div>
-                <div class="col-4 text-right">
-                  <button
-                    type="button"
-                    class="btn btn-primary"
-                    :disabled="isDisabled"
-                    @click="download"
-                  >
-                    <i class="fas fa-download" />
-                    Download
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="card-body">
-              <app-tree-select
-                v-model="value"
-                :multiple="true"
-                :show-count="true"
-                :options="options"
-                placeholder="Click to view file structure. Type to search. Select to download."
-              >
-                <label
-                  slot="option-label"
-                  slot-scope="{
-                    node,
-                    shouldShowCount,
-                    count,
-                    labelClassName,
-                    countClassName,
-                  }"
-                  :class="labelClassName"
-                >
-                  {{ node.label }}
-                  <template v-if="!node.isBranch && isOpen">
-                    <span> - </span>
-                    <a :href="buildUrl(id, node.id)" target="_blank">View</a>
-                  </template>
-                  <span v-if="shouldShowCount" :class="countClassName"
-                    >({{ count }})</span
-                  >
-                </label>
-              </app-tree-select>
-            </div>
-          </div>
-        </div>
-      </div>
+      <section
+        v-if="this.response._source.all_file_hrefs"
+        class="border rounded mt-4"
+      >
+        <download-files
+          :data="this.response._source.all_file_hrefs"
+          :pid="this.response._source.pid"
+        />
+      </section>
 
       <!-- Version -->
+      <!-- <section class="border rounded mt-4">
+        <versions />
+      </section> -->
       <div class="row my-4">
         <div class="col">
           <div class="card">
@@ -195,9 +154,6 @@
 </template>
 
 <script>
-import Treeselect from "@riophae/vue-treeselect";
-import "@riophae/vue-treeselect/dist/vue-treeselect.css";
-
 import moment from "moment";
 import { WritableStream } from "web-streams-polyfill/ponyfill";
 import streamSaver from "streamsaver";
@@ -205,11 +161,16 @@ import streamSaver from "streamsaver";
 import lzaApi from "@/services/lzaApi";
 import treeService from "@/services/treeService";
 import emojiService from "@/services/emojiService";
-import SearchResult from "@/components/search/SearchResult";
+import DownloadFiles from "../../components/download-files/Download.vue";
+// import Versions from "../../components/version/Versions.vue";
 
 export default {
   props: {
     id: String,
+  },
+  components: {
+    DownloadFiles,
+    // Versions,
   },
   data() {
     return {
@@ -224,6 +185,9 @@ export default {
     };
   },
   computed: {
+    buttonClass() {
+      return "rounded border mr-4 px-3 py-1 border-sky-500 bg-sky-500 text-white dark:hover:bg-gray-700";
+    },
     info() {
       if (!this.response) {
         return [];
@@ -279,7 +243,8 @@ export default {
       }
       return (
         this.response._source.bytitle ||
-        this.response._source.parent.title.title + "(Parent Info)"
+        this.response._source.label ||
+        this.response._source.parent.title.title + " (Parent Info)"
       );
     },
     isOpen() {
@@ -298,10 +263,6 @@ export default {
 
       return hasVersion;
     },
-  },
-  components: {
-    appSearchResult: SearchResult,
-    appTreeSelect: Treeselect,
   },
   filters: {
     formatDate(value) {
@@ -325,7 +286,6 @@ export default {
         this.response = response.data;
       } catch (error) {
         this.error = true;
-        console.log(error);
       } finally {
         this.loading = false;
       }
@@ -428,50 +388,14 @@ export default {
       return tree;
     },
 
-    download() {
-      if (this.value.length < 1) {
-        return;
-      }
-
-      let downloadItems = [];
-
-      // Evaluate each chosen option
-      for (let path of this.value) {
-        // Select the node corresponding to the path
-        let node = treeService.getNode(this.options, path);
-
-        // If it's not a leaf node
-        if (node["children"]) {
-          // Get all files under it
-          let leafNodes = treeService.getLeafNodes(node);
-          leafNodes.forEach((item) => downloadItems.push(item.id));
-        } else {
-          // This is a leaf node, simply add it to the set
-          downloadItems.push(node.id);
-        }
-      }
-
-      // Send the download set to server
-      lzaApi
-        .downloadFiles(this.archiveInfo.id, downloadItems)
-        .then((response) => {
-          this.consumeDownloadStream(response);
-        })
-        .catch((error) => {
-          this.error = true;
-          console.log(error);
-        });
-    },
-
     exportArchive() {
       lzaApi
-        .exportArchive(this.id)
+        .exportArchive(this.response._source.pid)
         .then((response) => {
           this.consumeDownloadStream(response);
         })
         .catch((error) => {
           this.error = true;
-          console.log(error);
         });
     },
 
