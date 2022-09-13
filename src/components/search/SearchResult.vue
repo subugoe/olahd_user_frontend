@@ -62,7 +62,7 @@ export default {
       return this.item._source.bycreator || "N/A";
     },
     yearPublish() {
-      return this.item._source.publish_infos.year_publish || "N/A";
+      return (this.item._source.publish_infos || {}).year_publish || "N/A";
     },
     dateCreated() {
       return this.item._source.reindexedat;
