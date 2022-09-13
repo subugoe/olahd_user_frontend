@@ -189,6 +189,13 @@ export default {
       return "rounded border mr-4 px-3 py-1 border-sky-500 bg-sky-500 text-white dark:hover:bg-gray-700";
     },
     info() {
+      if (this.indexType === 'log') {
+        return this.info_log
+      } else {
+        return this.info_phys
+      }
+    },
+    info_log() {
       if (!this.response) {
         return [];
       }
@@ -237,15 +244,68 @@ export default {
         },
       ].slice(0, this.isExpanded ? undefined : MAX_DATA);
     },
+    info_phys() {
+      if (!this.response) {
+        return [];
+      }
+      const source = this.response._source;
+      const MAX_DATA = 4;
+
+      if (source.title !== undefined) {
+        var title = source.title.title;
+      } else {
+        var title = source.structrun[0].title !== undefined ?
+          source.structrun[0].title.title : "N/A";
+      }
+      return [
+        {
+          label: "Filename",
+          value: source.filename,
+        },
+        {
+          label: "Type",
+          value: source.type || "N/A",
+        },
+        {
+          label: "Title",
+          value: title,
+        },
+        {
+          label: "Pid",
+          value: source.pid,
+        },
+        {
+          label: "Page",
+          value: source.page,
+        },
+        {
+          label: "Label",
+          value: source.label || "N/A",
+        },
+        {
+          label: "Mimetype",
+          value: source.mimetype || "N/A",
+        },
+        {
+          label: "Link",
+          value: source.page_href || "N/A",
+        },
+      ].slice(0, this.isExpanded ? undefined : MAX_DATA);
+    },
     title() {
       if (!this.response) {
         return "";
       }
-      return (
-        this.response._source.bytitle ||
-        this.response._source.label ||
-        this.response._source.parent.title.title + " (Parent Info)"
-      );
+      console.log(this.response)
+      if (this.response._index.includes('log')) {
+        return (
+          this.response._source.bytitle ||
+          this.response._source.label ||
+          this.response._source.parent.title.title + " (Parent Info)"
+        );
+      } else {
+        return "File: " + this.response._source.filename;
+      }
     },
     isOpen() {
       // Check if the archive is on disk
@@ -263,6 +323,14 @@ export default {
 
       return hasVersion;
     },
+    indexType() {
+      if (this.$route.query.collection.includes("log")) {
+        // TODO: differentiate further: logigal IsFirst or not
+        return "log";
+      } else {
+        return "phys";
+      }
+    }
   },
   filters: {
     formatDate(value) {
