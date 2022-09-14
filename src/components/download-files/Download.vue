@@ -43,10 +43,15 @@
       >
         <label
           slot="option-label"
-          slot-scope="{ node, labelClassName }"
+          slot-scope="{ node, shouldShowCount, count, labelClassName, countClassName }"
           :class="labelClassName"
         >
           {{ node.label }}
+          <template v-if="!node.isBranch && isOpen">
+            <span> - </span>
+            <a :href="buildUrl(pid, node.id)" target="_blank" class="text-sky-500 hover:text-slate-700">View</a>
+          </template>
+          <span v-if="shouldShowCount" :class="countClassName">({{ count }})</span>
         </label>
       </tree-select>
     </div>
@@ -55,8 +60,7 @@
 
 <script>
 import Treeselect from "@riophae/vue-treeselect";
-import treeService from "@/services/treeService";
-import streamSaver from "streamsaver";
+import treeService from '@/services/treeService';
 import lzaApi from "@/services/lzaApi";
 import emojiService from '@/services/emojiService';
 
@@ -93,10 +97,6 @@ export default {
     }
   },
   methods: {
-    getFileName(url = "") {
-      const parts = url.split("/");
-      return parts[parts.length - 1];
-    },
     download() {
       if (this.value.length < 1) {
         return;
@@ -105,28 +105,22 @@ export default {
       let downloadItems = [];
 
       // Evaluate each chosen option
-      // for (let path of this.value) {
-      //   // Select the node corresponding to the path
-      //   let node = treeService.getNode(this.options, path);
+      for (let path of this.value) {
+        // Select the node corresponding to the path
+        let node = treeService.getNode(this.options, path);
 
-      //   // If it's not a leaf node
-      //   if (node["children"]) {
-      //     // Get all files under it
-      //     let leafNodes = treeService.getLeafNodes(node);
-      //     leafNodes.forEach((item) => downloadItems.push(item.id));
-      //   } else {
-      //     // This is a leaf node, simply add it to the set
-      //     downloadItems.push(node.id);
-      //   }
-      // }
-
+        // If it's not a leaf node
+        if (node["children"]) {
+          // Get all files under it
+          let leafNodes = treeService.getLeafNodes(node);
+          leafNodes.forEach((item) => downloadItems.push(item.id));
+        } else {
+          // This is a leaf node, simply add it to the set
+          downloadItems.push(node.id);
+        }
+      }
       // Send the download set to server
-
-      lzaApi
-        .downloadFiles(
-          this.pid,
-          (this.value || []).map((el) => this.getFileName(el))
-        )
+      lzaApi.downloadFiles(this.pid, downloadItems)
         .then((response) => {
           this.consumeDownloadStream(response);
         })
@@ -280,13 +274,13 @@ export default {
       }
 
       return tree;
-    }
-  },
-  buildUrl(pid, path) {
-    // Used to escape special characters
-    let esc = encodeURIComponent;
+    },
+    buildUrl(pid, path) {
+      // Used to escape special characters
+      let esc = encodeURIComponent;
 
-    return `${lzaApi.getBaseUrl()}/download-file?id=${pid}&path=${esc(path)}`;
+      return `${lzaApi.getBaseUrl()}download-file?id=${pid}&path=${esc(path)}`;
+    },
   },
   async created() {
     await this.loadData();
