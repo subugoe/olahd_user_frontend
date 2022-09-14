@@ -85,10 +85,7 @@
       </section>
 
       <!-- File structure -->
-      <section
-        v-if="this.response._source.all_file_hrefs"
-        class="border rounded mt-4"
-      >
+      <section class="border rounded mt-4">
         <download-files
           :data="this.response._source.all_file_hrefs"
           :pid="this.response._source.pid"
@@ -155,12 +152,8 @@
 
 <script>
 import moment from "moment";
-import { WritableStream } from "web-streams-polyfill/ponyfill";
-import streamSaver from "streamsaver";
 
 import lzaApi from "@/services/lzaApi";
-import treeService from "@/services/treeService";
-import emojiService from "@/services/emojiService";
 import DownloadFiles from "../../components/download-files/Download.vue";
 // import Versions from "../../components/version/Versions.vue";
 
@@ -174,12 +167,9 @@ export default {
   },
   data() {
     return {
-      archiveInfo: {},
       versionInfo: {},
       error: null,
       loading: true,
-      value: [],
-      options: [],
       response: null,
       isExpanded: false,
     };
@@ -307,14 +297,6 @@ export default {
         return "File: " + this.response._source.filename;
       }
     },
-    isOpen() {
-      // Check if the archive is on disk
-      return this.archiveInfo.state !== "archived";
-    },
-    isDisabled() {
-      // Check if the download button should be disabled or not
-      return !this.isOpen || this.value.length < 1;
-    },
     hasOtherVersion() {
       let hasVersion = false;
       if (this.versionInfo.previousVersion || this.versionInfo.nextVersions) {
@@ -325,7 +307,6 @@ export default {
     },
     indexType() {
       if (this.$route.query.collection.includes("log")) {
-        // TODO: differentiate further: logigal IsFirst or not
         return "log";
       } else {
         return "phys";
@@ -357,103 +338,6 @@ export default {
       } finally {
         this.loading = false;
       }
-
-      // Get version information
-      // lzaApi
-      //   .getVersionInfo(this.id)
-      //   .then((response) => {
-      //     this.versionInfo = response.data;
-      //   })
-      //   .catch((error) => {
-      //     this.error = true;
-      //     console.log(error);
-      //   });
-
-      // this.options = this.buildTree();
-    },
-
-    buildTree() {
-      let tree = [];
-
-      for (let i = 0; i < this.archiveInfo.files.length; i++) {
-        let fullPath = this.archiveInfo.files[i].name;
-
-        // Split the full path into many parts
-        let parts = fullPath.split("/");
-
-        // Start looking at the root
-        let currentLevel = tree;
-
-        for (let j = 0; j < parts.length; j++) {
-          let part = parts[j];
-
-          // Build the ID of each part. ID is the full path starting from root to that part
-          let index = fullPath.indexOf(part);
-          let partId = fullPath.substring(0, index + part.length);
-
-          // Check if this part is already exist in the tree
-          let existingPath = findWhere(currentLevel, "id", partId);
-
-          // If yes, looking deeper
-          if (existingPath) {
-            currentLevel = existingPath.children;
-          } else {
-            let newPart = {
-              // Full path to this node
-              id: partId,
-
-              // How it is displayed on the UI
-              label: part,
-
-              // The name of this folder/file only
-              name: part,
-            };
-
-            // Disable selection if the archive is not in open state
-            if (!this.isOpen) {
-              newPart.isDisabled = true;
-            }
-
-            // For non-leaf nodes
-            if (j < parts.length - 1) {
-              // Add children
-              newPart.children = [];
-
-              // Add folder emoji
-              newPart.label = "📁 " + newPart.label;
-            }
-
-            // Add emoji to leaf-node
-            if (j === parts.length - 1) {
-              newPart.label =
-                emojiService.getEmoji(this.archiveInfo.files[i].type) +
-                " " +
-                newPart.label;
-            }
-
-            currentLevel.push(newPart);
-
-            // Only go deeper if this is not the leaf node
-            if (j < parts.length - 1) {
-              currentLevel = newPart.children;
-            }
-          }
-        }
-      }
-
-      function findWhere(array, key, value) {
-        let t = 0;
-        while (t < array.length && array[t][key] !== value) {
-          t++;
-        }
-        if (t < array.length) {
-          return array[t];
-        } else {
-          return false;
-        }
-      }
-
-      return tree;
     },
 
     exportArchive() {
@@ -468,49 +352,24 @@ export default {
     },
 
     consumeDownloadStream(response) {
-      let contentDisposition = response.headers.get("Content-Disposition");
-      let fileName = contentDisposition.substring(
-        contentDisposition.lastIndexOf("=") + 1
-      );
-
-      // These code section is adapted from an example of the StreamSaver.js
-      // https://jimmywarting.github.io/StreamSaver.js/examples/fetch.html
-
-      // If the WritableStream is not available (Firefox, Safari), take it from the ponyfill
-      if (!window.WritableStream) {
-        streamSaver.WritableStream = WritableStream;
-        window.WritableStream = WritableStream;
+      if (response.ok) {
+        let contentDisposition = response.headers.get("Content-Disposition");
+        let fileName = contentDisposition.substring(
+          contentDisposition.lastIndexOf("=") + 1
+        );
+        return response.blob().then((blob) => {
+          const url = window.URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          link.href = url;
+          link.download = fileName;
+          document.body.appendChild(link);
+          link.click();
+          link.remove();
+          window.URL.revokeObjectURL(url);
+        })
+      } else {
+        return response.blob()
       }
-
-      const fileStream = streamSaver.createWriteStream(fileName);
-      // const readableStream = response.body;
-
-      // More optimized (but doesn't work on Safari!)
-      // if (readableStream.pipeTo) {
-      //     return readableStream.pipeTo(fileStream);
-      // }
-
-      window.writer = fileStream.getWriter();
-
-      const reader = response.body.getReader();
-      const pump = () =>
-        reader
-          .read()
-          .then((res) =>
-            res.done ? writer.close() : writer.write(res.value).then(pump)
-          );
-
-      pump();
-    },
-
-    buildUrl(id, path) {
-      // Used to escape special characters
-      let esc = encodeURIComponent;
-
-      // Base URL for to view file
-      let base = "/api/download-file";
-
-      return `${base}/${id}?path=${esc(path)}`;
     },
   },
   async created() {

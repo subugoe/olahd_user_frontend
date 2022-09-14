@@ -23,8 +23,9 @@ export default {
     },
 
     getArchiveInfo(id: string, limit: number, offset: number) {
-        return instance.get(`/search-archive/${id}`, {
+        return instance.get(`/search-archive`, {
             params: {
+                id,
                 withFile: true,
                 limit,
                 offset
@@ -32,12 +33,12 @@ export default {
         });
     },
 
-    getVersionInfo(id: string) {
-        return instance.get(`/search-archive-info/${id}`);
+    getVersionInfo(pid: string) {
+        return instance.get(`/search-archive-info?id=${pid}`);
     },
 
     downloadFiles(archiveId: string, files: []) {
-        let url = 'http://141.5.99.53/api/download';
+        let url = `${this.getBaseUrl()}download`;
         let data = {
             archiveId,
             files
@@ -52,10 +53,16 @@ export default {
         });
     },
 
-    exportArchive(archiveId: string) {
-        let url = `http://141.5.99.53/api/export?id=${archiveId}&isInternal=true`;
+    exportArchive(pid: string) {
+        let url = `${this.getBaseUrl()}export?id=${pid}&isInternal=false`
         return fetch(url, {
             method: 'GET'
         });
+    },
+
+    getBaseUrl() {
+        let baseURL = instance.defaults.baseURL ? instance.defaults.baseURL : '/api/';
+        baseURL += baseURL.endsWith("/") ? "" : "/";
+        return baseURL;
     }
 };
