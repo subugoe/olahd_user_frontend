@@ -155,6 +155,9 @@ import moment from "moment";
 
 import lzaApi from "@/services/lzaApi";
 import DownloadFiles from "../../components/download-files/Download.vue";
+import {WritableStream} from 'web-streams-polyfill/ponyfill';
+import streamSaver from 'streamsaver';
+
 // import Versions from "../../components/version/Versions.vue";
 
 export default {
@@ -341,35 +344,46 @@ export default {
     },
 
     exportArchive() {
-      lzaApi
-        .exportArchive(this.response._source.pid)
-        .then((response) => {
-          this.consumeDownloadStream(response);
-        })
-        .catch((error) => {
-          this.error = true;
-        });
+        lzaApi.exportArchive(this.response._source.pid)
+            .then(response => {
+                this.consumeDownloadStream(response);
+            })
+            .catch(error => {
+                this.error = true;
+            });
     },
 
+
     consumeDownloadStream(response) {
-      if (response.ok) {
-        let contentDisposition = response.headers.get("Content-Disposition");
-        let fileName = contentDisposition.substring(
-          contentDisposition.lastIndexOf("=") + 1
-        );
-        return response.blob().then((blob) => {
-          const url = window.URL.createObjectURL(blob);
-          const link = document.createElement('a');
-          link.href = url;
-          link.download = fileName;
-          document.body.appendChild(link);
-          link.click();
-          link.remove();
-          window.URL.revokeObjectURL(url);
-        })
-      } else {
-        return response.blob()
-      }
+        let contentDisposition = response.headers.get('Content-Disposition');
+        let fileName = contentDisposition.substring(contentDisposition.lastIndexOf('=') + 1);
+
+        // These code section is adapted from an example of the StreamSaver.js
+        // https://jimmywarting.github.io/StreamSaver.js/examples/fetch.html
+
+        // If the WritableStream is not available (Firefox, Safari), take it from the ponyfill
+        if (!window.WritableStream) {
+            streamSaver.WritableStream = WritableStream;
+            window.WritableStream = WritableStream;
+        }
+
+        const fileStream = streamSaver.createWriteStream(fileName);
+        // const readableStream = response.body;
+
+        // More optimized (but doesn't work on Safari!)
+        // if (readableStream.pipeTo) {
+        //     return readableStream.pipeTo(fileStream);
+        // }
+
+        window.writer = fileStream.getWriter();
+
+        const reader = response.body.getReader();
+        const pump = () => reader.read()
+            .then(res => res.done
+                ? writer.close()
+                : writer.write(res.value).then(pump));
+
+        pump();
     },
   },
   async created() {
