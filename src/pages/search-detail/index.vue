@@ -235,7 +235,6 @@ export default {
       if (!this.response) {
         return "";
       }
-      console.log(this.response)
       if (this.response._index.includes('log')) {
         return (
           this.response._source.bytitle ||

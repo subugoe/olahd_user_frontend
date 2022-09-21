@@ -84,8 +84,6 @@ export default {
   },
   methods: {
     async loadData() {
-      console.log("jetzt hier daten laden")
-      console.log(this.pid)
       // Get version information
       lzaApi
         .getVersionInfo(this.pid)
