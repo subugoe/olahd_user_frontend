@@ -86,66 +86,13 @@
 
       <!-- File structure -->
       <section class="border rounded mt-4">
-        <download-files
-          :data="this.response._source.all_file_hrefs"
-          :pid="this.response._source.pid"
-        />
+        <download-files :pid="this.response._source.pid"/>
       </section>
 
       <!-- Version -->
-      <!-- <section class="border rounded mt-4">
-        <versions />
-      </section> -->
-      <div class="row my-4">
-        <div class="col">
-          <div class="card">
-            <div class="card-header">
-              <h5>Other versions</h5>
-            </div>
-            <div class="card-body">
-              <span v-if="!hasOtherVersion"
-                >This archive does not have any other version.</span
-              >
-              <ul>
-                <template v-if="versionInfo.previousVersion">
-                  <li>
-                    Previous version:
-                    <router-link
-                      :to="{
-                        name: 'search-detail',
-                        params: { id: versionInfo.previousVersion.offlineId },
-                      }"
-                    >
-                      {{ versionInfo.previousVersion.pid }}
-                    </router-link>
-                  </li>
-                </template>
-                <template v-if="versionInfo.nextVersions">
-                  <li>
-                    Next version:
-                    <ul>
-                      <li v-for="value in versionInfo.nextVersions">
-                        <router-link
-                          :to="{
-                            name: 'search-detail',
-                            params: {
-                              id: value.onlineId
-                                ? value.onlineId
-                                : value.offlineId,
-                            },
-                          }"
-                        >
-                          {{ value.pid }}
-                        </router-link>
-                      </li>
-                    </ul>
-                  </li>
-                </template>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
+      <section class="border rounded mt-4">
+        <versions :pid="this.response._source.pid"/>
+      </section>
     </template>
   </div>
 </template>
@@ -155,10 +102,9 @@ import moment from "moment";
 
 import lzaApi from "@/services/lzaApi";
 import DownloadFiles from "../../components/download-files/Download.vue";
+import Versions from "../../components/version/Versions.vue"
 import {WritableStream} from 'web-streams-polyfill/ponyfill';
 import streamSaver from 'streamsaver';
-
-// import Versions from "../../components/version/Versions.vue";
 
 export default {
   props: {
@@ -166,7 +112,7 @@ export default {
   },
   components: {
     DownloadFiles,
-    // Versions,
+    Versions,
   },
   data() {
     return {
