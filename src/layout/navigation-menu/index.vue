@@ -29,7 +29,6 @@
               flex
               justify-center
               text-sky-500
-              hover:text-slate-700
               lg:flex-1
             "
           >
