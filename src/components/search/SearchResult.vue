@@ -7,8 +7,7 @@
           id: item._id,
         },
         query: {
-          collection:
-            item._index === 'meta.olahds_log' ? 'olahds_log' : 'olahds_phys',
+          collection: item._index,
         },
       }"
       class="search-item-link"

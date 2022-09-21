@@ -19,7 +19,7 @@ export default {
     },
 
     getMetaLogById(id: string, collection: string) {
-        return instance.get(`/search-es/meta.${collection}/${id}`);
+        return instance.get(`/search-es/${collection}/${id}`);
     },
 
     getArchiveInfo(id: string, limit: number, offset: number) {
