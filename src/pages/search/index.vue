@@ -71,9 +71,13 @@
           />
         </div>
 
-        <!-- <div class="px-2 border rounded-md py-2 bg-gray-50">
-          <search-group :item="data" placeholder="Search for creator..." />
-        </div> -->
+        <div class="border rounded-md bg-gray-50 flex flex-col">
+          <search-group
+            :facet="facets"
+            :onFacetChange="handleFacetChange"
+            :selectedFacets="$route.query"
+          />
+        </div>
       </div>
     </template>
   </div>
@@ -81,9 +85,9 @@
 
 <script>
 import lzaApi from "@/services/lzaApi";
-import SearchResult from "@/components/search/SearchResult";
 import Pagination from "@/components/pagination/Pagination";
-// import SearchGroup from "../../components/search/Facets.vue";
+import SearchGroup from "../../components/search/SearchGroup.vue";
+import SearchResult from "@/components/search/SearchResult";
 
 export default {
   data() {
@@ -105,10 +109,19 @@ export default {
       if (!this.results) {
         return [];
       }
-      if (!this.results.hits) {
+      if (!this.results.hitlist) {
         return [];
       }
-      return this.results.hits;
+      return this.results.hitlist;
+    },
+    facets() {
+      if (!this.results) {
+        return [];
+      }
+      if (!this.results.hitlist) {
+        return [];
+      }
+      return this.results.facets;
     },
     maxRecord() {
       const limit = (this.page - 1) * this.maxResultsSize + this.maxResultsSize;
@@ -131,13 +144,13 @@ export default {
       if (!this.results) {
         return 0;
       }
-      return this.results.totalHits;
+      return this.results.hits;
     },
   },
   components: {
     Pagination,
-    // SearchGroup,
     SearchResult,
+    SearchGroup,
   },
   methods: {
     buttonClass(number) {
@@ -145,6 +158,20 @@ export default {
         return "px-4 py-2 text-sky-500 border-sky-500 rounded-md border";
       }
       return "px-4 py-2 bg-sky-500 border-sky-500 rounded-md text-white";
+    },
+    handleFacetChange(name, selectedFacets) {
+      const query = { ...this.$route.query };
+
+      if (!selectedFacets.length) {
+        delete query[name];
+      } else {
+        query[name] = selectedFacets.map((el) => el.value).join(",");
+      }
+
+      this.$router.push({
+        name: "search",
+        query: JSON.parse(JSON.stringify(query)),
+      });
     },
     handlePageSizeChange(event) {
       this.$router.push({
@@ -160,12 +187,27 @@ export default {
       this.loading = true;
       this.error = null;
       this.results = {};
+      const facets = {};
+      const { q, ...rest } = this.$route.query;
+
+      let start = 0;
+
+      Object.entries(rest).forEach(([field, values]) => {
+        (values || []).split(",").forEach((value) => {
+          // facets[`q${start}field`] = field;
+          // facets[`q${start}value`] = value;
+          facets[`field`] = field;
+          facets[`value`] = value;
+          start += 1;
+        });
+      });
       // Execute the search
       lzaApi
         .search(
           this.query,
           (this.page - 1) * this.maxResultsSize,
-          this.maxResultsSize
+          this.maxResultsSize,
+          facets
         )
         .then((response) => {
           // Render the results

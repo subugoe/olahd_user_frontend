@@ -36,7 +36,7 @@
         </div>
 
         <div class="flex lg:flex-1 justify-content-center">
-          <div class="text-white">Version {{ packageVersion }}</div>
+          <div class="text-white">Version - Beta</div>
         </div>
       </div>
     </div>

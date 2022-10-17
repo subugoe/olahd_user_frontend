@@ -86,12 +86,12 @@
 
       <!-- File structure -->
       <section class="border rounded mt-4">
-        <download-files :pid="this.response._source.pid"/>
+        <download-files :pid="this.id" />
       </section>
 
       <!-- Version -->
       <section class="border rounded mt-4">
-        <versions :pid="this.response._source.pid"/>
+        <versions :pid="this.id" />
       </section>
     </template>
   </div>
@@ -102,14 +102,11 @@ import moment from "moment";
 
 import lzaApi from "@/services/lzaApi";
 import DownloadFiles from "../../components/download-files/Download.vue";
-import Versions from "../../components/version/Versions.vue"
-import {WritableStream} from 'web-streams-polyfill/ponyfill';
-import streamSaver from 'streamsaver';
+import Versions from "../../components/version/Versions.vue";
+import { WritableStream } from "web-streams-polyfill/ponyfill";
+import streamSaver from "streamsaver";
 
 export default {
-  props: {
-    id: String,
-  },
   components: {
     DownloadFiles,
     Versions,
@@ -124,110 +121,42 @@ export default {
     };
   },
   computed: {
+    id() {
+      return this.$route.query.id;
+    },
     buttonClass() {
       return "rounded border mr-4 px-3 py-1 border-sky-500 bg-sky-500 text-white dark:hover:bg-gray-700";
     },
     info() {
-      if (this.indexType === 'log') {
-        return this.info_log
-      } else {
-        return this.info_phys
-      }
-    },
-    info_log() {
       if (!this.response) {
         return [];
       }
-      const source = this.response._source;
+      const source = this.response;
       const MAX_DATA = 4;
       return [
         {
           label: "Creator",
-          value: source.bycreator || "N/A",
+          value: source.creator || "N/A",
+        },
+        {
+          label: "Sub-title",
+          value: source.subtitle || "N/A",
+        },
+        {
+          label: "Publisher",
+          value: source.publisher || "N/A",
         },
         {
           label: "Publish Year",
-          value: (source.publish_infos || {}).year_publish || "N/A",
-        },
-        {
-          label: "Parent Url",
-          value:
-            ((source.parent || {}).purl || "").replace(/\|LOG.*/g, "") || "N/A",
-        },
-        {
-          label: "Parent Title",
-          value: ((source.parent || {}).title || {}).title || "N/A",
-        },
-        {
-          label: "Label",
-          value: source.label || "N/A",
-        },
-        {
-          label: "Owner",
-          value: (source.rights_info || {}).rights_owner || "N/A",
-        },
-        {
-          label: "Year of Digitization",
-          value:
-            (source.digitization_infos || {}).year_digitization_string || "N/A",
-        },
-        {
-          label: "Identifier",
-          value: source.record_identifier || "N/A",
+          value: source.yearOfPublish || "N/A",
         },
         {
           label: "Place Infos",
-          value:
-            ((source.publish_infos || {}).place_publish || []).join(", ") ||
-            "N/A",
-        },
-      ].slice(0, this.isExpanded ? undefined : MAX_DATA);
-    },
-    info_phys() {
-      if (!this.response) {
-        return [];
-      }
-      const source = this.response._source;
-      const MAX_DATA = 4;
-
-      if (source.title !== undefined) {
-        var title = source.title.title;
-      } else {
-        var title = source.structrun[0].title !== undefined ?
-          source.structrun[0].title.title : "N/A";
-      }
-      return [
-        {
-          label: "Filename",
-          value: source.filename,
+          value: source.placeOfPublish || "N/A",
         },
         {
-          label: "Type",
-          value: source.type || "N/A",
-        },
-        {
-          label: "Title",
-          value: title,
-        },
-        {
-          label: "Pid",
-          value: source.pid,
-        },
-        {
-          label: "Page",
-          value: source.page,
-        },
-        {
-          label: "Label",
-          value: source.label || "N/A",
-        },
-        {
-          label: "Mimetype",
-          value: source.mimetype || "N/A",
-        },
-        {
-          label: "Link",
-          value: source.page_href || "N/A",
+          label: "Year of Digitization",
+          value: source.reindexedat || "N/A",
         },
       ].slice(0, this.isExpanded ? undefined : MAX_DATA);
     },
@@ -235,15 +164,8 @@ export default {
       if (!this.response) {
         return "";
       }
-      if (this.response._index.includes('log')) {
-        return (
-          this.response._source.bytitle ||
-          this.response._source.label ||
-          this.response._source.parent.title.title + " (Parent Info)"
-        );
-      } else {
-        return "File: " + this.response._source.filename;
-      }
+
+      return this.response.title;
     },
     hasOtherVersion() {
       let hasVersion = false;
@@ -253,13 +175,6 @@ export default {
 
       return hasVersion;
     },
-    indexType() {
-      if (this.$route.query.collection.includes("log")) {
-        return "log";
-      } else {
-        return "phys";
-      }
-    }
   },
   filters: {
     formatDate(value) {
@@ -275,10 +190,7 @@ export default {
     async loadData() {
       try {
         this.loading = true;
-        const response = await lzaApi.getMetaLogById(
-          this.id,
-          this.$route.query.collection
-        );
+        const response = await lzaApi.getSearchDetailsById(this.id);
 
         this.response = response.data;
       } catch (error) {
@@ -289,46 +201,50 @@ export default {
     },
 
     exportArchive() {
-        lzaApi.exportArchive(this.response._source.pid)
-            .then(response => {
-                this.consumeDownloadStream(response);
-            })
-            .catch(error => {
-                this.error = true;
-            });
+      lzaApi
+        .exportArchive(this.id)
+        .then((response) => {
+          this.consumeDownloadStream(response);
+        })
+        .catch((error) => {
+          this.error = true;
+        });
     },
 
-
     consumeDownloadStream(response) {
-        let contentDisposition = response.headers.get('Content-Disposition');
-        let fileName = contentDisposition.substring(contentDisposition.lastIndexOf('=') + 1);
+      let contentDisposition = response.headers.get("Content-Disposition");
+      let fileName = contentDisposition.substring(
+        contentDisposition.lastIndexOf("=") + 1
+      );
 
-        // These code section is adapted from an example of the StreamSaver.js
-        // https://jimmywarting.github.io/StreamSaver.js/examples/fetch.html
+      // These code section is adapted from an example of the StreamSaver.js
+      // https://jimmywarting.github.io/StreamSaver.js/examples/fetch.html
 
-        // If the WritableStream is not available (Firefox, Safari), take it from the ponyfill
-        if (!window.WritableStream) {
-            streamSaver.WritableStream = WritableStream;
-            window.WritableStream = WritableStream;
-        }
+      // If the WritableStream is not available (Firefox, Safari), take it from the ponyfill
+      if (!window.WritableStream) {
+        streamSaver.WritableStream = WritableStream;
+        window.WritableStream = WritableStream;
+      }
 
-        const fileStream = streamSaver.createWriteStream(fileName);
-        // const readableStream = response.body;
+      const fileStream = streamSaver.createWriteStream(fileName);
+      // const readableStream = response.body;
 
-        // More optimized (but doesn't work on Safari!)
-        // if (readableStream.pipeTo) {
-        //     return readableStream.pipeTo(fileStream);
-        // }
+      // More optimized (but doesn't work on Safari!)
+      // if (readableStream.pipeTo) {
+      //     return readableStream.pipeTo(fileStream);
+      // }
 
-        window.writer = fileStream.getWriter();
+      window.writer = fileStream.getWriter();
 
-        const reader = response.body.getReader();
-        const pump = () => reader.read()
-            .then(res => res.done
-                ? writer.close()
-                : writer.write(res.value).then(pump));
+      const reader = response.body.getReader();
+      const pump = () =>
+        reader
+          .read()
+          .then((res) =>
+            res.done ? writer.close() : writer.write(res.value).then(pump)
+          );
 
-        pump();
+      pump();
     },
   },
   async created() {

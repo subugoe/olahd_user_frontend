@@ -1,25 +1,30 @@
 import axios from 'axios';
 
 const instance = axios.create({
-    baseURL: '/api/',
+    baseURL: 'http://141.5.99.53/api',
     headers: {
         'Content-Type': 'application/json'
     }
 });
 
 export default {
-    search(query: string, from: number=0, size: number=10) {
-        return instance.get('/search-es/query-all', {
+    search(query: string, offset: number = 0, limit: number = 10, facets = {}) {
+        return instance.get('/search', {
             params: {
-                q: query,
-                from,
-                size
+                searchterm: query,
+                limit,
+                offset,
+                ...facets
             }
         });
     },
 
-    getMetaLogById(id: string, collection: string) {
-        return instance.get(`/search-es/${collection}/${id}`);
+    getSearchDetailsById(id: string) {
+        return instance.get('/search', {
+            params: {
+                id: id
+            }
+        });
     },
 
     getArchiveInfo(id: string, limit: number, offset: number) {

@@ -2,14 +2,14 @@
   <div class="m-4 space-y-4">
     <h3 class="text-3xl">Willkommen</h3>
     <p>
-      Das Ziel von OLA-HD Service ist die Entwicklung eines produktiven Dienstes
-      für die Langzeitarchivierung von historischen Drucken im Rahmen von
+      OLA-HD Service stellt einen Dienst für die Langzeitarchivierung von
+      historischen Drucken im Rahmen von
       <a class="text-sky-500 hover:text-sky-700" href="https://ocr-d.de/"
         >OCR-D</a
       >
-      Auf dieser Website kann die prototypische Implementierung des Projekts
-      ausprobiert werden. Über die Suche können in Kürze Archivobjekte gefunden,
-      angesehen und heruntergeladen werden.
+      bereit. Über die Suche auf dieser Website können Archivobjekte gefunden,
+      angesehen und heruntergeladen werden. Die Beta-Version des Dienstes wird
+      kontinuierlich erweitert und wir freuen uns über Feedback.
     </p>
     <br />
     <p>

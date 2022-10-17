@@ -193,7 +193,6 @@ export default {
           return
         }
         this.error = true;
-        console.log(error);
       } finally {
         this.loading = false;
       }
