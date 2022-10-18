@@ -92,13 +92,15 @@ import SearchResult from "@/components/search/SearchResult";
 export default {
   data() {
     return {
-      loading: true,
+      currentFacets: {},
       error: null,
+      initialFacets: [],
+      loading: true,
+      pageSizes: [10, 20, 30],
       paginationLowerBound: 1,
+      results: null,
       scrolls: [""],
       time: 0,
-      results: null,
-      pageSizes: [10, 20, 30],
     };
   },
   computed: {
@@ -116,12 +118,18 @@ export default {
     },
     facets() {
       if (!this.results) {
-        return [];
+        return this.initialFacets;
       }
       if (!this.results.hitlist) {
-        return [];
+        return this.initialFacets;
       }
-      return this.results.facets;
+      return this.initialFacets.map((el) => ({
+        ...el,
+        values: el.values.map((val) => ({
+          ...val,
+          occurences: this.currentFacets[el.name][val.value] || 0,
+        })),
+      }));
     },
     maxRecord() {
       const limit = (this.page - 1) * this.maxResultsSize + this.maxResultsSize;
@@ -161,10 +169,12 @@ export default {
     },
     handleFacetChange(name, selectedFacets) {
       const query = { ...this.$route.query };
+      console.log("temp", query, selectedFacets);
 
       if (!selectedFacets.length) {
         delete query[name];
       } else {
+        console.log("temp2", query);
         query[name] = selectedFacets.map((el) => el.value).join(",");
       }
 
@@ -188,7 +198,7 @@ export default {
       this.error = null;
       this.results = {};
       const facets = {};
-      const { q, ...rest } = this.$route.query;
+      const { q, page, perPageRecords = "10", ...rest } = this.$route.query;
 
       let start = 0;
 
@@ -212,6 +222,19 @@ export default {
         .then((response) => {
           // Render the results
           this.results = response.data;
+          this.currentFacets = response.data.facets.reduce((prev, curr) => {
+            if (!prev[curr.name]) {
+              prev[curr.name] = {};
+            }
+            curr.values.forEach((el) => {
+              prev[curr.name][el.value] = el.occurences;
+            });
+            return prev;
+          }, {});
+
+          if (!Object.keys(rest).length) {
+            this.initialFacets = response.data.facets;
+          }
         })
         .catch((error) => {
           this.error = true;
@@ -220,8 +243,22 @@ export default {
           this.loading = false;
         });
     },
+    async fetchFacets() {
+      const { q, page, perPageRecords = "10", ...rest } = this.$route.query;
+      if (!Object.keys(rest).length) {
+        return;
+      }
+
+      try {
+        const response = await lzaApi.search(q, 0, this.maxResultsSize, {});
+        this.initialFacets = response.data.facets;
+      } catch (err) {
+        this.error = true;
+      }
+    },
   },
   mounted() {
+    this.fetchFacets();
     this.search();
   },
   watch: {

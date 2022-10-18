@@ -123,6 +123,9 @@ export default {
       value: [],
     };
   },
+  watch: {
+    value: "handleMultiselectChange",
+  },
   components: { Multiselect },
   computed: {
     results() {
@@ -143,12 +146,13 @@ export default {
     toggleFacetSelect(facet, isSelected) {
       if (isSelected) {
         this.value = this.value.filter((el) => el.value !== facet.value);
-
-        console.log("temp", this.value);
       } else {
         this.value = [...this.value, facet];
       }
       this.onFacetChange(this.facets.name, this.value);
+    },
+    handleMultiselectChange(values) {
+      this.onFacetChange(this.facets.name, values);
     },
   },
   mounted() {
@@ -172,7 +176,7 @@ export default {
 .custom-muliselect .multiselect__tag {
   @apply bg-sky-600;
 }
-/* .custom-muliselect .multiselect__option--highlight {
+.custom-muliselect .multiselect__option--highlight {
   @apply bg-sky-600;
-} */
+}
 </style>

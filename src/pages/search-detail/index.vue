@@ -98,8 +98,6 @@
 </template>
 
 <script>
-import moment from "moment";
-
 import lzaApi from "@/services/lzaApi";
 import DownloadFiles from "../../components/download-files/Download.vue";
 import Versions from "../../components/version/Versions.vue";
@@ -174,13 +172,6 @@ export default {
       }
 
       return hasVersion;
-    },
-  },
-  filters: {
-    formatDate(value) {
-      if (value) {
-        return moment(String(value)).format("DD/MM/YYYY HH:mm");
-      }
     },
   },
   methods: {
