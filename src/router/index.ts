@@ -24,7 +24,7 @@ export default new Router({
       component: Search,
     },
     {
-      path: "/search-detail/:id",
+      path: "/search-detail",
       name: "search-detail",
       component: SearchDetail,
       props: true,

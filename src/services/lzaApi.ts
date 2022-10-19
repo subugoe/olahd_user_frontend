@@ -8,18 +8,22 @@ const instance = axios.create({
 });
 
 export default {
-    search(query: string, from: number=0, size: number=10) {
-        return instance.get('/search-es/query-all', {
+    search(query: string, offset: number = 0, limit: number = 10, facets:string) {
+        return instance.get(`/search${facets?`?${facets}`:''}`, {
             params: {
-                q: query,
-                from,
-                size
+                searchterm: query,
+                limit,
+                offset,
             }
         });
     },
 
-    getMetaLogById(id: string, collection: string) {
-        return instance.get(`/search-es/${collection}/${id}`);
+    getSearchDetailsById(id: string) {
+        return instance.get('/search', {
+            params: {
+                id: id
+            }
+        });
     },
 
     getArchiveInfo(id: string, limit: number, offset: number) {
