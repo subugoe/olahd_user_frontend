@@ -2,14 +2,12 @@
   <div class="w-full relative">
     <label class="facet-label m-2">Filter: </label>
 
-    <div class="m-2 flex flex-col">
-      <div v-for="(facets, index) in data" :key="index">
-        <FacetField
-          :facets="facets"
-          :onFacetChange="onFacetChange"
-          :selectedFacets="selectedFacets"
-        />
-      </div>
+    <div v-for="(facets, index) in data" :key="index" class="m-2 flex flex-col">
+      <FacetField
+        :facets="facets"
+        :onFacetChange="onFacetChange"
+        :selectedFacets="selectedFacets"
+      />
     </div>
   </div>
 </template>

@@ -157,7 +157,7 @@ export default {
   },
   mounted() {
     const currentFacets = (this.selectedFacets[this.facets.name] || "")
-      .split(",")
+      .split("_-_")
       .filter((el) => el);
     const valueMapping = this.value.reduce((prev, curr) => {
       prev[curr.value] = curr.occurences;

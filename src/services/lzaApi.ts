@@ -1,20 +1,19 @@
 import axios from 'axios';
 
 const instance = axios.create({
-    baseURL: 'http://141.5.99.53/api',
+    baseURL: '/api/',
     headers: {
         'Content-Type': 'application/json'
     }
 });
 
 export default {
-    search(query: string, offset: number = 0, limit: number = 10, facets = {}) {
-        return instance.get('/search', {
+    search(query: string, offset: number = 0, limit: number = 10, facets:string) {
+        return instance.get(`/search${facets?`?${facets}`:''}`, {
             params: {
                 searchterm: query,
                 limit,
                 offset,
-                ...facets
             }
         });
     },

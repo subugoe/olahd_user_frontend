@@ -169,15 +169,15 @@ export default {
     },
     handleFacetChange(name, selectedFacets) {
       const query = { ...this.$route.query };
-      console.log("temp", query, selectedFacets);
-
       if (!selectedFacets.length) {
         delete query[name];
       } else {
-        console.log("temp2", query);
-        query[name] = selectedFacets.map((el) => el.value).join(",");
+        query[name] = selectedFacets.map((el) => el.value).join("_-_");
       }
 
+      if (JSON.stringify(query) === JSON.stringify(this.$route.query)) {
+        return;
+      }
       this.$router.push({
         name: "search",
         query: JSON.parse(JSON.stringify(query)),
@@ -202,12 +202,13 @@ export default {
 
       let start = 0;
 
+      let facetQuery = [];
+
       Object.entries(rest).forEach(([field, values]) => {
-        (values || []).split(",").forEach((value) => {
+        (values || []).split("_-_").forEach((value) => {
+          facetQuery.push(`field=${field}&value=${value}`);
           // facets[`q${start}field`] = field;
           // facets[`q${start}value`] = value;
-          facets[`field`] = field;
-          facets[`value`] = value;
           start += 1;
         });
       });
@@ -217,7 +218,7 @@ export default {
           this.query,
           (this.page - 1) * this.maxResultsSize,
           this.maxResultsSize,
-          facets
+          facetQuery.join("&")
         )
         .then((response) => {
           // Render the results
@@ -250,7 +251,7 @@ export default {
       }
 
       try {
-        const response = await lzaApi.search(q, 0, this.maxResultsSize, {});
+        const response = await lzaApi.search(q, 0, this.maxResultsSize, "");
         this.initialFacets = response.data.facets;
       } catch (err) {
         this.error = true;
