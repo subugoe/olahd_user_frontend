@@ -76,6 +76,7 @@
             :facet="facets"
             :onFacetChange="handleFacetChange"
             :selectedFacets="$route.query"
+            :isGt="isGt"
           />
         </div>
       </div>
@@ -141,6 +142,9 @@ export default {
     },
     hasResult() {
       return this.results;
+    },
+    isGt() {
+      return this.$route.query.IsGt || "all";
     },
     query() {
       return this.$route.query.q;
