@@ -75,15 +75,15 @@ export default {
     groundTruthOption() {
       return [
         {
-          label: "Metadatensuche",
+          label: "Metadata Search",
           value: "all",
         },
         {
-          label: "Volltextsuche",
+          label: "Full Text Search",
           value: "false",
         },
         {
-          label: "GT-suche",
+          label: "GT-Search",
           value: "true",
         },
       ];
