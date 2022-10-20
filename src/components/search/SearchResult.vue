@@ -47,14 +47,6 @@ export default {
 
       return [
         {
-          label: "Creator",
-          value: item.creator || "N/A",
-        },
-        {
-          label: "Subtitle",
-          value: item.subtitle || "N/A",
-        },
-        {
           label: "Publisher",
           value: item.publisher || "N/A",
         },
@@ -67,8 +59,12 @@ export default {
           value: item.yearOfPublish || "N/A",
         },
         {
-          label: "Ground Truth",
-          value: item.isGT || "N/A",
+          label: "Subtitle",
+          value: item.subtitle || "N/A",
+        },
+        {
+          label: "Creator",
+          value: item.creator || "N/A",
         },
       ];
     },

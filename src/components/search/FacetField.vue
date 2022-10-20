@@ -26,9 +26,9 @@
       class="custom-muliselect"
     >
       <template slot="option" slot-scope="props">
-        <div class="flex relative">
-          <span class="name mr-5">{{ props.option.value }}</span>
-          <span class="ml-auto" type="info" size="mini">{{
+        <div class="flex relative text-sky-900">
+          <span class="name">{{ props.option.value }}</span>
+          <span class="ml-auto text-xs items-center" type="info">{{
             props.option.occurences
           }}</span>
         </div>
@@ -92,7 +92,7 @@
       class="outline-none border-none"
       @click="toggleExpanded"
     >
-      <span>
+      <span class="text-sky-900">
         {{ this.isExpanded ? "Show less" : "Show more" }}
       </span>
     </button>

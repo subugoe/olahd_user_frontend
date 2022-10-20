@@ -133,20 +133,20 @@ export default {
       const MAX_DATA = 4;
       return [
         {
-          label: "Creator",
-          value: source.creator || "N/A",
-        },
-        {
-          label: "Sub-title",
-          value: source.subtitle || "N/A",
-        },
-        {
           label: "Publisher",
           value: source.publisher || "N/A",
         },
         {
           label: "Publish Year",
           value: source.yearOfPublish || "N/A",
+        },
+        {
+          label: "Sub-title",
+          value: source.subtitle || "N/A",
+        },
+        {
+          label: "Creator",
+          value: source.creator || "N/A",
         },
         {
           label: "Place Infos",

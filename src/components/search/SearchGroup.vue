@@ -1,13 +1,12 @@
 <template>
   <div class="w-full relative">
-    <label class="facet-label m-2">Filter: </label>
+    <label class="facet-label m-2 font-medium text-sky-900">Filter: </label>
 
     <div class="m-2">
-      <label class="mb-2 font-medium text-sky-900">Ground Truth: </label>
       <div
         v-for="(item, index) in groundTruthOption"
         :key="index"
-        class="flex flex-row mb-2"
+        class="m-2 font-medium flex flex-row"
       >
         <input
           :id="item.label"
@@ -76,16 +75,16 @@ export default {
     groundTruthOption() {
       return [
         {
-          label: "Results from Ground Truth",
-          value: "true",
+          label: "Metadatensuche",
+          value: "all",
         },
         {
-          label: "No Results from Ground Truth",
+          label: "Volltextsuche",
           value: "false",
         },
         {
-          label: "All Results",
-          value: "all",
+          label: "GT-suche",
+          value: "true",
         },
       ];
     },
