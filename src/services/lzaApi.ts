@@ -8,13 +8,9 @@ const instance = axios.create({
 });
 
 export default {
-    search(query: string, offset: number = 0, limit: number = 10, facets:string) {
+    search(params: Record<string, any> = {}, facets: string) {
         return instance.get(`/search${facets?`?${facets}`:''}`, {
-            params: {
-                searchterm: query,
-                limit,
-                offset,
-            }
+            params
         });
     },
 

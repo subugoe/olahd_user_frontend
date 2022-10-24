@@ -15,7 +15,7 @@
     <Multiselect
       placeholder="Search..."
       label="value"
-      track-by="occurences"
+      track-by="value"
       :options="facets.values"
       :multiple="true"
       :taggable="true"

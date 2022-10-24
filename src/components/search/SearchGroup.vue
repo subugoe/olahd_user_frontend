@@ -4,17 +4,17 @@
 
     <div class="m-2">
       <div
-        v-for="(item, index) in groundTruthOption"
+        v-for="(item, index) in filters"
         :key="index"
         class="m-2 font-medium flex flex-row"
       >
         <input
           :id="item.label"
-          type="radio"
-          name="isGt"
-          :checked="isGt === item.value"
-          :value="item.value"
-          @change="handleGroundTruthChange"
+          type="checkbox"
+          :name="item.name"
+          :checked="isFilterSelected(item.name)"
+          :value="isFilterSelected(item.name)"
+          @change="handleFilterChange"
           class="mr-2"
         />
         <label
@@ -55,9 +55,17 @@ export default {
       type: Array,
       default: () => [],
     },
-    isGt: {
-      type: String,
-      default: "",
+    IsGt: {
+      type: Boolean,
+      default: false,
+    },
+    metadatasearch: {
+      type: Boolean,
+      default: true,
+    },
+    fulltextsearch: {
+      type: Boolean,
+      default: false,
     },
     onFacetChange: {
       type: Function,
@@ -67,29 +75,36 @@ export default {
       type: Object,
       default: () => {},
     },
+    onFilterChange: {
+      type: Function,
+      default: () => {},
+    },
   },
   computed: {
     data() {
       return this.facet;
     },
-    groundTruthOption() {
+    filters() {
       return [
         {
           label: "Metadata Search",
-          value: "all",
+          name: "metadatasearch",
         },
         {
           label: "Full Text Search",
-          value: "false",
+          name: "fulltextsearch",
         },
         {
           label: "GT-Search",
-          value: "true",
+          name: "IsGt",
         },
       ];
     },
   },
   methods: {
+    isFilterSelected(name) {
+      return this[name];
+    },
     addTag(newTag) {
       const tag = {
         name: newTag,
@@ -98,14 +113,8 @@ export default {
       this.options.push(tag);
       this.value.push(tag);
     },
-    handleGroundTruthChange(e) {
-      const value = e.target.value;
-
-      if (value === "all") {
-        this.onFacetChange("IsGt", []);
-      } else {
-        this.onFacetChange("IsGt", [{ value }]);
-      }
+    handleFilterChange(e) {
+      this.onFilterChange(e.target.name, String(e.target.checked));
     },
   },
 };

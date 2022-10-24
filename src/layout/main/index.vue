@@ -45,21 +45,16 @@ export default {
   methods: {
     submit() {
       // Trim the query
-      if (this.query) {
-        this.query = this.query.trim();
+      this.query = (this.query || "").trim();
 
-        // Only search if the query is not empty
-        if (this.query.length > 0) {
-          this.$router
-            .push({
-              name: "search",
-              query: {
-                q: this.query,
-              },
-            })
-            .catch(() => {}); // To ignore the Navigation Duplicated error
-        }
-      }
+      this.$router
+        .push({
+          name: "search",
+          query: {
+            q: this.query,
+          },
+        })
+        .catch(() => {}); // To ignore the Navigation Duplicated error
     },
   },
 };

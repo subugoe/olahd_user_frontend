@@ -19,7 +19,6 @@
           "
           placeholder="Search..."
           autocomplete="off"
-          required
           v-model="query"
         />
         <span class="absolute inset-y-0 right-1 flex items-center">
@@ -54,18 +53,14 @@ export default {
   },
   methods: {
     submit() {
-      this.query = this.query.trim();
-      // Only search if the query is not empty
-      if (this.query.length > 0) {
-        this.$router
-          .push({
-            name: "search",
-            query: {
-              q: this.query,
-            },
-          })
-          .catch(() => {}); // To ignore the Navigation Duplicated error
-      }
+      this.$router
+        .push({
+          name: "search",
+          query: {
+            q: this.query || "",
+          },
+        })
+        .catch(() => {}); // To ignore the Navigation Duplicated error
     },
   },
 };

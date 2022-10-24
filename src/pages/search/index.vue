@@ -76,7 +76,10 @@
             :facet="facets"
             :onFacetChange="handleFacetChange"
             :selectedFacets="$route.query"
-            :isGt="isGt"
+            :IsGt="IsGt"
+            :onFilterChange="onFilterChange"
+            :fulltextsearch="fulltextsearch"
+            :metadatasearch="metadatasearch"
           />
         </div>
       </div>
@@ -143,8 +146,16 @@ export default {
     hasResult() {
       return this.results;
     },
-    isGt() {
-      return this.$route.query.IsGt || "all";
+    IsGt() {
+      return this.$route.query.IsGt === "true";
+    },
+    fulltextsearch() {
+      return this.$route.query.fulltextsearch === "true";
+    },
+    metadatasearch() {
+      return this.$route.query.metadatasearch
+        ? this.$route.query.metadatasearch === "true"
+        : true;
     },
     query() {
       return this.$route.query.q;
@@ -165,6 +176,19 @@ export default {
     SearchGroup,
   },
   methods: {
+    onFilterChange(name, value) {
+      const query = {
+        ...this.$route.query,
+        [name]: value,
+      };
+      if (JSON.stringify(query) === JSON.stringify(this.$route.query)) {
+        return;
+      }
+      this.$router.push({
+        name: "search",
+        query,
+      });
+    },
     buttonClass(number) {
       if (number !== this.page) {
         return "px-4 py-2 text-sky-500 border-sky-500 rounded-md border";
@@ -201,27 +225,28 @@ export default {
       this.loading = true;
       this.error = null;
       this.results = {};
-      const facets = {};
       const { q, page, perPageRecords = "10", ...rest } = this.$route.query;
 
-      let start = 0;
-
       let facetQuery = [];
-
+      const nonFacetFields = ["IsGt", "fulltextsearch", "metadatasearch"];
       Object.entries(rest).forEach(([field, values]) => {
-        (values || []).split("_-_").forEach((value) => {
-          facetQuery.push(`field=${field}&value=${value}`);
-          // facets[`q${start}field`] = field;
-          // facets[`q${start}value`] = value;
-          start += 1;
-        });
+        if (!nonFacetFields.includes(field)) {
+          values.split("_-_").forEach((value) => {
+            facetQuery.push(`field=${field}&value=${value}`);
+          });
+        }
       });
       // Execute the search
       lzaApi
         .search(
-          this.query,
-          (this.page - 1) * this.maxResultsSize,
-          this.maxResultsSize,
+          {
+            fulltextsearch: this.fulltextsearch,
+            metadatasearch: this.metadatasearch,
+            IsGt: this.IsGt,
+            searchterm: this.query,
+            limit: this.maxResultsSize,
+            offset: (this.page - 1) * this.maxResultsSize,
+          },
           facetQuery.join("&")
         )
         .then((response) => {
@@ -236,10 +261,6 @@ export default {
             });
             return prev;
           }, {});
-
-          if (!Object.keys(rest).length) {
-            this.initialFacets = response.data.facets;
-          }
         })
         .catch((error) => {
           this.error = true;
@@ -249,13 +270,20 @@ export default {
         });
     },
     async fetchFacets() {
-      const { q, page, perPageRecords = "10", ...rest } = this.$route.query;
-      if (!Object.keys(rest).length) {
-        return;
-      }
+      const { q } = this.$route.query;
 
       try {
-        const response = await lzaApi.search(q, 0, this.maxResultsSize, "");
+        const response = await lzaApi.search(
+          {
+            fulltextsearch: false,
+            metadatasearch: true,
+            IsGt: false,
+            searchterm: q,
+            limit: this.maxResultsSize,
+            offset: 0,
+          },
+          ""
+        );
         this.initialFacets = response.data.facets;
       } catch (err) {
         this.error = true;
