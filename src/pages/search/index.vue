@@ -233,7 +233,8 @@ export default {
       Object.entries(rest).forEach(([field, values]) => {
         if (!nonFacetFields.includes(field)) {
           values.split("_-_").forEach((value) => {
-            facetQuery.push(`field=${field}&value=${value}`);
+            const valEncoded = encodeURIComponent(value);
+            facetQuery.push(`field=${field}&value=${valEncoded}`);
           });
         }
       });
