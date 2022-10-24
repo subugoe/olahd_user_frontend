@@ -76,7 +76,7 @@
             :facet="facets"
             :onFacetChange="handleFacetChange"
             :selectedFacets="$route.query"
-            :isGt="isGt"
+            :isGT="isGT"
             :onFilterChange="onFilterChange"
             :fulltextsearch="fulltextsearch"
             :metadatasearch="metadatasearch"
@@ -146,8 +146,8 @@ export default {
     hasResult() {
       return this.results;
     },
-    isGt() {
-      return this.$route.query.isGt === "true";
+    isGT() {
+      return this.$route.query.isGT === "true";
     },
     fulltextsearch() {
       return this.$route.query.fulltextsearch === "true";
@@ -228,7 +228,7 @@ export default {
       const { q, page, perPageRecords = "10", ...rest } = this.$route.query;
 
       let facetQuery = [];
-      const nonFacetFields = ["isGt", "fulltextsearch", "metadatasearch"];
+      const nonFacetFields = ["isGT", "fulltextsearch", "metadatasearch"];
 
       Object.entries(rest).forEach(([field, values]) => {
         if (!nonFacetFields.includes(field)) {
@@ -243,7 +243,7 @@ export default {
           {
             fulltextsearch: this.fulltextsearch,
             metadatasearch: this.metadatasearch,
-            isGt: this.isGt,
+            isGT: this.isGT,
             searchterm: this.query,
             limit: this.maxResultsSize,
             offset: (this.page - 1) * this.maxResultsSize,
@@ -278,7 +278,7 @@ export default {
           {
             fulltextsearch: false,
             metadatasearch: true,
-            isGt: false,
+            isGT: false,
             searchterm: q,
             limit: this.maxResultsSize,
             offset: 0,

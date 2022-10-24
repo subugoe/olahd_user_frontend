@@ -55,7 +55,7 @@ export default {
       type: Array,
       default: () => [],
     },
-    isGt: {
+    isGT: {
       type: Boolean,
       default: false,
     },
@@ -96,7 +96,7 @@ export default {
         },
         {
           label: "GT-Search",
-          name: "isGt",
+          name: "isGT",
         },
       ];
     },
