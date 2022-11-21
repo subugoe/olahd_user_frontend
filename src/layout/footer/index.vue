@@ -1,25 +1,27 @@
 <template>
   <footer>
     <div class="bg-gray-700">
-      <div
-        class="
-          flex
-          justify-between
-          items-center
-          py-2
-          md:justify-start md:space-x-10
-        "
-      >
-        <div class="flex lg:flex-1 justify-content-center">
-          <router-link as="nav" active-class="active" to="/about">
-            <a class="nav-link text-white hover:text-sky-700">About</a>
+      <div class="grid grid-cols-3 gap-4 py-2">
+        <div class="flex flex-1 items-center">
+          <router-link
+            class="flex flex-1 justify-center"
+            as="nav"
+            active-class="active"
+            to="/about"
+          >
+            <span class="nav-link text-white hover:text-sky-700">About</span>
           </router-link>
-          <router-link as="nav" active-class="active" to="/contact">
-            <a class="nav-link text-white hover:text-sky-700">Kontakt</a>
+          <router-link
+            class="flex flex-1"
+            as="nav"
+            active-class="active"
+            to="/contact"
+          >
+            <span class="nav-link text-white hover:text-sky-700">Kontakt</span>
           </router-link>
         </div>
 
-        <div class="grid-cols-3 gap-4 flex items-center">
+        <div class="flex flex-1 justify-between items-center">
           <a
             v-for="(item, index) in urls"
             :key="index"
@@ -35,7 +37,7 @@
           </a>
         </div>
 
-        <div class="flex lg:flex-1 justify-content-center">
+        <div class="flex flex-1 items-center justify-around">
           <div class="text-white">Version - Beta</div>
         </div>
       </div>

@@ -7,7 +7,7 @@
           id: itemId,
         },
       }"
-      class="search-item-link"
+      class="search-item-link text-sky-600 hover:text-sky-900"
     >
       <h5>{{ title }}</h5>
     </router-link>
