@@ -72,7 +72,11 @@ export default {
       return this.item.PID;
     },
     title() {
-      return this.item.title;
+      if (this.item.title) {
+        return this.item.title;
+      } else {
+        return this.item.PID;
+      }
     },
   },
 };
