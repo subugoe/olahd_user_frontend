@@ -41,6 +41,13 @@ export default {
     info() {
       if (!this.item) {
         return [];
+      } else if (this.item.noData){
+        return [
+          {
+            label: "no data available",
+            value: ""
+          }
+        ]
       }
 
       const item = this.item;
