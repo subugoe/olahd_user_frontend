@@ -95,6 +95,7 @@
                     px-4
                     py-2
                     shadow-sm
+                    rounded-md
                     text-white
                     hover:bg-sky-700
                   "

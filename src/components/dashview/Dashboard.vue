@@ -1,85 +1,112 @@
 <template>
-  <div>
+  <div class="container">
     <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-800">Dashboard</h1>
+    <span class="text-xl font-bold px-6 py-4">Dashboard</span>
 
-    <div class="card shadow mb-4">
-      <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Import Status</h6>
-      </div>
-      <div class="card-body">
-        <div class="table-responsive">
-          <table class="table table-bordered">
-            <thead>
-              <tr>
-                <th>Timestamp</th>
-                <th>PID</th>
-                <th>Status</th>
-                <th>Note</th>
-              </tr>
-            </thead>
-            <tbody>
-              <template v-if="this.records.length > 0">
-                <tr v-for="(record, index) in records" :key="index">
-                  <td>{{ record.trackingInfo.timestamp | formatDate }}</td>
-                  <td>
-                    <a
-                      :href="buildUrl(record)"
-                      class="text-sky-500 hover:text-slate-700"
-                      target="_blank"
-                    >
-                      {{ record.trackingInfo.pid }}
-                    </a>
-                  </td>
-                  <td>
-                    <span
-                      class="badge badge-pill"
-                      :class="getCssState(record.trackingInfo.status)"
-                    >
-                      {{ record.trackingInfo.status }}
-                    </span>
-                  </td>
-                  <td>{{ record.trackingInfo.message }}</td>
+    <div class="m-4">
+      <h6 class="text-lg font-medium px-6 py-4">Import Status</h6>
+
+      <div class="flex flex-col">
+        <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+            <table class="min-w-full">
+              <thead class="border-b">
+                <tr class="text-sm font-medium text-gray-900 text-left">
+                  <th class="px-6 py-4">Timestamp</th>
+                  <th class="px-6 py-4">PID</th>
+                  <th class="px-6 py-4">Status</th>
+                  <th class="px-6 py-4">Note</th>
                 </tr>
-              </template>
-              <template v-else>
-                <tr>
-                  <td colspan="6" class="text-center">
-                    <h3>There is no data to show</h3>
-                  </td>
-                </tr>
-              </template>
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                <template v-if="this.records.length > 0">
+                  <tr
+                    v-for="(record, index) in records"
+                    :key="index"
+                    class="
+                      border-b
+                      text-sm text-gray-900
+                      font-light
+                      whitespace-nowrap
+                    "
+                  >
+                    <td class="px-6 py-4">
+                      {{ record.trackingInfo.timestamp | formatDate }}
+                    </td>
+                    <td class="px-6 py-4">
+                      <a
+                        :href="buildUrl(record)"
+                        class="text-sky-500 hover:text-slate-700"
+                        target="_blank"
+                      >
+                        {{ record.trackingInfo.pid }}
+                      </a>
+                    </td>
+                    <td class="px-6 py-4">
+                      <span :class="getCssState(record.trackingInfo.status)">
+                        {{ record.trackingInfo.status }}
+                      </span>
+                    </td>
+                    <div class="px-6 py-4 max-w-3xl overflow-scroll">
+                      <td>
+                        {{ record.trackingInfo.message }}
+                      </td>
+                    </div>
+                  </tr>
+                </template>
+                <template v-else>
+                  <tr>
+                    <td colspan="6" class="text-center">
+                      <h3>There is no data to show</h3>
+                    </td>
+                  </tr>
+                </template>
+              </tbody>
+            </table>
+          </div>
         </div>
-        <nav aria-label="Import status pagination">
-          <ul class="pagination justify-content-end">
-            <li class="page-item">
-              <button
-                class="page-link"
-                aria-label="Previous"
-                @click="switchPage(-1)"
-                v-if="hasPreviousPage"
-              >
-                <span aria-hidden="true">&laquo; Previous</span>
-                <span class="sr-only">Previous</span>
-              </button>
-            </li>
-            <li class="page-item">
-              <button
-                class="page-link"
-                aria-label="Next"
-                @click="switchPage(1)"
-                v-if="hasNextPage"
-              >
-                <span aria-hidden="true">Next &raquo;</span>
-                <span class="sr-only">Next</span>
-              </button>
-            </li>
-          </ul>
-        </nav>
       </div>
     </div>
+    <section
+      class="
+        flex
+        justify-end
+        rounded-lg
+        border border-gray-200
+        px-6
+        m-4
+        py-3
+        text-gray-700
+        font-montserrat
+      "
+    >
+      <ul class="flex items-center">
+        <div class="flex flex-1 justify-around items-center">
+          <li>
+            <button
+              class="pr-4 text-gray-700 font-medium"
+              aria-label="Previous"
+              @click="switchPage(-1)"
+              v-if="hasPreviousPage"
+            >
+              <span aria-hidden="true">&laquo; Previous</span>
+              <span class="sr-only">Previous</span>
+            </button>
+          </li>
+          <li>
+            <button
+              class="pr-4 text-gray-700 font-medium"
+              aria-label="Next"
+              @click="switchPage(1)"
+              v-if="hasNextPage"
+            >
+              <span aria-hidden="true">Next &raquo;</span>
+              <span class="sr-only">Next</span>
+            </button>
+          </li>
+        </div>
+      </ul>
+    </section>
   </div>
 </template>
 
