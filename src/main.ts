@@ -2,21 +2,11 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store/store";
-import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
-
-import "bootstrap";
-import "bootstrap/scss/bootstrap.scss";
 
 import "@fortawesome/fontawesome-free/css/all.css";
 
-// Import Bootstrap an BootstrapVue CSS files (order is important)
-import "bootstrap/dist/css/bootstrap.css";
-import "bootstrap-vue/dist/bootstrap-vue.css";
-
 import "./index.css";
-
-// Make BootstrapVue available throughout your project
-Vue.use(BootstrapVue);
+import 'flowbite';
 
 Vue.config.productionTip = false;
 

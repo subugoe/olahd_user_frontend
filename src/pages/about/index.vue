@@ -1,5 +1,5 @@
 <template>
-  <div class="m-4 space-y-4">
+  <div class="container">
     <h3 class="text-3xl">Willkommen</h3>
     <p>
       OLA-HD Service stellt einen Dienst für die Langzeitarchivierung von

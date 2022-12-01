@@ -22,28 +22,11 @@
               justify-center
               hover:bg-gray-200
               rounded-md
-              transform
-              rotate-45
               h-6
               w-6
             "
           >
-            <div class="transform -rotate-45">
-              <svg
-                class="h-4 w-4"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M15 19l-7-7 7-7"
-                />
-              </svg>
-            </div>
+            <i class="fas fa-angle-left"></i>
           </div>
         </a>
       </li>
@@ -120,28 +103,11 @@
               justify-center
               hover:bg-gray-200
               rounded-md
-              transform
-              rotate-45
               h-6
               w-6
             "
           >
-            <div class="transform -rotate-45">
-              <svg
-                class="h-4 w-4"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-            </div>
+            <i class="fas fa-angle-right"></i>
           </div>
         </a>
       </li>
@@ -165,23 +131,10 @@
         @click.prevent="changePage(input)"
         class="flex items-center pl-4 font-medium cursor-pointer"
       >
-        <span id="text-after-input">
+        <span id="text-after-input" class="mr-1">
           {{ textAfterInput }}
         </span>
-        <svg
-          class="h-4 w-4"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M9 5l7 7-7 7"
-          />
-        </svg>
+        <i class="fas fa-angle-right items-center"></i>
       </div>
     </div>
   </section>

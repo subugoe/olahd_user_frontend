@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div class="container">
     <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-800">Import Your Data Here</h1>
+    <span class="text-xl font-bold m-4">Import Your Data Here</span>
 
     <div
       v-if="isSuccess"
-      class="alert alert-success alert-dismissible fade show"
+      class="alert alert-success alert-dismissible fade show m-4"
       role="alert"
     >
       <h4 class="alert-heading">Success!</h4>
@@ -42,31 +42,28 @@
       </button>
     </div>
 
-    <div class="card shadow mb-4">
-      <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Upload Form</h6>
-      </div>
-      <div class="card-body">
-        <form @submit.prevent="onSubmit">
-          <div class="form-group">
-            <div class="custom-file">
-              <input
-                type="file"
-                class="border px-3 py-2.5 mt-4 rounded-md w-full"
-                aria-describedby="help-text"
-                @change="processFile($event)"
-              />
-              <label
-                class="custom-file-label"
-                for="file-upload"
-                data-browse="Choose file"
-              >
-                {{ fileName }}
-              </label>
-            </div>
+    <div class="m-4">
+      <h6 class="text-lg font-medium py-4">Import Status</h6>
+
+      <div class="grid grid-cols-3">
+        <form class="col-span-2" @submit.prevent="onSubmit">
+          <div>
+            <input
+              type="file"
+              class="border px-3 py-2.5 mb-2 rounded-md w-full"
+              aria-describedby="help-text"
+              @change="processFile($event)"
+            />
+            <label
+              class="text-sm text-gray-500"
+              for="file-upload"
+              data-browse="Choose file"
+            >
+              {{ fileName }}
+            </label>
           </div>
 
-          <div class="form-group">
+          <div>
             <label for="prev-version" class="sr-only"
               >PID of the previous version</label
             >
@@ -77,7 +74,7 @@
               aria-describedby="help-text"
               v-model="prevPid"
             />
-            <small id="help-text" class="form-text text-muted">
+            <small id="help-text" class="text-sm text-gray-500">
               Leave this blank if there is no previous version.
             </small>
           </div>
@@ -99,22 +96,24 @@
           </template>
 
           <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
-          <button
-            type="submit"
-            class="
-              bg-blue-500
-              text-white
-              px-2
-              py-2.5
-              mt-4
-              rounded-md
-              focus:ring
-              font-semibold
-              tracking-wider
-            "
-          >
-            Submit
-          </button>
+          <div class="flex justify-end">
+            <button
+              type="submit"
+              class="
+                bg-sky-600
+                font-medium
+                px-4
+                py-2
+                mt-4
+                shadow-sm
+                rounded-md
+                text-white
+                hover:bg-sky-700
+              "
+            >
+              Submit
+            </button>
+          </div>
         </form>
       </div>
     </div>

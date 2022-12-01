@@ -3,22 +3,22 @@ import axios from 'axios';
 const instance = axios.create({
     baseURL: '/api/',
     headers: {
-        'Content-Type': 'application/json'
-    }
+        'Content-Type': 'application/json',
+    },
 });
 
 export default {
     search(params: Record<string, any> = {}, facets: string) {
-        return instance.get(`/search${facets?`?${facets}`:''}`, {
-            params
+        return instance.get(`/search${facets ? `?${facets}` : ''}`, {
+            params,
         });
     },
 
     getSearchDetailsById(id: string) {
         return instance.get('/search', {
             params: {
-                id: id
-            }
+                id,
+            },
         });
     },
 
@@ -28,8 +28,8 @@ export default {
                 id,
                 withFile: true,
                 limit,
-                offset
-            }
+                offset,
+            },
         });
     },
 
@@ -38,31 +38,31 @@ export default {
     },
 
     downloadFiles(archiveId: string, files: []) {
-        let url = `${this.getBaseUrl()}download`;
-        let data = {
+        const url = `${this.getBaseUrl()}download`;
+        const data = {
             archiveId,
-            files
+            files,
         };
 
         return fetch(url, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify(data),
         });
     },
 
     exportArchive(pid: string) {
-        let url = `${this.getBaseUrl()}export?id=${pid}&isInternal=false`
+        const url = `${this.getBaseUrl()}export?id=${pid}&isInternal=false`;
         return fetch(url, {
-            method: 'GET'
+            method: 'GET',
         });
     },
 
     getBaseUrl() {
         let baseURL = instance.defaults.baseURL ? instance.defaults.baseURL : '/api/';
-        baseURL += baseURL.endsWith("/") ? "" : "/";
+        baseURL += baseURL.endsWith('/') ? '' : '/';
         return baseURL;
-    }
+    },
 };

@@ -27,7 +27,7 @@
     </div>
 
     <template v-if="!loading">
-      <div class="row">
+      <div class="row mt-4 mb-4">
         <div class="col">
           <button
             type="button"
@@ -90,7 +90,7 @@
       </section>
 
       <!-- Version -->
-      <section class="border rounded mt-4">
+      <section class="border rounded mt-4 mb-4">
         <versions :pid="this.id" />
       </section>
     </template>
