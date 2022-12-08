@@ -209,10 +209,8 @@ export default {
 
       // If there is more information (successful import)
       if (record.archiveResponse) {
-        let archiveId = record.archiveResponse.onlineId
-          ? record.archiveResponse.onlineId
-          : record.archiveResponse.offlineId;
-        url = `/home/search-detail/${esc(archiveId)}`;
+        let archiveId = record.archiveResponse.pid;
+        url = `/home/search-detail?id=${esc(archiveId)}`;
       }
 
       return url;
