@@ -80,6 +80,7 @@
                   id="user-menu-button"
                   aria-expanded="false"
                   aria-haspopup="true"
+                  v-on:click.stop
                   @click="openLoginModal"
                 >
                   Sign In
