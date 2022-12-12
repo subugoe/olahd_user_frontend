@@ -263,6 +263,7 @@ export default {
             });
             return prev;
           }, {});
+          this.fetchFacets();
         })
         .catch((error) => {
           this.error = true;
@@ -277,9 +278,9 @@ export default {
       try {
         const response = await lzaApi.search(
           {
-            fulltextsearch: false,
-            metadatasearch: true,
-            isGT: false,
+            fulltextsearch: this.fulltextsearch,
+            metadatasearch: this.metadatasearch,
+            isGT: this.isGT,
             searchterm: q,
             limit: this.maxResultsSize,
             offset: 0,
@@ -293,7 +294,6 @@ export default {
     },
   },
   mounted() {
-    this.fetchFacets();
     this.search();
   },
   watch: {

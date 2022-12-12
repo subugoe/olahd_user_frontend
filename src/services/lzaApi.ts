@@ -1,21 +1,14 @@
-import axios from 'axios';
-
-const instance = axios.create({
-    baseURL: '/api/',
-    headers: {
-        'Content-Type': 'application/json',
-    },
-});
+import axios from '../axios-config';
 
 export default {
     search(params: Record<string, any> = {}, facets: string) {
-        return instance.get(`/search${facets ? `?${facets}` : ''}`, {
+        return axios.get(`/search${facets ? `?${facets}` : ''}`, {
             params,
         });
     },
 
     getSearchDetailsById(id: string) {
-        return instance.get('/search', {
+        return axios.get('/search', {
             params: {
                 id,
             },
@@ -23,7 +16,7 @@ export default {
     },
 
     getArchiveInfo(id: string, limit: number, offset: number) {
-        return instance.get(`/search-archive`, {
+        return axios.get(`/search-archive`, {
             params: {
                 id,
                 withFile: true,
@@ -34,7 +27,7 @@ export default {
     },
 
     getVersionInfo(pid: string) {
-        return instance.get(`/search-archive-info?id=${pid}`);
+        return axios.get(`/search-archive-info?id=${pid}`);
     },
 
     downloadFiles(archiveId: string, files: []) {
@@ -61,7 +54,7 @@ export default {
     },
 
     getBaseUrl() {
-        let baseURL = instance.defaults.baseURL ? instance.defaults.baseURL : '/api/';
+        let baseURL = axios.defaults.baseURL ? axios.defaults.baseURL : '/api/';
         baseURL += baseURL.endsWith('/') ? '' : '/';
         return baseURL;
     },

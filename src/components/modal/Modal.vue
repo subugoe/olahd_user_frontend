@@ -52,7 +52,7 @@ export default {
   },
   methods: {
     handleClose() {
-      // this.onClose();
+      this.onClose();
     },
   },
   computed: {
