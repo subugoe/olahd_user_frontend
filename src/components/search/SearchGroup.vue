@@ -95,7 +95,7 @@ export default {
           name: "fulltextsearch",
         },
         {
-          label: "GT-Search",
+          label: "Ground Truth (GT) Search",
           name: "isGT",
         },
       ];
