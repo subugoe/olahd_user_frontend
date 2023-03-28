@@ -43,7 +43,7 @@
               active-class="active"
               to="/about"
             >
-              <span class="nav-link text-sky-500 hover:text-slate-700"
+              <span class="nav-link px-1 text-sky-500 hover:text-slate-700"
                 >About</span
               >
             </router-link>
@@ -59,7 +59,7 @@
               active-class="active"
               to="/contact"
             >
-              <span class="nav-link text-sky-500 hover:text-slate-700"
+              <span class="nav-link px-1 text-sky-500 hover:text-slate-700"
                 >Kontakt</span
               >
             </router-link>
