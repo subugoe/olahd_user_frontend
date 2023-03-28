@@ -12,7 +12,6 @@
               sautter@sub.uni-goettingen.de
             </a>
           </p>
-          <h4>Technischer Support</h4>
           <a
             href="https://github.com/subugoe/OLA-HD-IMPL/issues"
             target="_blank"
