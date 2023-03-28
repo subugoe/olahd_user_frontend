@@ -12,12 +12,12 @@
               sautter@sub.uni-goettingen.de
             </a>
           </p>
-          <a
+          <!--<a
             href="https://github.com/subugoe/OLA-HD-IMPL/issues"
             target="_blank"
           >
             Fehler melden
-          </a>
+          </a>-->
         </div>
       </div>
       <hr />
