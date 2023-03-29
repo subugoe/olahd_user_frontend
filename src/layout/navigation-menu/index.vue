@@ -30,11 +30,11 @@
           <Search />
         </div>
         <div class="col-end-7 flex">
-          <div class="flex flex-1 items-center">
+          <div class="flex shrink-0 grow items-center">
             <router-link
               class="
                 btn
-                flex flex-grow flex-shrink-0
+                flex
                 items-center
                 hover:text-sky-700
                 dark:hover:text-sky-600
