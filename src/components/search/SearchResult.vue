@@ -58,11 +58,11 @@ export default {
           value: item.publisher || "N/A",
         },
         {
-          label: "Published Place",
+          label: "Place of Publication",
           value: item.placeOfPublish || "N/A",
         },
         {
-          label: "Year of Publish",
+          label: "Year of Publication",
           value: item.yearOfPublish || "N/A",
         },
         {
