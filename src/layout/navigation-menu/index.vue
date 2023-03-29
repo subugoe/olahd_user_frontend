@@ -34,7 +34,7 @@
             <router-link
               class="
                 btn
-                flex flex-1
+                flex flex-grow flex-shrink-0
                 items-center
                 hover:text-sky-700
                 dark:hover:text-sky-600
@@ -43,7 +43,7 @@
               active-class="active"
               to="/about"
             >
-              <span class="nav-link shrink-0 grow px-1 text-sky-500 hover:text-slate-700"
+              <span class="nav-link  px-1 text-sky-500 hover:text-slate-700"
                 >About</span
               >
             </router-link>
@@ -59,7 +59,7 @@
               active-class="active"
               to="/contact"
             >
-              <span class="nav-link px-1 shrink-0 grow text-sky-500 hover:text-slate-700"
+              <span class="nav-link px-1  text-sky-500 hover:text-slate-700"
                 >Kontakt</span
               >
             </router-link>
