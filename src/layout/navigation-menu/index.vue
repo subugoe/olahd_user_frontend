@@ -24,14 +24,14 @@
           <span>OLA-HD Service</span>
         </div>
         
-        <div class="col-end-6 flex ">
+        <div class="flex col-start-5 col-span-1">
         <div
           v-if="isSearchBarVisible"
-          class="flex "
+          class="flex"
         >
           <Search />
         </div>
-          <div class="flex  ">
+          <div class="flex ">
             <router-link
               class="
                 btn
