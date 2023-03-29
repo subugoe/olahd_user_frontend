@@ -34,7 +34,6 @@
             <router-link
               class="
                 btn
-                flex
                 items-center
                 hover:text-sky-700
                 dark:hover:text-sky-600
@@ -50,7 +49,6 @@
             <router-link
               class="
                 btn
-                flex flex-1
                 items-center
                 hover:text-sky-700
                 dark:hover:text-sky-600
