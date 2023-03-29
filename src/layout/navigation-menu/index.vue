@@ -30,7 +30,7 @@
           <Search />
         </div>
         <div class="col-end-7 flex">
-          <div class="flex flex-1 shrink-0 grow  items-center">
+          <div class="flex flex-1 items-center">
             <router-link
               class="
                 btn
@@ -43,7 +43,7 @@
               active-class="active"
               to="/about"
             >
-              <span class="nav-link px-1 text-sky-500 hover:text-slate-700"
+              <span class="nav-link shrink-0 grow px-1 text-sky-500 hover:text-slate-700"
                 >About</span
               >
             </router-link>
@@ -59,7 +59,7 @@
               active-class="active"
               to="/contact"
             >
-              <span class="nav-link px-1  text-sky-500 hover:text-slate-700"
+              <span class="nav-link px-1 shrink-0 grow text-sky-500 hover:text-slate-700"
                 >Kontakt</span
               >
             </router-link>
