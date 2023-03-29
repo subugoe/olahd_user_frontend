@@ -37,8 +37,8 @@
           </a>
         </div>
 
-        <div class="flex flex-1 items-center justify-around">
-          <div class="text-white">Version - Beta</div>
+        <div class="flex lg:flex-1 justify-content-center">
+          <div class="text-white">Version - RC</div>
         </div>
       </div>
     </div>
