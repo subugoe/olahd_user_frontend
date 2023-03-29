@@ -30,7 +30,7 @@
           <Search />
         </div>
         <div class="col-end-7 flex">
-          <div class="flex flex-1 ml-auto  items-center">
+          <div class="flex flex-1 shrink-0 grow  items-center">
             <router-link
               class="
                 btn
