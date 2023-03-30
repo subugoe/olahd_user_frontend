@@ -22,3 +22,5 @@ yarn-error.log*
 *.sln
 *.sw?
 *.iml
+
+docker-compose.https.yaml
