@@ -137,11 +137,11 @@ export default {
           value: source.publisher || "N/A",
         },
         {
-          label: "Publish Year",
+          label: "Year of Publication",
           value: source.yearOfPublish || "N/A",
         },
         {
-          label: "Sub-title",
+          label: "Subtitle",
           value: source.subtitle || "N/A",
         },
         {

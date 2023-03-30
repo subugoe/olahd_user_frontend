@@ -4,7 +4,7 @@
     <nav class="left-0 right-0 z-10" style="position: fixed">
       <!-- Navigation menu -->
       <div class="bg-white sticky top-0 grid grid-cols-6 gap-4 py-2">
-        <div class="flex flex-1 justify-around items-center">
+        <div class="flex flex-1 justify-between items-center">
           <router-link as="nav" class="px-2" active-class="active" to="/" exact>
             <span class="pl-2 text-sky-500 hover:text-slate-700">{{
               "Home"
@@ -23,14 +23,15 @@
         >
           <span>OLA-HD Service</span>
         </div>
+        
+        <div class="flex col-start-5 col-span-1">
         <div
           v-if="isSearchBarVisible"
-          class="flex flex-1 lg:flex-none px-5 pt-2 rounded-md"
+          class="flex"
         >
           <Search />
         </div>
-        <div class="col-end-7 flex">
-          <div class="flex flex-1 items-center">
+          <div class="flex ">
             <router-link
               class="
                 btn
@@ -43,7 +44,7 @@
               active-class="active"
               to="/about"
             >
-              <span class="nav-link text-sky-500 hover:text-slate-700"
+              <span class="nav-link flex-none px-2 md:px-4 text-sky-500 hover:text-slate-700"
                 >About</span
               >
             </router-link>
@@ -59,7 +60,7 @@
               active-class="active"
               to="/contact"
             >
-              <span class="nav-link text-sky-500 hover:text-slate-700"
+              <span class="nav-link flex-none px-2 md:px-4 text-sky-500 hover:text-slate-700"
                 >Kontakt</span
               >
             </router-link>
