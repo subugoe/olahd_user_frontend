@@ -12,7 +12,7 @@ services:
       - "8090:80"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.olahds_user_frontend.entrypoints=http"
+      - "traefik.http.routers.olahds_user_frontend.entrypoints=web"
       - "traefik.http.routers.olahds_user_frontend.rule=PathPrefix(`/home`)"
       - "traefik.http.routers.olahds_user_frontend.middlewares=stripprefix_home"
       - "traefik.http.middlewares.stripprefix_home.stripprefix.prefixes=/home"
