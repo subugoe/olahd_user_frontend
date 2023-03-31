@@ -1,0 +1,13 @@
+version: '3.5'
+# This is an example of how the traefik-related config can be overwritten with docker-compose to
+# enable https
+# To use this the service could be started like this:
+# docker-compose -f docker-compose.yaml docker-compose.https.example.yaml up -d
+# For usage email and URL in Host-Rule have to be adapted
+
+services:
+  olahds_user_frontend:
+    labels:
+      - "traefik.http.routers.olahds_user_frontend.entrypoints=websecure"
+      - "traefik.http.routers.olahds_user_frontend.rule=Host(`your-domain-here`) && PathPrefix(`/`)"
+      - "traefik.http.routers.olahds_user_frontend.tls.certresolver=myresolver"
