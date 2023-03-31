@@ -210,7 +210,7 @@ export default {
       // If there is more information (successful import)
       if (record.archiveResponse) {
         let archiveId = record.archiveResponse.pid;
-        url = `/home/search-detail?id=${esc(archiveId)}`;
+        url = `/search-detail?id=${esc(archiveId)}`;
       }
 
       return url;
