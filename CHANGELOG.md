@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 Changed:
   * Change Traefik routing configuration
   * Remove home prefix from front-end URL
+  * Add link to DFGViewer into the detail page
 
 ## [0.5.4] - 2023-03-29
 
