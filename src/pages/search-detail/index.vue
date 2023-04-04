@@ -93,6 +93,9 @@
       <section class="border rounded mt-4 mb-4">
         <versions :pid="this.id" />
       </section>
+      <a target="_blank" class="text-sky-500 hover:text-sky-700" :href=linkToDfgviewer>
+        Open in DFG viewer
+      </a>
     </template>
   </div>
 </template>
@@ -173,6 +176,10 @@ export default {
 
       return hasVersion;
     },
+    linkToDfgviewer() {
+      var host = window.location.protocol + "//" + window.location.host;
+      return 'https://dfg-viewer.de/show/?set[mets]=' + host + '/api/export/mets?id=' + this.id
+    }
   },
   methods: {
     toggleExpand() {
