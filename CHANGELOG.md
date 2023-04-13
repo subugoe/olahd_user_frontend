@@ -3,6 +3,10 @@ Change Log
 
 All notable changes to this project will be documented in this file.
 
+The format is based on [Keep a Changelog](http://keepachangelog.com/).
+
+Versioned according to [Semantic Versioning](http://semver.org/).
+
 
 ## Unreleased
 
@@ -13,23 +17,18 @@ Changed:
 
 ## [0.5.4] - 2023-03-29
 
-Changed:
+Fixed:
   * Update axios to v0.21.2
   * Update dependencies
 
 
 ## [0.5.3] - 2023-03-29
 
-Changed:
-  * Rename some labels
-  * Set displayed version from Beta to RC
-  * Update styles for navigation menu and search-bar
+Fixed:
+  * Improve styles, labels, navigation menu and search-bar
 
 
 ## [0.5.2] - 2022-12-12
-
-Changed:
-  * Remove second axios instance
 
 Fixed:
   * Fix link in dashboard to detail page
@@ -39,9 +38,8 @@ Fixed:
 
 ## [0.5.1] - 2022-12-01
 
-Changed:
+Fixed:
   * Show message when no data available after search
-  * Code refactoring
   * Add drop-down button to entry search page
 
 
