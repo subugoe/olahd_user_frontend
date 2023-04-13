@@ -178,7 +178,7 @@ export default {
     },
     linkToDfgviewer() {
       var host = window.location.protocol + "//" + window.location.host;
-      return 'https://dfg-viewer.de/show/?set[mets]=' + host + '/api/export/mets?id=' + this.id
+      return 'https://dfg-viewer.de/show/?set[mets]=' + host + '/api/export/mets-web?id=' + this.id
     }
   },
   methods: {
