@@ -45,10 +45,10 @@ export default new Router({
         import(/* webpackChunkName: "about" */ "@/pages/contact/index.vue"),
     },
     {
-      path: "/impressum",
-      name: "impressum",
+      path: "/imprint",
+      name: "imprint",
       component: () =>
-        import(/* webpackChunkName: "about" */ "@/pages/impressum/index.vue"),
+        import(/* webpackChunkName: "about" */ "@/pages/imprint/index.vue"),
     },
     {
       path: "/dashview",

@@ -2,9 +2,9 @@
   <footer>
     <div class="bg-gray-700">
       <div class="grid grid-cols-3 gap-4 py-2">
-        <div class="flex flex-1 items-center">
+        <div class="flex flex-1 items-center ml-10">
           <router-link
-            class="flex flex-1 justify-center"
+            class="flex flex-1"
             as="nav"
             active-class="active"
             to="/about"
@@ -18,6 +18,14 @@
             to="/contact"
           >
             <span class="nav-link text-white hover:text-sky-700">Kontakt</span>
+          </router-link>
+          <router-link
+            class="flex flex-1"
+            as="nav"
+            active-class="active"
+            to="/imprint"
+          >
+            <span class="nav-link text-white hover:text-sky-700">Impressum</span>
           </router-link>
         </div>
 

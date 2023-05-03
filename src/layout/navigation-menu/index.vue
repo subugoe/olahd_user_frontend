@@ -23,14 +23,14 @@
         >
           <span>OLA-HD Service</span>
         </div>
-        
-        <div class="flex col-start-5 col-span-1">
-        <div
-          v-if="isSearchBarVisible"
-          class="flex"
-        >
-          <Search />
-        </div>
+
+        <div class="flex col-start-5 col-span-2 justify-end">
+          <div
+            v-if="isSearchBarVisible"
+            class="flex"
+          >
+            <Search />
+          </div>
           <div class="flex ">
             <router-link
               class="
@@ -62,6 +62,22 @@
             >
               <span class="nav-link flex-none px-2 md:px-4 text-sky-500 hover:text-slate-700"
                 >Kontakt</span
+              >
+            </router-link>
+            <router-link
+              class="
+                btn
+                flex flex-1
+                items-center
+                hover:text-sky-700
+                dark:hover:text-sky-600
+              "
+              as="nav"
+              active-class="active"
+              to="/imprint"
+            >
+              <span class="nav-link flex-none px-2 md:px-4 text-sky-500 hover:text-slate-700"
+                >Impressum</span
               >
             </router-link>
             <div class="ml-3 mr-3 relative w-max">
