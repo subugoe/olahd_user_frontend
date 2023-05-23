@@ -10,7 +10,7 @@
         rounded
         dark:text-sky-300
       "
-      >{{ facets.name }}:
+      >{{ to_facet_label(facets) }}:
     </label>
     <Multiselect
       placeholder="Search..."
@@ -121,6 +121,10 @@ export default {
     return {
       isExpanded: false,
       value: [],
+      labelsMap: {
+        "Publish Year": "Place of Publication",
+        "Place": "Year of Publication",
+      }
     };
   },
   watch: {
@@ -154,6 +158,9 @@ export default {
     handleMultiselectChange(values) {
       this.onFacetChange(this.facets.name, values);
     },
+    to_facet_label(facet) {
+      return this.labelsMap[facet.name] || facet.name
+    }
   },
   mounted() {
     const currentFacets = (this.selectedFacets[this.facets.name] || "")
