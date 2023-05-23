@@ -32,54 +32,6 @@
             <Search />
           </div>
           <div class="flex ">
-            <router-link
-              class="
-                btn
-                flex flex-1
-                items-center
-                hover:text-sky-700
-                dark:hover:text-sky-600
-              "
-              as="nav"
-              active-class="active"
-              to="/about"
-            >
-              <span class="nav-link flex-none px-2 md:px-4 text-sky-500 hover:text-slate-700"
-                >About</span
-              >
-            </router-link>
-            <router-link
-              class="
-                btn
-                flex flex-1
-                items-center
-                hover:text-sky-700
-                dark:hover:text-sky-600
-              "
-              as="nav"
-              active-class="active"
-              to="/contact"
-            >
-              <span class="nav-link flex-none px-2 md:px-4 text-sky-500 hover:text-slate-700"
-                >Kontakt</span
-              >
-            </router-link>
-            <router-link
-              class="
-                btn
-                flex flex-1
-                items-center
-                hover:text-sky-700
-                dark:hover:text-sky-600
-              "
-              as="nav"
-              active-class="active"
-              to="/imprint"
-            >
-              <span class="nav-link flex-none px-2 md:px-4 text-sky-500 hover:text-slate-700"
-                >Impressum</span
-              >
-            </router-link>
             <div class="ml-3 mr-3 relative w-max">
               <div v-if="!username">
                 <button
