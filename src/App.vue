@@ -4,7 +4,7 @@
     <div class="h-14" />
     <Main v-if="isHeaderVisible"></Main>
     <div class="flex flex-1 flex-col">
-      <router-view />
+      <router-view :key="$route.fullPath"/>
     </div>
     <Footer />
   </div>

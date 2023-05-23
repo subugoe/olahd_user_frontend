@@ -27,8 +27,7 @@
             <router-link class="text-sky-500 hover:text-slate-700 m-2"
               :to="{
                 name: 'search-detail',
-                params: { id: versionInfo.previousVersion.logId },
-                query: { collection: 'meta.olahds_log' },
+                query: { id: versionInfo.previousVersion.pid },
               }"
             >
               {{ versionInfo.previousVersion.pid }}
@@ -43,8 +42,7 @@
                 <router-link class="text-sky-500 hover:text-slate-700"
                   :to="{
                     name: 'search-detail',
-                    params: { id: value.logId, },
-                    query: { collection: 'meta.olahds_log' },
+                    query: { id: value.pid },
                   }"
                 >
                   {{ value.pid }}
