@@ -57,6 +57,10 @@
         >
           <h4 class="text-base">{{ title }}</h4>
           <div>
+            <button @click="exportArchive" :class="buttonClass">
+              <i class="fas fa-download mr-1" />
+              {{ "Export" }}
+            </button>
             <button @click="toggleExpand" :class="buttonClass">
               <i
                 :class="[
@@ -65,10 +69,6 @@
                 ]"
               />
               {{ isExpanded ? "Collapse" : "Expand" }}
-            </button>
-            <button @click="exportArchive" :class="buttonClass">
-              <i class="fas fa-download mr-1" />
-              {{ "Export" }}
             </button>
           </div>
         </div>
