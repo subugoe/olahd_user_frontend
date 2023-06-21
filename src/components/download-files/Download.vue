@@ -15,45 +15,57 @@
       "
     >
       <h4 class="text-base">{{ "File structure" }}</h4>
+    </div>
+    <div class="mx-4 mt-2 text-yellow-600" role="alert" v-if="warnNoSelection">
+      Please select files to be downloaded in the box next to the button
       <button
-        @click="download"
-        class="
-          rounded
-          border
-          px-3
-          py-1
-          mr-4
-          border-sky-500
-          bg-sky-500
-          text-white
-          dark:hover:bg-gray-700
-        "
+        class="close"
+        aria-label="Close"
+        @click="warnNoSelection=false"
       >
-        <i class="fas fa-download mr-1" />
-        {{ "Download" }}
+        <span aria-hidden="true">&times;</span>
       </button>
     </div>
     <div class="p-4">
-      <tree-select
-        v-model="value"
-        :multiple="true"
-        :show-count="true"
-        :options="options"
-        placeholder="Click to view file structure. Type to search or select to download."
-      >
-        <label
-          slot="option-label"
-          slot-scope="{ node, shouldShowCount, count, labelClassName, countClassName }"
-          :class="labelClassName"
+      <div class="flex">
+        <tree-select
+          v-model="value"
+          :multiple="true"
+          :show-count="true"
+          :options="options"
+          placeholder="Click to view file structure. Type to search or select to download."
         >
-          {{ node.label }}
-          <template v-if="!node.isBranch && isOpen">
-            <span> - </span>
-            <a :href="buildUrl(pid, node.id)" target="_blank" class="text-sky-500 hover:text-slate-700">View</a>
-          </template>
-          <span v-if="shouldShowCount" :class="countClassName">({{ count }})</span>
-        </label>
-      </tree-select>
+          <label
+            slot="option-label"
+            slot-scope="{ node, shouldShowCount, count, labelClassName, countClassName }"
+            :class="labelClassName"
+          >
+            {{ node.label }}
+            <template v-if="!node.isBranch && isOpen">
+              <span> - </span>
+              <a :href="buildUrl(pid, node.id)" target="_blank" class="text-sky-500 hover:text-slate-700">View</a>
+            </template>
+            <span v-if="shouldShowCount" :class="countClassName">({{ count }})</span>
+          </label>
+        </tree-select>
+        <button
+          @click="download"
+          class="
+            rounded
+            border
+            px-3
+            py-1
+            mr-4
+            border-sky-500
+            bg-sky-500
+            text-white
+            dark:hover:bg-gray-700
+            whitespace-nowrap
+          "
+        >
+          <i class="fas fa-download" /> {{ "Download" }}
+        </button>
+      </div>
     </div>
   </section>
 </template>
@@ -84,6 +96,7 @@ export default {
       value: [],
       options: [],
       archiveInfo: {},
+      warnNoSelection: false,
     };
   },
   computed: {
@@ -95,8 +108,14 @@ export default {
     }
   },
   methods: {
+    removeWarnNoSelection() {
+      this.warnNoSelection = null
+    },
+
     download() {
+      this.warnNoSelection = false;
       if (this.value.length < 1) {
+        this.warnNoSelection = true;
         return;
       }
 
@@ -107,7 +126,7 @@ export default {
         // Select the node corresponding to the path
         let node = treeService.getNode(this.options, path);
 
-        // If it's not a leaf node
+        // If it is not a leaf node
         if (node["children"]) {
           // Get all files under it
           let leafNodes = treeService.getLeafNodes(node);
