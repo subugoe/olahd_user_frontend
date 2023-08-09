@@ -113,6 +113,7 @@
 <script>
 import axios from "../../axios-config";
 import moment from "moment";
+import { authService } from "../../auth/auth"
 
 export default {
   data() {
@@ -143,16 +144,17 @@ export default {
     },
   },
   methods: {
-    fetchData(page, limit) {
+    async fetchData(page, limit) {
       // Init state
       this.loading = true;
       this.error = false;
 
       // Fetch data
+      let username = await authService.getUsername()
       axios
         .get("/admin/import-status", {
           params: {
-            username: this.$store.getters.username,
+            username: username,
             page,
             limit,
           },

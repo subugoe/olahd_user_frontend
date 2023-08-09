@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-1 border-r" v-if="isAuthenticated">
+  <div class="flex flex-1 border-r" v-if="isUserLoggedIn">
     <div class="flex flex-col flex-shrink">
       <Sidebar />
     </div>
@@ -11,6 +11,7 @@
 
 <script>
 import Sidebar from "@/components/dashview/Sidebar";
+import { authService } from "../../auth/auth"
 import $ from "jquery";
 import "jquery.easing";
 
@@ -18,12 +19,13 @@ export default {
   components: {
     Sidebar,
   },
-  computed: {
-    isAuthenticated() {
-      return this.$store.getters.isAuthenticated;
-    },
+  data() {
+    return {
+      isUserLoggedIn: false,
+    }
   },
-  mounted() {
+  async mounted() {
+    this.isUserLoggedIn = await authService.isUserLoggedIn();
     // Close any open menu accordions when window is resized below 768px
     $(window).resize(function () {
       if ($(window).width() < 768) {
