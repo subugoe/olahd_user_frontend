@@ -80,18 +80,35 @@ router.beforeEach(async (to, from, next) => {
   // So here we handle the login redirect and than send the user to the "/" route.
   if (authService.isKeycloak()) {
     if (to.path === '/login') {
+      console.log("router.beforeEach")
+      console.log("from: " + JSON.stringify(from))
+      console.log("to: " + JSON.stringify(to))
+      console.log("next: " + JSON.stringify(next))
+      console.log("router.beforeEeach Step 1")
+      if (to.fullPath.includes("error")) {
+        console.log("router.beforeEeach: 'error' contained in received redirect url. Aborting");
+        return;
+      }
       // Inform the authentication of the login redirect. Afterwards we send the user to the
       // destination page
       authService.handleLoginRedirect()
         .then(() => {
+          console.log("router.beforeEach. Step 2")
           next('/dashview/dashboard')
+          console.log("router.beforeEach. Step 3")
           // this is indirectly used to propagate the login status to its listeners
           authService.isUserLoggedIn()
+          console.log("router.beforeEach. Step 4")
+        })
+        .then(() => {
+          console.log("hat nun geklappt")
         })
         .catch((error: object) => {
+          console.log("router.beforeEach. LoginRedirect error: " + error)
           next('/')
         })
     } else if (to.path === '/logout') {
+      console.log("router.beforeEach: received logout request")
       // This is similar to the "/callback" route not leading to an actual component but only to handle the logout callback from the authentication server.
       authService.handleLogoutRedirect()
         .then(() => {
