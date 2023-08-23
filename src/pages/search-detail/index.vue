@@ -7,12 +7,15 @@
           class="alert alert-danger alert-dismissible fade show"
           role="alert"
         >
-          <strong>Error!</strong> An error has occurred. Please try again.
+          <strong>Error!</strong>
+          <span> An error has occurred</span>
+          <span v-if="error_msg">: {{ error_msg }} </span>
           <button
             type="button"
             class="close"
             data-dismiss="alert"
             aria-label="Close"
+            @click="error = null; error_msg = null"
           >
             <span aria-hidden="true">&times;</span>
           </button>
@@ -116,6 +119,7 @@ export default {
     return {
       versionInfo: {},
       error: null,
+      error_msg: null,
       loading: true,
       response: null,
       isExpanded: false,
@@ -192,6 +196,11 @@ export default {
 
         this.response = response.data;
       } catch (error) {
+        if (error && error.message && error.message.includes("404")) {
+          this.error_msg = "No search entry found for PID"
+        } else {
+          this.error_msg = "Unknown error fetching search entry for PID"
+        }
         this.error = true;
       } finally {
         this.loading = false;
@@ -205,6 +214,7 @@ export default {
           this.consumeDownloadStream(response);
         })
         .catch((error) => {
+          this.error_msg = "Unknown error when exporting archive"
           this.error = true;
         });
     },
