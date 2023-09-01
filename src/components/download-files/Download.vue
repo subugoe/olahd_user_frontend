@@ -61,7 +61,10 @@
             text-white
             dark:hover:bg-gray-700
             whitespace-nowrap
+            disabled:bg-sky-200
+            disabled:border-sky-200
           "
+          :disabled="disable"
         >
           <i class="fas fa-download" /> {{ "Download" }}
         </button>
@@ -89,6 +92,10 @@ export default {
       type: String,
       default: "",
     },
+    disable: {
+      type: Boolean,
+      default: false,
+    }
   },
   data() {
     return {

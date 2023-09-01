@@ -60,7 +60,11 @@
         >
           <h4 class="text-base">{{ title }}</h4>
           <div>
-            <button @click="exportArchive" :class="buttonClass">
+            <button
+              @click="exportArchive"
+              :class="buttonClass"
+              :disabled="!isOnlineAvailable"
+            >
               <i class="fas fa-download mr-1" />
               {{ "Export" }}
             </button>
@@ -89,7 +93,7 @@
 
       <!-- File structure -->
       <section class="border rounded mt-4">
-        <download-files :pid="this.id" />
+        <download-files :pid="this.id" :disable="!this.isOnlineAvailable"/>
       </section>
 
       <!-- Version -->
@@ -123,6 +127,7 @@ export default {
       loading: true,
       response: null,
       isExpanded: false,
+      isOnlineAvailable: true,
     };
   },
   computed: {
@@ -130,7 +135,8 @@ export default {
       return this.$route.query.id;
     },
     buttonClass() {
-      return "rounded border mr-4 px-3 py-1 border-sky-500 bg-sky-500 text-white dark:hover:bg-gray-700";
+      return "rounded border mr-4 px-3 py-1 border-sky-500 bg-sky-500 text-white "
+        + "dark:hover:bg-gray-700 disabled:bg-sky-200 disabled:border-sky-200";
     },
     info() {
       if (!this.response) {
@@ -257,6 +263,9 @@ export default {
   },
   async created() {
     await this.loadData();
+    lzaApi.isOnlineAvailable(this.id)
+    .then(response => this.isOnlineAvailable = response["data"])
+    .catch(() => this.isOnlineAvailable = false);
   },
   watch: {
     "$route.params.id": "loadData",

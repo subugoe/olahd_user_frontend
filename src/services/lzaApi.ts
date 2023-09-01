@@ -58,4 +58,8 @@ export default {
         baseURL += baseURL.endsWith('/') ? '' : '/';
         return baseURL;
     },
+
+    isOnlineAvailable(pid: string) {
+        return axios.get(`/export/is-online?id=${pid}`);
+    }
 };
