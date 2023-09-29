@@ -6,10 +6,11 @@ import SearchDetail from "@/pages/search-detail/index.vue";
 import DashView from '@/pages/dashview/index.vue'
 import Dashboard from '@/components/dashview/Dashboard.vue'
 import Import from '@/components/dashview/Import.vue'
+import { authService } from '../auth/auth'
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   mode: "history",
   base: process.env.BASE_URL,
   routes: [
@@ -70,3 +71,40 @@ export default new Router({
     },
   ],
 });
+
+router.beforeEach(async (to, from, next) => {
+  // This isn't an actual route leading to a component. It is called by the OAuth server once
+  //   the user logged in. Handling it here prevents us to have an additional callback.html file.
+  //   An additional file would lead to a short hick-up after logging in. (callback.html is
+  //   loaded and than the actual route.)
+  // So here we handle the login redirect and than send the user to the "/" route.
+  if (authService.isKeycloak()) {
+    if (to.path === '/login') {
+      if (to.fullPath.includes("error")) {
+        return;
+      }
+      // Inform the authentication of the login redirect. Afterwards we send the user to the
+      // destination page
+      authService.handleLoginRedirect()
+        .then(() => {
+          next('/dashview/dashboard')
+          // this is indirectly used to propagate the login status to its listeners
+          authService.isUserLoggedIn()
+        })
+        .catch((error: object) => {
+          next('/')
+        })
+    } else if (to.path === '/logout') {
+      // This is similar to the "/callback" route not leading to an actual component but only to handle the logout callback from the authentication server.
+      authService.handleLogoutRedirect()
+        .then(() => {
+          next('/')
+        })
+    }
+  }
+
+  // Default case. The user is send to the desired route.
+  next()
+})
+
+export default router

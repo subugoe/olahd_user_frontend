@@ -52,6 +52,7 @@
 
 <script>
 import Modal from "../modal/Modal.vue";
+import { authService } from "../../auth/auth"
 export default {
   components: { Modal },
   props: {
@@ -80,11 +81,7 @@ export default {
         username: this.username,
         password: this.password,
       };
-      this.$store
-        .dispatch("login", {
-          username: formData.username,
-          password: formData.password,
-        })
+      authService.loginCustom(formData.username, formData.password)
         .then((result) => {
           // Closing modal
           this.onClose();
