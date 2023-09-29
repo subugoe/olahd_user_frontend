@@ -11,7 +11,6 @@ const settings = {
 }
 
 settings.userStore = new WebStorageStateStore({ store: window.sessionStorage })
-console.log("Reading in Settings (partly from env): " + JSON.stringify(settings))
 const userManager = new UserManager(settings)
 
 /**
@@ -39,16 +38,12 @@ class KeycloakAuthService {
    * Returns a promise which will be resolved to true/false or be rejected with an error.
    */
   async isUserLoggedIn () {
-    console.log("authKeycloak.isUserLoggedIn()")
     try {
       let user = await userManager.getUser();
       this.loggedIn = (user !== null)
-      console.log("authKeycloak.isUserLoggedIn(): user: " + JSON.stringify(user))
     } catch (error) {
-      console.log("authKeycloak.isUserLoggedIn(): isUserLoggedIn() - error: " + error)
       this.loggedIn = false
     }
-    console.log("authKeycloak.isUserLoggedIn(): returns: " + this._loggedIn)
     return this._loggedIn
   }
 
@@ -67,13 +62,10 @@ class KeycloakAuthService {
    * Handles the redirect from the OAuth server after a user logged in.
    */
   handleLoginRedirect () {
-    console.log("authKeycloak.handleLoginRedirect()")
     // Returns a promise
     try {
-      console.log("authKeycloak.handleloginRedirect() return userManager.signinRedirectCallback")
       return userManager.signinRedirectCallback()
     } catch (error) {
-      console.log("authKeycloak.handleloginRedirect(): rethrowing error")
       throw error
     }
   }
