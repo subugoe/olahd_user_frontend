@@ -1,9 +1,14 @@
 import axios from "../axios-config";
 
 /**
- * TODO: Describe what this class does and why the methods return Promises alltough they don't have
- * to
- * TODO: check if making Functions async is really necesarry
+ * This app currently offers two ways of authentification: custom and keyloak. The custom login uses
+ * the backend for log-in. The keyloak service an external Keyloak server not managed by us.
+ *
+ * This service has functions which KeycloakAuthService has as well. This functions should be usable
+ * interchangeable depending on which auth-mechanism is used. All the functions of the
+ * KeycloakAuthService have to async. I read that it is possible to await a non async function, that
+ * way it's result is automatically wrapped into a promise. That's why not all functionse are not
+ * async as well.
  */
 class CustomAuthService {
 
@@ -52,11 +57,6 @@ class CustomAuthService {
     this._loggedIn = false;
   }
 
-  /**
-   * This has to be async to use it interchangeable with authKeycloak where it has to be async
-   */
-  // TODO: Ich bin nicht sicher ob das funktioniert: Ich habe gelesen man kann auch ein nicht
-  //   Promise awaiten, dann wird in ein Promise gewrappt, also das gleiche wie hier
   getAccessToken() {
     if (!this.token || Date.now() >= this.expiredTime) {
       return null
