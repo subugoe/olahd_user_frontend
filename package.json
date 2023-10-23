@@ -22,7 +22,7 @@
     "moment": "^2.24.0",
     "oidc-client": "^1.11.5",
     "popper.js": "^1.15.0",
-    "postcss": "^8.4.13",
+    "postcss": "^8.4.31",
     "postcss-loader": "^4",
     "streamsaver": "^2.0.3",
     "tailwindcss": "^3.0.24",
