@@ -74,3 +74,17 @@ jobs:
         env:
           SSH_USER: ${{ secrets.OLAHD_SSH_USER }}
           SSH_HOST: ${{ secrets.OLAHD_SSH_HOST_PROD }}
+
+  run-tests-develop:
+    needs: deploy-develop
+    name: Run cypress tests on develop-vm after new deployment
+    environment:
+      name: Develop
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        with:
+          config: baseUrl=${{ secrets.BASE_URL_TESTS_DEVELOP }}
