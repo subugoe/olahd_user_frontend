@@ -6,7 +6,6 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "cypress": "cypress run"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.10.2",
