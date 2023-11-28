@@ -28,26 +28,27 @@
     </div>
     <div class="p-4">
       <div class="flex">
-        <tree-select
-          v-model="value"
-          :multiple="true"
-          :show-count="true"
-          :options="options"
-          placeholder="Click to view file structure. Type to search or select to download."
-        >
-          <label
-            slot="option-label"
-            slot-scope="{ node, shouldShowCount, count, labelClassName, countClassName }"
-            :class="labelClassName"
-          >
-            {{ node.label }}
-            <template v-if="!node.isBranch && isOpen">
-              <span> - </span>
-              <a :href="buildUrl(pid, node.id)" target="_blank" class="text-sky-500 hover:text-slate-700">View</a>
-            </template>
-            <span v-if="shouldShowCount" :class="countClassName">({{ count }})</span>
-          </label>
-        </tree-select>
+        TODO: search for an alternative to show the dropdown
+        <!-- <tree-select -->
+        <!--   v-model="value" -->
+        <!--   :multiple="true" -->
+        <!--   :show-count="true" -->
+        <!--   :options="options" -->
+        <!--   placeholder="Click to view file structure. Type to search or select to download." -->
+        <!-- > -->
+        <!--   <label -->
+        <!--     slot="option-label" -->
+        <!--     slot-scope="{ node, shouldShowCount, count, labelClassName, countClassName }" -->
+        <!--     :class="labelClassName" -->
+        <!--   > -->
+        <!--     {{ node.label }} -->
+        <!--     <template v-if="!node.isBranch && isOpen"> -->
+        <!--       <span> - </span> -->
+        <!--       <a :href="buildUrl(pid, node.id)" target="_blank" class="text-sky-500 hover:text-slate-700">View</a> -->
+        <!--     </template> -->
+        <!--     <span v-if="shouldShowCount" :class="countClassName">({{ count }})</span> -->
+        <!--   </label> -->
+        <!-- </tree-select> -->
         <button
           @click="download"
           class="

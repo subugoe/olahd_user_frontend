@@ -89,9 +89,9 @@
 
 <script>
 import lzaApi from "@/services/lzaApi";
-import Pagination from "@/components/pagination/Pagination";
+import Pagination from "@/components/pagination/Pagination.vue";
 import SearchGroup from "../../components/search/SearchGroup.vue";
-import SearchResult from "@/components/search/SearchResult";
+import SearchResult from "@/components/search/SearchResult.vue";
 
 export default {
   data() {

@@ -4,7 +4,7 @@ import axios from "../axios-config";
 
 export let authService;
 
-if (process.env.VUE_APP_USE_KEYCLOAK && process.env.VUE_APP_USE_KEYCLOAK.toUpperCase() == "TRUE") {
+if (import.meta.env.VITE_USE_KEYCLOAK && import.meta.env.VITE_USE_KEYCLOAK.toUpperCase() == "TRUE") {
   authService = keycloakAuthService;
 } else {
   authService = customAuthService;

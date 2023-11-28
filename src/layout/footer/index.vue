@@ -40,7 +40,7 @@
             <img
               height="80px"
               width="160px"
-              :src="require(`/public/assets/${item.image}`)"
+              :src="`./assets/${item.image}`"
             />
           </a>
         </div>

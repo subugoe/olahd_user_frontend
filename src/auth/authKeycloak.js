@@ -1,10 +1,10 @@
 import { UserManager, WebStorageStateStore } from 'oidc-client'
 
 const settings = {
-  authority: process.env.VUE_APP_KEYCLOAK_AUTHORITY,
-  client_id: process.env.VUE_APP_KEYCLOAK_CLIENT_ID,
-  redirect_uri: process.env.VUE_APP_KEYCLOAK_REDIRECT_URI,
-  post_logout_redirect_uri: process.env.VUE_APP_KEYCLOAK_LOGOUT_REDIRECT_URI,
+  authority: import.meta.env.VITE_KEYCLOAK_AUTHORITY,
+  client_id: import.meta.env.VITE_KEYCLOAK_CLIENT_ID,
+  redirect_uri: import.meta.env.VITE_KEYCLOAK_REDIRECT_URI,
+  post_logout_redirect_uri: import.meta.env.VITE_KEYCLOAK_LOGOUT_REDIRECT_URI,
   response_type: 'code',
   scope: 'openid profile email offline_access',
   automaticSilentRenew: true,

@@ -12,7 +12,7 @@ Vue.use(Router);
 
 const router = new Router({
   mode: "history",
-  base: process.env.BASE_URL,
+  base: import.meta.env.BASE_URL,
   routes: [
     {
       path: "/",
@@ -37,19 +37,19 @@ const router = new Router({
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () =>
-        import(/* webpackChunkName: "about" */ "@/pages/about/index.vue"),
+        import("@/pages/about/index.vue"),
     },
     {
       path: "/contact",
       name: "contact",
       component: () =>
-        import(/* webpackChunkName: "about" */ "@/pages/contact/index.vue"),
+        import("@/pages/contact/index.vue"),
     },
     {
       path: "/imprint",
       name: "imprint",
       component: () =>
-        import(/* webpackChunkName: "about" */ "@/pages/imprint/index.vue"),
+        import("@/pages/imprint/index.vue"),
     },
     {
       path: "/dashview",

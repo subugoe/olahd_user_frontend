@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import Sidebar from "@/components/dashview/Sidebar";
+import Sidebar from "@/components/dashview/Sidebar.vue";
 import { authService } from "../../auth/auth"
 import $ from "jquery";
 import "jquery.easing";
