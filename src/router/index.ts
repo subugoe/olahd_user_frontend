@@ -1,5 +1,4 @@
-import Vue from "vue";
-import Router from "vue-router";
+import { createRouter, createWebHistory } from 'vue-router'
 import Home from "@/pages/home/index.vue";
 import Search from "@/pages/search/index.vue";
 import SearchDetail from "@/pages/search-detail/index.vue";
@@ -8,11 +7,8 @@ import Dashboard from '@/components/dashview/Dashboard.vue'
 import Import from '@/components/dashview/Import.vue'
 import { authService } from '../auth/auth'
 
-Vue.use(Router);
-
-const router = new Router({
-  mode: "history",
-  base: import.meta.env.BASE_URL,
+const router = createRouter({
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: "/",

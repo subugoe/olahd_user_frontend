@@ -58,7 +58,7 @@ export default {
   },
   computed: {
     isSearchBarVisible() {
-      return this.$route.path !== "/";
+      return this.$router.currentRoute.path !== "/";
     },
     isCustomLogin() {
       return !this.authService.isKeycloak()
