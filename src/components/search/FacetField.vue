@@ -102,9 +102,7 @@
   </div>
 </template>
 
-<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <script>
-import Multiselect from "vue-multiselect";
 export default {
   props: {
     facets: {
@@ -130,10 +128,10 @@ export default {
       }
     };
   },
-  watch: {
+  /*watch: {
     value: "handleMultiselectChange",
-  },
-  components: { Multiselect },
+  },*/
+  /*components: { Multiselect },*/
   computed: {
     results() {
       const MAX_VALUE = this.isExpanded ? Infinity : 5;
@@ -158,9 +156,9 @@ export default {
       }
       this.onFacetChange(this.facets.name, this.value);
     },
-    handleMultiselectChange(values) {
+    /*handleMultiselectChange(values) {
       this.onFacetChange(this.facets.name, values);
-    },
+    },*/
     to_facet_label(facet) {
       return this.labelsMap[facet.name] || facet.name
     }
@@ -183,10 +181,10 @@ export default {
 </script>
 
 <style lang="postcss">
-.custom-muliselect .multiselect__tag {
+/*.custom-muliselect .multiselect__tag {
   @apply bg-sky-600;
 }
 .custom-muliselect .multiselect__option--highlight {
   @apply bg-sky-600;
-}
+}*/
 </style>
