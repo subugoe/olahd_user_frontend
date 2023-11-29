@@ -17,7 +17,7 @@ function setBearerInterceptor () {
     try {
       accessToken = await authService.getAccessToken()
       if (accessToken != null) {
-        config.headers.common.Authorization = 'Bearer ' + accessToken
+        config.headers['Authorization'] = 'Bearer ' + accessToken
       }
     } catch (e) {
       // pass: if AccessToken cannot be received do not use bearer header

@@ -172,6 +172,7 @@ export default {
 
       axios
         .post("/bag", data, {
+          headers: { 'Content-Type': 'multipart/form-data' },
           onUploadProgress: function (progressEvent) {
             this.uploadPercentage = Math.round(
               (progressEvent.loaded / progressEvent.total) * 100
