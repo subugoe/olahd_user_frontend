@@ -1,23 +1,12 @@
+import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue';
+import createVuePlugin from '@vitejs/plugin-vue';
 
-const path = require("path");
 export default defineConfig({
-  plugins: [
-    vue({
-      template: {
-        compilerOptions: {
-          compatConfig: {
-            MODE: 3
-          }
-        }
-      }
-    }),
-  ],
+  plugins: [createVuePlugin()],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, "./src"),
-      vue: '@vue/compat'
-    },
-  },
+      '@': fileURLToPath(new URL('src', import.meta.url))
+    }
+  }
 })
