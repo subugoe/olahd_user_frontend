@@ -165,6 +165,6 @@ export default {
 
 <style scoped>
 .home-img {
-  background-image: url("/assets/images/archive.jpg");
+  background-image: url("@/assets/archive.jpg");
 }
 </style>

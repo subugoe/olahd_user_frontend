@@ -22,7 +22,7 @@
 
     <div class="row" v-if="loading">
       <div class="col text-center">
-        <img src="/assets/images/spin-1s-100px.gif" alt="Searching" />
+        <img src="@/assets/spin-1s-100px.gif" alt="Searching" />
       </div>
     </div>
 
