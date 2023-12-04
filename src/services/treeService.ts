@@ -5,7 +5,7 @@ export default {
      * @param tree The tree to traverse.
      * @param path Path to the node on the tree.
      */
-    getNode(tree: Array<{id: string, label: string, name: string, children: any}>, path: string) {
+    getNode(tree: Array<{key: string, label: string, name: string, children: any}>, path: string) {
 
         // Break the path into parts
         let parts = path.split('/');
@@ -40,7 +40,7 @@ export default {
      * Using Breadth First Search to find all leaf nodes under the input node.
      * @param inputNode The root, where the search begins.
      */
-    getLeafNodes(inputNode: {id: string, label: string, name: string, children: any}) {
+    getLeafNodes(inputNode: {key: string, label: string, name: string, children: any}) {
 
         // Output
         let leafNodes = [];

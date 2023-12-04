@@ -11,11 +11,9 @@
 </template>
 
 <script>
-import { RouterLink, RouterView } from 'vue-router'
 import Footer from "@/layout/footer/index.vue";
 import Main from "@/layout/main/index.vue";
 import NavigationMenu from "@/layout/navigation-menu/index.vue";
-import { useRoute } from 'vue-router';
 
 export default {
   components: {
