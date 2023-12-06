@@ -13,16 +13,29 @@
         border-b
       ">
       <h4 class="text-base">{{ "File structure" }}</h4>
+      <div>
+        <button @click="toggleExpand"
+          class="rounded border mr-4 px-3 py-1 border-sky-500 bg-sky-500 text-white dark:hover:bg-gray-700"
+        >
+          <i
+            :class="[
+              Object.keys(this.expandedKeys).length ? 'fa-angle-double-up' : 'fa-angle-double-down',
+              'fas mr-1',
+            ]"
+          />
+          {{ Object.keys(this.expandedKeys).length ? "Collapse" : "Expand" }}
+        </button>
+      </div>
     </div>
     <div class="mx-4 mt-2 text-yellow-600" role="alert" v-if="warnNoSelection">
-      Please select files to be downloaded in the box next to the button
+      Please select the files to be downloaded
       <button class="close" aria-label="Close" @click="warnNoSelection = false">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
     <div class="p-4">
       <div class="flex">
-        <Tree v-model:selectionKeys="selectedKeys" :value="options" class="w-full md:w-30rem"
+        <Tree v-model:expandedKeys="expandedKeys" v-model:selectionKeys="selectedKeys" :value="options" class="w-full md:w-30rem"
           selectionMode="checkbox">
           <template #default="slotProps">
             <b>{{ slotProps.node.label }} ({{ slotProps.node.children.length }})</b>
@@ -43,6 +56,7 @@
             text-white
             dark:hover:bg-gray-700
             whitespace-nowrap
+            max-h-9
           ">
           <i class="fas fa-download" /> {{ "Download" }}
         </button>
@@ -77,6 +91,7 @@ export default {
       selectedKeys: [],
       archiveInfo: {},
       warnNoSelection: false,
+      expandedKeys: {},
     };
   },
   computed: {
@@ -294,11 +309,51 @@ export default {
 
       return `${lzaApi.getBaseUrl()}download-file?id=${pid}&path=${esc(path)}`;
     },
+    toggleExpand() {
+      if (!Object.keys(this.expandedKeys).length) {
+        for (let node of this.options) {
+          this.expandNode(node);
+        }
+        this.expandedKeys = { ...this.expandedKeys };
+      } else {
+        this.expandedKeys = {};
+      }
+    },
+    expandNode(node) {
+      if (node.children && node.children.length) {
+        this.expandedKeys[node.key] = true;
+
+        for (let child of node.children) {
+          this.expandNode(child);
+        }
+      }
+    },
   },
   async created() {
     await this.loadData();
   },
 };
 </script>
-<style scoped>
+<style>
+.p-checkbox {
+  background-color: lightgray;
+  border-width: 2px;
+  border-radius: 0px;
+}
+.p-checkbox-box {
+  border-radius: 0px;
+  height: 19px;
+}
+.p-tree-toggler {
+  height: 1.5rem;
+}
+.p-tree .p-tree-container .p-treenode .p-treenode-content {
+  padding: 0.2rem;
+}
+.p-tree {
+  padding: 1px;
+}
+ul.p-treenode-children {
+  margin-left: 2rem;
+}
 </style>

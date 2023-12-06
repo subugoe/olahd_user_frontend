@@ -13,31 +13,32 @@
       "
       >{{ to_facet_label(facets) }}:
     </label>
-      <!-- TODO: reintroduce Multiselect -->
-      <hr style="border: 1px solid lightgray" />
-    <!-- <Multiselect -->
-    <!--   placeholder="Search..." -->
-    <!--   label="value" -->
-    <!--   track-by="value" -->
-    <!--   :options="facets.values" -->
-    <!--   :multiple="true" -->
-    <!--   :taggable="true" -->
-    <!--   :show-labels="false" -->
-    <!--   selected-label="" -->
-    <!--   deselect-label="" -->
-    <!--   v-model="value" -->
-    <!--   class="custom-muliselect" -->
-    <!-- > -->
-    <!--   <template slot="option" slot-scope="props"> -->
-    <!--     <div class="flex relative text-sky-900"> -->
-    <!--       <span class="name">{{ props.option.value }}</span> -->
-    <!--       <span class="ml-auto text-xs items-center" type="info">{{ -->
-    <!--         props.option.occurences -->
-    <!--       }}</span> -->
-    <!--     </div> -->
-    <!--   </template> -->
-    <!--   <template slot="noResult">Keine Treffer</template> -->
-    <!-- </Multiselect> -->
+    <hr style="border: 1px solid lightgray" />
+    <!-- Multiselect was removed because it was vue2. I don't like it. Maybe get back in, it is
+      possible with vue3 and primevue -->
+    <!-- <Multiselect
+           placeholder="Search..."
+           label="value"
+           track-by="value"
+           :options="facets.values"
+           :multiple="true"
+           :taggable="true"
+           :show-labels="false"
+           selected-label=""
+           deselect-label=""
+           v-model="value"
+           class="custom-muliselect"
+         >
+           <template slot="option" slot-scope="props">
+             <div class="flex relative text-sky-900">
+               <span class="name">{{ props.option.value }}</span>
+               <span class="ml-auto text-xs items-center" type="info">{{
+                 props.option.occurences
+               }}</span>
+             </div>
+           </template>
+           <template slot="noResult">Keine Treffer</template>
+         </Multiselect> -->
     <div class="mt-1 search-results">
       <div
         v-for="(facet, index) in results"
