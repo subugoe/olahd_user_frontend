@@ -35,7 +35,7 @@
         Login
       </button>
     </form>
-
+<!--
     <hr />
     <div class="text-center my-2 text-sm text-gray-500">
       If you forget your password or want to create a test account, please
@@ -44,9 +44,9 @@
         href="mailto:triet.doan@gwdg.de"
         class="text-blue-500"
         title="Open mail for forgot password"
-        >triet.doan@gwdg.de</a
-      >
+        >somebody@example.com</a>
     </div>
+-->
   </Modal>
 </template>
 
