@@ -1,9 +1,10 @@
 <template>
-  <div>
+  <div class="mt-4">
     <label
       class="
         mt-2
         mb-2
+        inline-block
         w-full
         font-medium
         text-sky-900
@@ -12,29 +13,32 @@
       "
       >{{ to_facet_label(facets) }}:
     </label>
-    <Multiselect
-      placeholder="Search..."
-      label="value"
-      track-by="value"
-      :options="facets.values"
-      :multiple="true"
-      :taggable="true"
-      :show-labels="false"
-      selected-label=""
-      deselect-label=""
-      v-model="value"
-      class="custom-muliselect"
-    >
-      <template slot="option" slot-scope="props">
-        <div class="flex relative text-sky-900">
-          <span class="name">{{ props.option.value }}</span>
-          <span class="ml-auto text-xs items-center" type="info">{{
-            props.option.occurences
-          }}</span>
-        </div>
-      </template>
-      <template slot="noResult">Keine Treffer</template>
-    </Multiselect>
+    <hr style="border: 1px solid lightgray" />
+    <!-- Multiselect was removed because it was vue2. I don't like it. Maybe get back in, it is
+      possible with vue3 and primevue -->
+    <!-- <Multiselect
+           placeholder="Search..."
+           label="value"
+           track-by="value"
+           :options="facets.values"
+           :multiple="true"
+           :taggable="true"
+           :show-labels="false"
+           selected-label=""
+           deselect-label=""
+           v-model="value"
+           class="custom-muliselect"
+         >
+           <template slot="option" slot-scope="props">
+             <div class="flex relative text-sky-900">
+               <span class="name">{{ props.option.value }}</span>
+               <span class="ml-auto text-xs items-center" type="info">{{
+                 props.option.occurences
+               }}</span>
+             </div>
+           </template>
+           <template slot="noResult">Keine Treffer</template>
+         </Multiselect> -->
     <div class="mt-1 search-results">
       <div
         v-for="(facet, index) in results"
@@ -92,16 +96,14 @@
       class="outline-none border-none"
       @click="toggleExpanded"
     >
-      <span class="text-sky-900">
+      <span class="text-sky-900 text-sm">
         {{ this.isExpanded ? "Show less" : "Show more" }}
       </span>
     </button>
   </div>
 </template>
 
-<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <script>
-import Multiselect from "vue-multiselect";
 export default {
   props: {
     facets: {
@@ -127,10 +129,10 @@ export default {
       }
     };
   },
-  watch: {
+  /*watch: {
     value: "handleMultiselectChange",
-  },
-  components: { Multiselect },
+  },*/
+  /*components: { Multiselect },*/
   computed: {
     results() {
       const MAX_VALUE = this.isExpanded ? Infinity : 5;
@@ -155,9 +157,9 @@ export default {
       }
       this.onFacetChange(this.facets.name, this.value);
     },
-    handleMultiselectChange(values) {
+    /*handleMultiselectChange(values) {
       this.onFacetChange(this.facets.name, values);
-    },
+    },*/
     to_facet_label(facet) {
       return this.labelsMap[facet.name] || facet.name
     }
@@ -180,10 +182,10 @@ export default {
 </script>
 
 <style lang="postcss">
-.custom-muliselect .multiselect__tag {
+/*.custom-muliselect .multiselect__tag {
   @apply bg-sky-600;
 }
 .custom-muliselect .multiselect__option--highlight {
   @apply bg-sky-600;
-}
+}*/
 </style>

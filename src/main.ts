@@ -1,15 +1,13 @@
-import Vue from "vue";
+import { createApp } from 'vue'
 import App from "./App.vue";
 import router from "./router";
 
 import "@fortawesome/fontawesome-free/css/all.css";
+import PrimeVue from 'primevue/config';
 
 import "./index.css";
 import 'flowbite';
 
-Vue.config.productionTip = false;
-
-new Vue({
-  router,
-  render: (h) => h(App),
-}).$mount("#app");
+const app = createApp(App).use(router)
+app.use(PrimeVue)
+app.mount('#app')

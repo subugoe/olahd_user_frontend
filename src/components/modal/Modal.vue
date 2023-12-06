@@ -11,34 +11,6 @@
 </template>
 
 <script>
-import Vue from "vue";
-Vue.directive("click-outside", {
-  bind(el, binding, vnode) {
-    el.clickOutsideEvent = (event) => {
-      if (!(el === event.target || el.contains(event.target))) {
-        vnode.context[binding.expression](event);
-      }
-    };
-    document.body.addEventListener("click", el.clickOutsideEvent);
-  },
-  unbind(el) {
-    document.body.removeEventListener("click", el.clickOutsideEvent);
-  },
-});
-
-Vue.directive("escape", {
-  bind(el, binding, vnode) {
-    el.escapeEvent = (event) => {
-      if (event.keyCode === 27) {
-        vnode.context[binding.expression](event);
-      }
-    };
-    document.body.addEventListener("keydown", el.escapeEvent);
-  },
-  unbind(el) {
-    document.body.removeEventListener("keydown", el.escapeEvent);
-  },
-});
 export default {
   props: {
     onClose: {
@@ -49,6 +21,34 @@ export default {
       type: Boolean,
       default: false,
     },
+  },
+  directives: {
+    escape: {
+      mounted(el, binding) {
+        el.escapeEvent = (event) => {
+          if (event.keyCode === 27) {
+            binding.value(event);
+          }
+        };
+        document.body.addEventListener("keydown", el.escapeEvent);
+      },
+      unmounted(el) {
+        document.body.removeEventListener("keydown", el.escapeEvent);
+      }
+    },
+    clickOutside: {
+      mounted(el, binding) {
+        el.clickOutsideEvent = (event) => {
+          if (!(el === event.target || el.contains(event.target))) {
+            binding.value(event);
+          }
+        };
+        document.body.addEventListener("click", el.clickOutsideEvent);
+      },
+      unmounted(el) {
+        document.body.removeEventListener("click", el.clickOutsideEvent);
+      },
+    }
   },
   methods: {
     handleClose() {

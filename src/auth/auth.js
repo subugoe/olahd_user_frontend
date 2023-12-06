@@ -4,7 +4,7 @@ import axios from "../axios-config";
 
 export let authService;
 
-if (process.env.VUE_APP_USE_KEYCLOAK && process.env.VUE_APP_USE_KEYCLOAK.toUpperCase() == "TRUE") {
+if (import.meta.env.VITE_USE_KEYCLOAK && import.meta.env.VITE_USE_KEYCLOAK.toUpperCase() == "TRUE") {
   authService = keycloakAuthService;
 } else {
   authService = customAuthService;
@@ -17,7 +17,7 @@ function setBearerInterceptor () {
     try {
       accessToken = await authService.getAccessToken()
       if (accessToken != null) {
-        config.headers.common.Authorization = 'Bearer ' + accessToken
+        config.headers['Authorization'] = 'Bearer ' + accessToken
       }
     } catch (e) {
       // pass: if AccessToken cannot be received do not use bearer header

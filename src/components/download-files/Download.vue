@@ -1,7 +1,6 @@
 <template>
   <section>
-    <div
-      class="
+    <div class="
         bg-gray-100
         text-gray-700
         flex
@@ -12,57 +11,53 @@
         py-2
         rounded-t
         border-b
-      "
-    >
+      ">
       <h4 class="text-base">{{ "File structure" }}</h4>
+      <div>
+        <button @click="toggleExpand"
+          class="rounded border mr-4 px-3 py-1 border-sky-500 bg-sky-500 text-white dark:hover:bg-gray-700"
+        >
+          <i
+            :class="[
+              Object.keys(this.expandedKeys).length ? 'fa-angle-double-up' : 'fa-angle-double-down',
+              'fas mr-1',
+            ]"
+          />
+          {{ Object.keys(this.expandedKeys).length ? "Collapse" : "Expand" }}
+        </button>
+      </div>
     </div>
     <div class="mx-4 mt-2 text-yellow-600" role="alert" v-if="warnNoSelection">
-      Please select files to be downloaded in the box next to the button
-      <button
-        class="close"
-        aria-label="Close"
-        @click="warnNoSelection=false"
-      >
+      Please select the files to be downloaded
+      <button class="close" aria-label="Close" @click="warnNoSelection = false">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
     <div class="p-4">
       <div class="flex">
-        <tree-select
-          v-model="value"
-          :multiple="true"
-          :show-count="true"
-          :options="options"
-          placeholder="Click to view file structure. Type to search or select to download."
-        >
-          <label
-            slot="option-label"
-            slot-scope="{ node, shouldShowCount, count, labelClassName, countClassName }"
-            :class="labelClassName"
-          >
-            {{ node.label }}
-            <template v-if="!node.isBranch && isOpen">
-              <span> - </span>
-              <a :href="buildUrl(pid, node.id)" target="_blank" class="text-sky-500 hover:text-slate-700">View</a>
-            </template>
-            <span v-if="shouldShowCount" :class="countClassName">({{ count }})</span>
-          </label>
-        </tree-select>
-        <button
-          @click="download"
-          class="
+        <Tree v-model:expandedKeys="expandedKeys" v-model:selectionKeys="selectedKeys" :value="options" class="w-full md:w-30rem"
+          selectionMode="checkbox">
+          <template #default="slotProps">
+            <b>{{ slotProps.node.label }} ({{ slotProps.node.children.length }})</b>
+          </template>
+          <template #leaf="slotProps">
+            {{ slotProps.node.label }} - <a :href="buildUrl(pid, slotProps.node.key)" target="_blank" class="text-sky-500 hover:text-slate-700">View</a>
+          </template>
+        </Tree>
+        <button @click="download" class="
             rounded
             border
             px-3
             py-1
             mr-4
+            ml-4
             border-sky-500
             bg-sky-500
             text-white
             dark:hover:bg-gray-700
             whitespace-nowrap
-          "
-        >
+            max-h-9
+          ">
           <i class="fas fa-download" /> {{ "Download" }}
         </button>
       </div>
@@ -71,18 +66,17 @@
 </template>
 
 <script>
-import Treeselect from "@riophae/vue-treeselect";
-import treeService from "@/services/treeService";
 import lzaApi from "@/services/lzaApi";
 import emojiService from "@/services/emojiService";
 import { WritableStream } from "web-streams-polyfill/ponyfill";
 import streamSaver from "streamsaver";
-
-import "@riophae/vue-treeselect/dist/vue-treeselect.css";
+import Tree from 'primevue/tree';
+import 'primevue/resources/themes/lara-light-blue/theme.css'
+import treeService from "@/services/treeService";
 
 export default {
   components: {
-    TreeSelect: Treeselect,
+    Tree: Tree,
   },
   props: {
     pid: {
@@ -93,10 +87,11 @@ export default {
   data() {
     return {
       loading: true,
-      value: [],
       options: [],
+      selectedKeys: [],
       archiveInfo: {},
       warnNoSelection: false,
+      expandedKeys: {},
     };
   },
   computed: {
@@ -114,7 +109,7 @@ export default {
 
     download() {
       this.warnNoSelection = false;
-      if (this.value.length < 1) {
+      if (this.selectedKeys.length < 1) {
         this.warnNoSelection = true;
         return;
       }
@@ -122,7 +117,10 @@ export default {
       let downloadItems = [];
 
       // Evaluate each chosen option
-      for (let path of this.value) {
+      for ( let path in this.selectedKeys) {
+        if (!this.selectedKeys[path].checked) {
+          continue;
+        }
         // Select the node corresponding to the path
         let node = treeService.getNode(this.options, path);
 
@@ -130,10 +128,10 @@ export default {
         if (node["children"]) {
           // Get all files under it
           let leafNodes = treeService.getLeafNodes(node);
-          leafNodes.forEach((item) => downloadItems.push(item.id));
+          leafNodes.forEach((item) => downloadItems.push(item.key));
         } else {
           // This is a leaf node, simply add it to the set
-          downloadItems.push(node.id);
+          downloadItems.push(node.key);
         }
       }
       // Send the download set to server
@@ -173,9 +171,9 @@ export default {
 
       const reader = response.body.getReader();
       const pump = () => reader.read()
-          .then(res =>
-            res.done ? writer.close() : writer.write(res.value).then(pump)
-          );
+        .then(res =>
+          res.done ? writer.close() : writer.write(res.value).then(pump)
+        );
 
       pump();
     },
@@ -240,7 +238,7 @@ export default {
           let partId = fullPath.substring(0, index + part.length);
 
           // Check if this part is already exist in the tree
-          let existingPath = findWhere(currentLevel, "id", partId);
+          let existingPath = findWhere(currentLevel, "key", partId);
 
           // If yes, looking deeper
           if (existingPath) {
@@ -248,7 +246,7 @@ export default {
           } else {
             let newPart = {
               // Full path to this node
-              id: partId,
+              key: partId,
 
               // How it is displayed on the UI
               label: part,
@@ -269,6 +267,8 @@ export default {
 
               // Add folder emoji
               newPart.label = "📁 " + newPart.label;
+            } else {
+              newPart.type = "leaf"
             }
 
             // Add emoji to leaf-node
@@ -309,9 +309,51 @@ export default {
 
       return `${lzaApi.getBaseUrl()}download-file?id=${pid}&path=${esc(path)}`;
     },
+    toggleExpand() {
+      if (!Object.keys(this.expandedKeys).length) {
+        for (let node of this.options) {
+          this.expandNode(node);
+        }
+        this.expandedKeys = { ...this.expandedKeys };
+      } else {
+        this.expandedKeys = {};
+      }
+    },
+    expandNode(node) {
+      if (node.children && node.children.length) {
+        this.expandedKeys[node.key] = true;
+
+        for (let child of node.children) {
+          this.expandNode(child);
+        }
+      }
+    },
   },
   async created() {
     await this.loadData();
   },
 };
 </script>
+<style>
+.p-checkbox {
+  background-color: lightgray;
+  border-width: 2px;
+  border-radius: 0px;
+}
+.p-checkbox-box {
+  border-radius: 0px;
+  height: 19px;
+}
+.p-tree-toggler {
+  height: 1.5rem;
+}
+.p-tree .p-tree-container .p-treenode .p-treenode-content {
+  padding: 0.2rem;
+}
+.p-tree {
+  padding: 1px;
+}
+ul.p-treenode-children {
+  margin-left: 2rem;
+}
+</style>

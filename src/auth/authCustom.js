@@ -40,7 +40,7 @@ class CustomAuthService {
     formData.append("password", password)
 
     return axios
-      .post("/login", formData)
+      .post("/login", formData, { headers: { 'Content-Type': 'multipart/form-data' } })
       .then((response) => {
         // Save the information
         this.token = response.data.accessToken,

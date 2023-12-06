@@ -22,7 +22,7 @@
 
     <div class="row" v-if="loading">
       <div class="col text-center">
-        <img src="/assets/images/spin-1s-100px.gif" alt="Searching" />
+        <img src="@/assets/spin-1s-100px.gif" alt="Searching" />
       </div>
     </div>
 
@@ -89,9 +89,9 @@
 
 <script>
 import lzaApi from "@/services/lzaApi";
-import Pagination from "@/components/pagination/Pagination";
+import Pagination from "@/components/pagination/Pagination.vue";
 import SearchGroup from "../../components/search/SearchGroup.vue";
-import SearchResult from "@/components/search/SearchResult";
+import SearchResult from "@/components/search/SearchResult.vue";
 
 export default {
   data() {

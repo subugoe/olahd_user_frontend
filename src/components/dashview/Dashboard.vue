@@ -31,7 +31,7 @@
                     "
                   >
                     <td class="px-6 py-4">
-                      {{ record.trackingInfo.timestamp | formatDate }}
+                      {{ formatDate(record.trackingInfo.timestamp) }}
                     </td>
                     <td class="px-6 py-4">
                       <a
@@ -136,14 +136,12 @@ export default {
   created() {
     this.switchPage(0);
   },
-  filters: {
+  methods: {
     formatDate(value) {
       if (value) {
         return moment(String(value)).format("DD/MM/YYYY HH:mm");
       }
     },
-  },
-  methods: {
     async fetchData(page, limit) {
       // Init state
       this.loading = true;

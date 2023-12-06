@@ -38,9 +38,10 @@
             target="_blank"
           >
             <img
-              height="80px"
-              width="160px"
-              :src="require(`/public/assets/${item.image}`)"
+              height="80"
+              width="160"
+              :src="createImageUrl(item.image)"
+              :alt="item.title"
             />
           </a>
         </div>
@@ -66,5 +67,10 @@ export default {
   created() {
     this.packageVersion = packageInfo.version;
   },
+  methods: {
+    createImageUrl(name) {
+      return new URL(`/src/assets/${name}`, import.meta.url).href;
+    }
+  }
 };
 </script>
