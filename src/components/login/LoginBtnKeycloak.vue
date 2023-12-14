@@ -1,6 +1,17 @@
 <template>
   <div>
-    <div v-if="!isUserLoggedIn">
+    <div v-if="showDashboardLink">
+      <button
+        type="button"
+        class="bg-sky-600 font-medium px-4 py-2 shadow-sm rounded-md text-white
+                hover:bg-sky-700"
+        id="dashboard-link-button"
+        @click="$router.push('dashview/dashboard')"
+      >
+      Dashboard
+      </button>
+    </div>
+    <div v-else-if="!isUserLoggedIn">
       <button
         type="button"
         class="
@@ -23,21 +34,21 @@
     </div>
     <div v-else>
       <button
-          type="button"
-          class="
-              bg-sky-600
-              font-medium
-              px-4
-              py-2
-              shadow-sm
-              rounded-md
-              text-white
-              hover:bg-sky-700
-          "
-          id="user-menu-button"
-          aria-expanded="false"
-          aria-haspopup="true"
-          @click="authService.logoutKeycloak()"
+        type="button"
+        class="
+          bg-sky-600
+          font-medium
+          px-4
+          py-2
+          shadow-sm
+          rounded-md
+          text-white
+          hover:bg-sky-700
+        "
+        id="user-menu-button"
+        aria-expanded="false"
+        aria-haspopup="true"
+        @click="authService.logoutKeycloak()"
       >
         Logout
       </button>
@@ -54,6 +65,11 @@ export default {
   props: [
     "authService"
   ],
+  computed: {
+    showDashboardLink() {
+      return this.isUserLoggedIn && !this.$router.currentRoute.value.path.includes("dashview")
+    }
+  },
 
   async created() {
     this.authService.addLoggedInListener((newVal) => {

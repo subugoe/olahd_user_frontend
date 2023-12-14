@@ -22,9 +22,18 @@ export default {
   data() {
     return {
       isUserLoggedIn: false,
+      listenerKey: -1,
     }
   },
+  async unmounted() {
+    authService.removeLoggedInListener(this.listenerKey);
+  },
   async mounted() {
+    var self = this
+    this.listenerKey = authService.addLoggedInListener((newVal) => {
+      console.log("new value set")
+      self.isUserLoggedIn = newVal
+    })
     this.isUserLoggedIn = await authService.isUserLoggedIn();
     // Close any open menu accordions when window is resized below 768px
     $(window).resize(function () {

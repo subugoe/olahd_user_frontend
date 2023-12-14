@@ -33,20 +33,8 @@
           </div>
           <div class="flex ">
             <div class="ml-3 mr-3 relative w-max">
-              <div v-show="!show_dashboard_link">
-                <LoginBtnCustom :authService="authService" v-if="isCustomLogin" />
-                <LoginBtnKeycloak :authService="authService" v-else />
-              </div>
-              <button
-                v-show="show_dashboard_link"
-                type="button"
-                class="bg-sky-600 font-medium px-4 py-2 shadow-sm rounded-md text-white
-                       hover:bg-sky-700"
-                id="dashboard-link-button"
-                @click="$router.push('dashview/dashboard')"
-              >
-              Dashboard
-              </button>
+              <LoginBtnCustom :authService="authService" v-if="isCustomLogin" />
+              <LoginBtnKeycloak :authService="authService" v-else />
             </div>
           </div>
         </div>
@@ -65,8 +53,7 @@ export default {
   components: { Search, LoginBtnCustom, LoginBtnKeycloak },
   data() {
     return {
-      authService: authService,
-      show_dashboard_link: false,
+      authService: authService
     };
   },
   computed: {
@@ -75,21 +62,8 @@ export default {
     },
     isCustomLogin() {
       return !this.authService.isKeycloak()
-    },
-  },
-  methods: {
-    update_show_dashboard_link() {
-      if (this.authService.isUserLoggedIn()
-          && !this.$router.currentRoute.value.path.includes("dashview")) {
-        this.show_dashboard_link = true;
-      } else {
-        this.show_dashboard_link = false;
-      }
     }
   },
-  watch: {
-    $route: "update_show_dashboard_link",
-  }
 };
 </script>
 
