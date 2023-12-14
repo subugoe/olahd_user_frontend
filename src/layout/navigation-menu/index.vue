@@ -79,13 +79,10 @@ export default {
   },
   methods: {
     update_show_dashboard_link() {
-      console.log("router pfad: " + this.$router.currentRoute.value.path);
       if (this.authService.isUserLoggedIn()
           && !this.$router.currentRoute.value.path.includes("dashview")) {
-        console.log("router pfad: ja, zeigen");
         this.show_dashboard_link = true;
       } else {
-        console.log("router pfad: nicht zeigen");
         this.show_dashboard_link = false;
       }
     }
