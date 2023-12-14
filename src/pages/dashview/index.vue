@@ -31,7 +31,6 @@ export default {
   async mounted() {
     var self = this
     this.listenerKey = authService.addLoggedInListener((newVal) => {
-      console.log("new value set")
       self.isUserLoggedIn = newVal
     })
     this.isUserLoggedIn = await authService.isUserLoggedIn();

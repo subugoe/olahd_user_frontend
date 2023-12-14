@@ -87,13 +87,12 @@ router.beforeEach(async (to, from, next) => {
       } catch (error) {
         next('/');
       }
-      // this is indirectly used to propagate the login status to its listeners      
+      // this is indirectly used to propagate the login status to its listeners
       authService.isUserLoggedIn()
     } else if (to.path === '/logout') {
       // This is similar to the "/callback" route not leading to an actual component but only to handle the logout callback from the authentication server.
       await authService.handleLogoutRedirect()
       next('/');
-      console.log("logout-redirect handle next");
     }
   } else {
     // Default case. The user is send to the desired route.
