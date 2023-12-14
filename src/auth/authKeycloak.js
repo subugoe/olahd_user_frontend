@@ -20,7 +20,8 @@ class KeycloakAuthService {
 
   constructor() {
     this._loggedIn = false;
-    this._loggedInListeners = [];
+    this._loggedInListeners = new Map();
+    this.listenerKeyGenerator = 0
   }
 
   set loggedIn(value) {
@@ -29,7 +30,12 @@ class KeycloakAuthService {
   }
 
   addLoggedInListener(fn) {
-    this._loggedInListeners.push(fn)
+    this._loggedInListeners.set(++this.listenerKeyGenerator, fn)
+    return this.listenerKeyGenerator
+  }
+
+  removeLoggedInListener(key) {
+    this._loggedInListeners.delete(key)
   }
 
   /**

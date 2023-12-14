@@ -14,7 +14,8 @@ class CustomAuthService {
 
   constructor() {
     this._loggedIn = false;
-    this._loggedInListeners = [];
+    this._loggedInListeners = new Map();
+    this.listenerKeyGenerator = 0
     this.token = null;
     this.username = null;
     this.expiredTime = 0;
@@ -26,7 +27,12 @@ class CustomAuthService {
   }
 
   addLoggedInListener(fn) {
-    this._loggedInListeners.push(fn)
+    this._loggedInListeners.set(++this.listenerKeyGenerator, fn)
+    return this.listenerKeyGenerator
+  }
+
+  removeLoggedInListener(key) {
+    this._loggedInListeners.delete(key)
   }
 
   isUserLoggedIn() {
@@ -46,7 +52,7 @@ class CustomAuthService {
         this.token = response.data.accessToken,
         this.expiredTime = response.data.expiredTime,
         this.username = username,
-        this._loggedIn = true;
+        this.loggedIn = true;
       });
   }
 
@@ -54,7 +60,7 @@ class CustomAuthService {
     this.token = null;
     this.username = null;
     this.expiredTime = 0;
-    this._loggedIn = false;
+    this.loggedIn = false;
   }
 
   getAccessToken() {
