@@ -25,3 +25,5 @@ yarn-error.log*
 *.iml
 
 docker-compose.https.yaml
+
+cypress.env.json
