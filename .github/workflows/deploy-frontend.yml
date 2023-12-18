@@ -88,3 +88,5 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           config: baseUrl=${{ secrets.BASE_URL_TESTS_DEVELOP }}
+        env:
+          CYPRESS_PASSWORD: ${{ secrets.OLAHD_LOGIN_PASSWORD }}
