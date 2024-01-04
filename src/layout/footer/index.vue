@@ -2,7 +2,7 @@
   <footer>
     <div class="bg-gray-700">
       <div class="grid grid-cols-3 gap-4 py-2">
-        <div class="flex flex-1 items-center ml-10">
+        <div class="flex flex-1 items-center ml-10 space-x-2 text-sm">
           <router-link
             class="flex flex-1"
             as="nav"
@@ -27,6 +27,7 @@
           >
             <span class="nav-link text-white hover:text-sky-700">Impressum</span>
           </router-link>
+          <a href="https://www.sub.uni-goettingen.de/impressum/datenschutzhinweis/" target="_blank" class="nav-link text-white hover:text-sky-700">Datenschutzhinweis</a>
         </div>
 
         <div class="flex flex-1 justify-between items-center">
