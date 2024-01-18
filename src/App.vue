@@ -4,7 +4,9 @@
     <div class="h-14" />
     <Main v-if="isHeaderVisible"></Main>
     <div class="flex flex-1 flex-col">
-      <RouterView />
+      <Router-View v-slot="{ Component, route }">
+        <component :is="Component" :key="$route.fullPath" />
+      </Router-View>
     </div>
     <Footer />
   </div>
