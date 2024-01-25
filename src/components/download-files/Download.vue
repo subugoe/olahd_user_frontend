@@ -41,7 +41,10 @@
             <b>{{ slotProps.node.label }} ({{ slotProps.node.children.length }})</b>
           </template>
           <template #leaf="slotProps">
-            {{ slotProps.node.label }} - <a :href="buildUrl(pid, slotProps.node.key)" target="_blank" class="text-sky-500 hover:text-slate-700">View</a>
+            {{ slotProps.node.label }}
+            <span v-if="!slotProps.node.isDisabled" >
+              - <a :href="buildUrl(pid, slotProps.node.key)" target="_blank" class="text-sky-500 hover:text-slate-700">View</a>
+            </span>
           </template>
         </Tree>
         <button @click="download" class="
@@ -96,7 +99,7 @@ export default {
   },
   computed: {
     isOpen() {
-      return this.archiveInfo.state !== "archived";
+      return this.archiveInfo.state == "open" || this.archiveInfo.state == "locked";
     },
     isDisabled() {
       return !this.isOpen || this.value.length < 1;
