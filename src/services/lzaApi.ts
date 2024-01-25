@@ -15,11 +15,11 @@ export default {
         });
     },
 
-    getArchiveInfo(id: string, limit: number, offset: number) {
+    getArchiveInfo(id: string, limit: number, offset: number, withFile: boolean) {
         return axios.get(`/search-archive`, {
             params: {
                 id,
-                withFile: true,
+                withFile,
                 limit,
                 offset,
             },

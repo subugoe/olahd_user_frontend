@@ -47,7 +47,7 @@
             </span>
           </template>
         </Tree>
-        <button @click="download" class="
+        <button @click="download" :disabled="!isOpen" class="
             rounded
             border
             px-3
@@ -60,6 +60,8 @@
             dark:hover:bg-gray-700
             whitespace-nowrap
             max-h-9
+            disabled:bg-sky-200
+            disabled:border-sky-200
           ">
           <i class="fas fa-download" /> {{ "Download" }}
         </button>
@@ -187,7 +189,7 @@ export default {
 
       try {
         while (true) {
-          let response = await lzaApi.getArchiveInfo(this.pid, limit, offset);
+          let response = await lzaApi.getArchiveInfo(this.pid, limit, offset, true);
           if (firstCall) {
             // Store all data for the first call
             this.archiveInfo = response.data;
