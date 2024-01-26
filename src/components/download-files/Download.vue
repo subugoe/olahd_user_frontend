@@ -88,6 +88,10 @@ export default {
       type: String,
       default: "",
     },
+    isUserLoggedIn: {
+      type: Boolean,
+      default: false,
+    }
   },
   data() {
     return {
@@ -101,7 +105,8 @@ export default {
   },
   computed: {
     isOpen() {
-      return this.archiveInfo.state == "open" || this.archiveInfo.state == "locked";
+      return this.archiveInfo.state == "open"
+        || (this.archiveInfo.state == "locked" && this.isUserLoggedIn);
     },
     isDisabled() {
       return !this.isOpen || this.value.length < 1;

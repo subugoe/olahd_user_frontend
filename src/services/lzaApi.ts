@@ -53,6 +53,21 @@ export default {
         });
     },
 
+    exportFullArchive(pid: string) {
+        const url = `${this.getBaseUrl()}export-full?id=${pid}&isInternal=false`;
+        return fetch(url, {
+            method: 'GET',
+        });
+    },
+
+    exportRequest(pid: string) {
+        return axios.get(`/export-request`, {
+            params: {
+                id: pid,
+            },
+        });
+    },
+
     getBaseUrl() {
         let baseURL = axios.defaults.baseURL ? axios.defaults.baseURL : '/api/';
         baseURL += baseURL.endsWith('/') ? '' : '/';
