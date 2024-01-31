@@ -22,7 +22,8 @@
         </div>
       </div>
     </div>
-
+    <!-- Message if archived was just moved from tape to disk -->
+    <span v-if="moveTriggered">Request accepted. Data is being transferred from tape to hard drive.</span>
     <div class="row" v-if="loading">
       <div class="col text-center">
         <img src="@/assets/spin-1s-100px.gif" alt="Searching" />
@@ -60,7 +61,7 @@
         >
           <h4 class="text-base">{{ title }}</h4>
           <div>
-            <button @click="exportArchive" :class="buttonClass">
+            <button @click="exportArchive" :class="buttonClass" :disabled="!isOpen">
               <i class="fas fa-download mr-1" />
               {{ "Export" }}
             </button>
@@ -89,48 +90,65 @@
 
       <!-- File structure -->
       <section class="border rounded mt-4">
-        <download-files :pid="this.id" />
+        <Download :pid="this.id" :isUserLoggedIn="this.isUserLoggedIn"/>
       </section>
 
       <!-- Version -->
       <section class="border rounded mt-4 mb-4">
         <versions :pid="this.id" />
       </section>
-      <a target="_blank" class="text-sky-500 hover:text-sky-700" :href=linkToDfgviewer>
-        Open in DFG viewer
-      </a>
+
+      <div class="grid grid-cols-1 gap-2 content-start my-5">
+        <button v-show="showExportRequestButton" class="text-sky-500 hover:text-sky-700 w-fit"
+          @click="moveArchive" >
+            Move archive from tape to disk
+          </button>
+          <a target="_blank" class="text-sky-500 hover:text-sky-700" :href=linkToDfgviewer>
+            Open in DFG viewer
+        </a>
+      </div>
     </template>
   </div>
 </template>
 
 <script>
 import lzaApi from "@/services/lzaApi";
-import DownloadFiles from "../../components/download-files/Download.vue";
+import Download from "../../components/download-files/Download.vue";
 import Versions from "../../components/version/Versions.vue";
 import { WritableStream } from "web-streams-polyfill/ponyfill";
 import streamSaver from "streamsaver";
+import { authService } from "../../auth/auth";
 
 export default {
   components: {
-    DownloadFiles,
+    Download,
     Versions,
   },
   data() {
     return {
       versionInfo: {},
+      archiveInfo: {},
       error: null,
       error_msg: null,
       loading: true,
       response: null,
       isExpanded: false,
+      isUserLoggedIn: this,
+      listenerKey: -1,
+      moveTriggered: false,
     };
   },
+
   computed: {
     id() {
       return this.$route.query.id;
     },
     buttonClass() {
-      return "rounded border mr-4 px-3 py-1 border-sky-500 bg-sky-500 text-white dark:hover:bg-gray-700";
+      return "rounded border mr-4 px-3 py-1 border-sky-500 bg-sky-500 text-white " +
+        "dark:hover:bg-gray-700 disabled:bg-sky-200 disabled:border-sky-200";
+    },
+    showExportRequestButton() {
+      return this.archiveInfo.state == "archived" && this.isUserLoggedIn && !this.moveTriggered
     },
     info() {
       if (!this.response) {
@@ -183,8 +201,13 @@ export default {
     linkToDfgviewer() {
       var host = window.location.protocol + "//" + window.location.host;
       return 'https://dfg-viewer.de/show/?set[mets]=' + host + '/api/export/mets-web?id=' + this.id
-    }
+    },
+    isOpen() {
+      return this.archiveInfo.state == "open"
+        || (this.archiveInfo.state == "locked" && this.isUserLoggedIn);
+    },
   },
+
   methods: {
     toggleExpand() {
       this.isExpanded = !this.isExpanded;
@@ -193,7 +216,6 @@ export default {
       try {
         this.loading = true;
         const response = await lzaApi.getSearchDetailsById(this.id);
-
         this.response = response.data;
       } catch (error) {
         if (error && error.message && error.message.includes("404")) {
@@ -206,17 +228,46 @@ export default {
         this.loading = false;
       }
     },
+    async loadArchiveInfo() {
+      let response = await lzaApi.getArchiveInfo(this.id, 0, 0, false);
+      this.archiveInfo = response.data;
+    },
 
     exportArchive() {
-      lzaApi
-        .exportArchive(this.id)
-        .then((response) => {
-          this.consumeDownloadStream(response);
-        })
-        .catch((error) => {
-          this.error_msg = "Unknown error when exporting archive"
-          this.error = true;
-        });
+      if (this.archiveInfo.state == 'open') {
+        lzaApi
+          .exportArchive(this.id)
+          .then((response) => {
+            this.consumeDownloadStream(response);
+          })
+          .catch((error) => {
+            this.error_msg = "Unknown error when exporting archive"
+            this.error = true;
+          });
+      } else if (this.archiveInfo.state == 'locked' && this.isLoggedIn){
+        lzaApi
+          .exportFullArchive(this.id)
+          .then((response) => {
+            this.consumeDownloadStream(response);
+          })
+          .catch((error) => {
+            this.error_msg = "Unknown error when exporting full archive"
+            this.error = true;
+          });
+      }
+    },
+
+    moveArchive() {
+      if (!this.moveTriggered) {
+        lzaApi.exportRequest(this.id)
+          .then((response) => {
+            this.moveTriggered = true
+          })
+          .catch((error) => {
+            this.error_msg = "Moving archive from tape to disk failed"
+            this.error = true;
+          });
+      }
     },
 
     consumeDownloadStream(response) {
@@ -257,6 +308,17 @@ export default {
   },
   async created() {
     await this.loadData();
+    await this.loadArchiveInfo();
+  },
+  async unmounted() {
+    authService.removeLoggedInListener(this.listenerKey);
+  },
+  async mounted() {
+    var self = this
+    this.listenerKey = authService.addLoggedInListener((newVal) => {
+      self.isUserLoggedIn = newVal
+    })
+    this.isUserLoggedIn = await authService.isUserLoggedIn();
   },
   watch: {
     "$route.params.id": "loadData",

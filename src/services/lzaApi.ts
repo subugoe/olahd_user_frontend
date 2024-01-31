@@ -15,11 +15,11 @@ export default {
         });
     },
 
-    getArchiveInfo(id: string, limit: number, offset: number) {
+    getArchiveInfo(id: string, limit: number, offset: number, withFile: boolean) {
         return axios.get(`/search-archive`, {
             params: {
                 id,
-                withFile: true,
+                withFile,
                 limit,
                 offset,
             },
@@ -50,6 +50,21 @@ export default {
         const url = `${this.getBaseUrl()}export?id=${pid}&isInternal=false`;
         return fetch(url, {
             method: 'GET',
+        });
+    },
+
+    exportFullArchive(pid: string) {
+        const url = `${this.getBaseUrl()}export-full?id=${pid}&isInternal=false`;
+        return fetch(url, {
+            method: 'GET',
+        });
+    },
+
+    exportRequest(pid: string) {
+        return axios.get(`/export-request`, {
+            params: {
+                id: pid,
+            },
         });
     },
 

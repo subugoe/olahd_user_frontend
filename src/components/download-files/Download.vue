@@ -41,10 +41,13 @@
             <b>{{ slotProps.node.label }} ({{ slotProps.node.children.length }})</b>
           </template>
           <template #leaf="slotProps">
-            {{ slotProps.node.label }} - <a :href="buildUrl(pid, slotProps.node.key)" target="_blank" class="text-sky-500 hover:text-slate-700">View</a>
+            {{ slotProps.node.label }}
+            <span v-if="!slotProps.node.isDisabled" >
+              - <a :href="buildUrl(pid, slotProps.node.key)" target="_blank" class="text-sky-500 hover:text-slate-700">View</a>
+            </span>
           </template>
         </Tree>
-        <button @click="download" class="
+        <button @click="download" :disabled="!isOpen" class="
             rounded
             border
             px-3
@@ -57,6 +60,8 @@
             dark:hover:bg-gray-700
             whitespace-nowrap
             max-h-9
+            disabled:bg-sky-200
+            disabled:border-sky-200
           ">
           <i class="fas fa-download" /> {{ "Download" }}
         </button>
@@ -83,6 +88,10 @@ export default {
       type: String,
       default: "",
     },
+    isUserLoggedIn: {
+      type: Boolean,
+      default: false,
+    }
   },
   data() {
     return {
@@ -96,7 +105,8 @@ export default {
   },
   computed: {
     isOpen() {
-      return this.archiveInfo.state !== "archived";
+      return this.archiveInfo.state == "open"
+        || (this.archiveInfo.state == "locked" && this.isUserLoggedIn);
     },
     isDisabled() {
       return !this.isOpen || this.value.length < 1;
@@ -184,7 +194,7 @@ export default {
 
       try {
         while (true) {
-          let response = await lzaApi.getArchiveInfo(this.pid, limit, offset);
+          let response = await lzaApi.getArchiveInfo(this.pid, limit, offset, true);
           if (firstCall) {
             // Store all data for the first call
             this.archiveInfo = response.data;

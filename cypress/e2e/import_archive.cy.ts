@@ -37,6 +37,7 @@ describe("Import first Archive", () => {
 describe("Test import validation", () => {
   it("Invalid mets should be rejected with appropriate error", () => {
     uploadArchive("cypress/fixtures/example_invalid_mets_structure.ocrd.zip")
+    cy.wait(2000)
     cy.contains("Failed")
   });
 });
