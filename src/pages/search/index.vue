@@ -36,6 +36,7 @@
       </div>
     </div>
 
+    <extra-filters @extraFilter="takeExtraFilter"/>
     <template v-if="hasResult">
       <!-- Search result -->
 
@@ -90,12 +91,20 @@
 <script>
 import lzaApi from "@/services/lzaApi";
 import Pagination from "@/components/pagination/Pagination.vue";
-import SearchGroup from "../../components/search/SearchGroup.vue";
+import SearchGroup from "@/components/search/SearchGroup.vue";
+import ExtraFilters from "@/components/search/ExtraFilters.vue";
 import SearchResult from "@/components/search/SearchResult.vue";
 
 export default {
+  components: {
+    Pagination,
+    SearchResult,
+    SearchGroup,
+    ExtraFilters,
+  },
   data() {
     return {
+      extraFilter: {},
       currentFacets: {},
       error: null,
       initialFacets: [],
@@ -169,11 +178,6 @@ export default {
       }
       return this.results.hits;
     },
-  },
-  components: {
-    Pagination,
-    SearchResult,
-    SearchGroup,
   },
   methods: {
     onFilterChange(name, value) {
@@ -292,6 +296,9 @@ export default {
         this.error = true;
       }
     },
+    takeExtraFilter(key, value) {
+      this.extraFilter[key] = value
+    }
   },
   mounted() {
     this.search();
