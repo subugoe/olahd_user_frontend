@@ -28,10 +28,14 @@
       </div>
     </div>
     <!-- TODO: make button show/hide the extra filters on click-->
-    <button class="text-sm search-item-link text-sky-600 hover:text-sky90">
+    <button @click="showExtraFilters = !showExtraFilters" class="text-sm search-item-link text-sky-600 hover:text-sky90">
       Advanced Search Fields
     </button>
-    <extra-filters :extraFilters="extraFilters" :onFilterChange="handleExtraFilterChange" />
+    <extra-filters
+      v-show="showExtraFilters"
+      :extraFilters="extraFilters"
+      :onFilterChange="handleExtraFilterChange"
+    />
     <template v-if="hasResult">
       <!-- Search result -->
 
@@ -82,6 +86,8 @@ import Pagination from "@/components/pagination/Pagination.vue";
 import SearchGroup from "@/components/search/SearchGroup.vue";
 import ExtraFilters from "@/components/search/ExtraFilters.vue";
 import SearchResult from "@/components/search/SearchResult.vue";
+import { mystore } from '@/store';
+import { mapWritableState } from 'pinia';
 
 export default {
   components: {
@@ -104,6 +110,7 @@ export default {
     };
   },
   computed: {
+    ...mapWritableState(mystore, ['showExtraFilters']),
     maxResultsSize() {
       return Number(this.$route.query.perPageRecords || 10);
     },
@@ -166,6 +173,8 @@ export default {
       return this.results.hits;
     },
     extraFilters() {
+      // this is needed. Put filter value and hide/show will otherwise remove value from textfields
+      this.showExtraFilters
       return {
         "author": this.$route.query.author || "",
         "title": this.$route.query.title || "",
