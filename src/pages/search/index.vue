@@ -27,15 +27,35 @@
         </div>
       </div>
     </div>
-    <!-- TODO: make button show/hide the extra filters on click-->
-    <button @click="showExtraFilters = !showExtraFilters" class="text-sm search-item-link text-sky-600 hover:text-sky90">
+    <button @click="showExtraFilters = !showExtraFilters"
+      class="text-sm search-item-link text-sky-600 hover:text-sky90"
+    >
       Advanced Search Fields
     </button>
     <extra-filters
-      v-show="showExtraFilters"
-      :extraFilters="extraFilters"
-      :onFilterChange="handleExtraFilterChange"
+    v-show="showExtraFilters"
+    :extraFilters="extraFilters"
+    :onFilterChange="handleExtraFilterChange"
     />
+    <div class="flex justify-end">
+      <button
+          v-show="showExtraFilters"
+          class="bg-sky-600
+            font-medium
+            px-3
+            py-1
+            mt-1
+            shadow-sm
+            rounded-md
+            text-white
+            hover:bg-sky-700
+            float-right
+            clear-both"
+          @click="search"
+        >
+          Search
+      </button>
+    </div>
     <template v-if="hasResult">
       <!-- Search result -->
 
@@ -173,8 +193,6 @@ export default {
       return this.results.hits;
     },
     extraFilters() {
-      // this is needed. Put filter value and hide/show will otherwise remove value from textfields
-      this.showExtraFilters
       return {
         "author": this.$route.query.author || "",
         "title": this.$route.query.title || "",
@@ -206,6 +224,7 @@ export default {
     handleExtraFilterChange(extraFilters) {
       for (const [key, value] of Object.entries(extraFilters)) {
         this.$route.query[key] = value
+        this.extraFilters[key] = value
       }
     },
     handleFacetChange(name, selectedFacets) {
