@@ -40,17 +40,7 @@
     <div class="flex justify-end">
       <button
           v-show="showExtraFilters"
-          class="bg-sky-600
-            font-medium
-            px-3
-            py-1
-            mt-1
-            shadow-sm
-            rounded-md
-            text-white
-            hover:bg-sky-700
-            float-right
-            clear-both"
+          class="normal-blue-button"
           @click="search"
         >
           Search

@@ -45,27 +45,14 @@
 
       <!-- Full details -->
       <section class="border rounded">
-        <div
-          class="
-            bg-gray-100
-            text-gray-700
-            flex
-            items-center
-            justify-between
-            flex-1
-            px-4
-            py-2
-            rounded-t
-            border-b
-          "
-        >
+        <div class="gray-div-header" >
           <h4 class="text-base">{{ title }}</h4>
           <div>
-            <button @click="exportArchive" :class="buttonClass" :disabled="!isOpen">
+            <button @click="exportArchive" class="detail-blue-button" :disabled="!isOpen">
               <i class="fas fa-download mr-1" />
               {{ "Export" }}
             </button>
-            <button @click="toggleExpand" :class="buttonClass">
+            <button @click="toggleExpand" class="detail-blue-button">
               <i
                 :class="[
                   isExpanded ? 'fa-angle-double-up' : 'fa-angle-double-down',
@@ -142,10 +129,6 @@ export default {
   computed: {
     id() {
       return this.$route.query.id;
-    },
-    buttonClass() {
-      return "rounded border mr-4 px-3 py-1 border-sky-500 bg-sky-500 text-white " +
-        "dark:hover:bg-gray-700 disabled:bg-sky-200 disabled:border-sky-200";
     },
     showExportRequestButton() {
       return this.archiveInfo.state == "archived" && this.isUserLoggedIn && !this.moveTriggered

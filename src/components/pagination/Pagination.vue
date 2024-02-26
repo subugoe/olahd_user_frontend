@@ -12,6 +12,7 @@
       font-montserrat
     "
   >
+  <!--TODO: here css classes can be DRY-->
     <ul class="flex items-center">
       <li class="pr-4" v-if="hasPrev()">
         <a href="#" @click.prevent="changePage(prevPage)">
