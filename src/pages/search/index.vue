@@ -3,17 +3,9 @@
     <!-- Error message -->
     <div class="row my-3" v-if="error">
       <div class="col">
-        <div
-          class="alert alert-danger alert-dismissible fade show"
-          role="alert"
-        >
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
           <strong>Error!</strong> An error has occurred. Please try again.
-          <button
-            type="button"
-            class="close"
-            data-dismiss="alert"
-            aria-label="Close"
-          >
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -35,8 +27,11 @@
         </div>
       </div>
     </div>
-
-    <extra-filters @extraFilter="takeExtraFilter"/>
+    <!-- TODO: make button show/hide the extra filters on click-->
+    <button class="text-sm search-item-link text-sky-600 hover:text-sky90">
+      Advanced Search Fields
+    </button>
+    <extra-filters :extraFilters="extraFilters" :onFilterChange="handleExtraFilterChange" />
     <template v-if="hasResult">
       <!-- Search result -->
 
@@ -49,10 +44,7 @@
 
           <div>
             Items per Page:
-            <select
-              :value="maxResultsSize"
-              @change="handlePageSizeChange($event)"
-            >
+            <select :value="maxResultsSize" @change="handlePageSizeChange($event)">
               <option v-for="size in pageSizes" :key="size" :value="size">
                 {{ size }}
               </option>
@@ -65,11 +57,7 @@
               <SearchResult :item="result"></SearchResult>
             </div>
           </div>
-          <Pagination
-            :current="page"
-            :total="total"
-            @page-changed="current = $event"
-          />
+          <Pagination :current="page" :total="total" @page-changed="current = $event" />
         </div>
 
         <div class="border rounded-md bg-gray-50 flex flex-col">
@@ -104,7 +92,6 @@ export default {
   },
   data() {
     return {
-      extraFilter: {},
       currentFacets: {},
       error: null,
       initialFacets: [],
@@ -178,6 +165,14 @@ export default {
       }
       return this.results.hits;
     },
+    extraFilters() {
+      return {
+        "author": this.$route.query.author || "",
+        "title": this.$route.query.title || "",
+        "place": this.$route.query.place || "",
+        "year": this.$route.query.year || "",
+      }
+    },
   },
   methods: {
     onFilterChange(name, value) {
@@ -198,6 +193,11 @@ export default {
         return "px-4 py-2 text-sky-500 border-sky-500 rounded-md border";
       }
       return "px-4 py-2 bg-sky-500 border-sky-500 rounded-md text-white";
+    },
+    handleExtraFilterChange(extraFilters) {
+      for (const [key, value] of Object.entries(extraFilters)) {
+        this.$route.query[key] = value
+      }
     },
     handleFacetChange(name, selectedFacets) {
       const query = { ...this.$route.query };
@@ -232,7 +232,9 @@ export default {
       const { q, page, perPageRecords = "10", ...rest } = this.$route.query;
 
       let facetQuery = [];
-      const nonFacetFields = ["isGT", "fulltextsearch", "metadatasearch"];
+      const nonFacetFields = [
+        "isGT", "fulltextsearch", "metadatasearch", "author", "title", "place", "year"
+      ];
 
       Object.entries(rest).forEach(([field, values]) => {
         if (!nonFacetFields.includes(field)) {
@@ -252,6 +254,10 @@ export default {
             searchterm: this.query,
             limit: this.maxResultsSize,
             offset: (this.page - 1) * this.maxResultsSize,
+            author: this.extraFilters['author'] || "",
+            title: this.extraFilters['title'] || "",
+            place: this.extraFilters['place'] || "",
+            year: this.extraFilters['year'] || "",
           },
           facetQuery.join("&")
         )
@@ -286,6 +292,10 @@ export default {
             metadatasearch: this.metadatasearch,
             isGT: this.isGT,
             searchterm: q,
+            author: this.extraFilters['author'] || "",
+            title: this.extraFilters['title'] || "",
+            place: this.extraFilters['place'] || "",
+            year: this.extraFilters['year'] || "",
             limit: this.maxResultsSize,
             offset: 0,
           },
@@ -296,16 +306,13 @@ export default {
         this.error = true;
       }
     },
-    takeExtraFilter(key, value) {
-      this.extraFilter[key] = value
-    }
   },
   mounted() {
     this.search();
   },
-  watch: {
+  /*watch: {
     $route: "search",
-  },
+  },*/
 };
 </script>
 
