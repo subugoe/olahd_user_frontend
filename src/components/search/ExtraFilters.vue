@@ -1,5 +1,5 @@
 <template>
-  <div class="grid grid-cols-4 border rounded-md px-3 py-3 bg-gray-50 search-item">
+  <div class="grid grid-cols-4 border rounded-md px-3 py-3 bg-gray-50">
     <div>
       <span class="text-sm font-medium text-sky-900 dark:text-sky-300 m-1 px-1">Author:</span>
       <input type="text" class="w-56 px-1 m-1 border rounded-sm" :value="extraFilters['author']"
