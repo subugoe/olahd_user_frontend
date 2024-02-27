@@ -33,17 +33,17 @@
       Advanced Search Fields
     </button>
     <extra-filters
-    v-show="showExtraFilters"
-    :extraFilters="extraFilters"
-    :onFilterChange="handleExtraFilterChange"
+      v-show="showExtraFilters"
+      :extraFilters="extraFilters"
+      :onFilterChange="handleExtraFilterChange"
     />
     <div class="flex justify-end">
       <button
-          v-show="showExtraFilters"
-          class="normal-blue-button"
-          @click="search"
-        >
-          Search
+        v-show="showExtraFilters"
+        class="normal-blue-button"
+        @click="search"
+      >
+        Search
       </button>
     </div>
     <template v-if="hasResult">
@@ -71,7 +71,7 @@
               <SearchResult :item="result"></SearchResult>
             </div>
           </div>
-          <Pagination :current="page" :total="total" @page-changed="current = $event" />
+          <Pagination :current="page" :total="total" />
         </div>
 
         <div class="border rounded-md bg-gray-50 flex flex-col">
@@ -202,7 +202,10 @@ export default {
       }
       this.$router.push({
         name: "search",
-        query,
+        query: {
+          ...query,
+          page: 1,
+        }
       });
     },
     buttonClass(number) {
@@ -230,7 +233,10 @@ export default {
       }
       this.$router.push({
         name: "search",
-        query: JSON.parse(JSON.stringify(query)),
+        query: {
+          ...JSON.parse(JSON.stringify(query)),
+          page: 1
+        }
       });
     },
     handlePageSizeChange(event) {
