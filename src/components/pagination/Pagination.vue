@@ -16,15 +16,7 @@
       <li class="pr-4" v-if="hasPrev()">
         <a href="#" @click.prevent="changePage(prevPage)">
           <div
-            class="
-              flex
-              items-center
-              justify-center
-              hover:bg-gray-200
-              rounded-md
-              h-6
-              w-6
-            "
+            class="page-item"
           >
             <i class="fas fa-angle-left"></i>
           </div>
@@ -33,17 +25,7 @@
       <li class="pr-4" v-if="hasFirst()">
         <a href="#" @click.prevent="changePage(1)">
           <div
-            class="
-              flex
-              hover:bg-gray-200
-              rounded-md
-              transform
-              rotate-45
-              h-6
-              w-6
-              items-center
-              justify-center
-            "
+            class="page-item transform rotate-45"
           >
             <span class="transform -rotate-45"> 1 </span>
           </div>
@@ -56,17 +38,7 @@
             :class="{
               'bg-gradient-to-r from-sky-200 to-sky-600': current == page,
             }"
-            class="
-              flex
-              hover:bg-gray-200
-              rounded-md
-              transform
-              rotate-45
-              h-6
-              w-6
-              items-center
-              justify-center
-            "
+            class="page-item transform rotate-45"
           >
             <span class="transform -rotate-45">{{ page }}</span>
           </div>
@@ -76,20 +48,10 @@
       <li class="pr-4" v-if="hasLast()">
         <a href="#" @click.prevent="changePage(totalPages)">
           <div
-            class="
-              flex
-              hover:bg-gray-200
-              rounded-md
-              transform
-              rotate-45
-              h-6
-              w-6
-              items-center
-              justify-center
-            "
+            class="page-item transform rotate-45"
           >
             <span class="transform -rotate-45">
-              {{ totalPages }}
+              {{ totalPages }} a
             </span>
           </div>
         </a>
@@ -97,15 +59,7 @@
       <li class="pr-4" v-if="hasNext()">
         <a href="#" @click.prevent="changePage(nextPage)">
           <div
-            class="
-              flex
-              items-center
-              justify-center
-              hover:bg-gray-200
-              rounded-md
-              h-6
-              w-6
-            "
+            class="page-item"
           >
             <i class="fas fa-angle-right"></i>
           </div>
@@ -234,4 +188,11 @@ export default {
 </script>
 
 <style scoped>
+.page-item {
+    @apply flex items-center justify-center hover:bg-gray-200 rounded-md h-6 w-6
+}
+
+.page-item:hover {
+    @apply bg-gray-200
+}
 </style>

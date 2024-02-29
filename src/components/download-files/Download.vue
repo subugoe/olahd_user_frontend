@@ -1,22 +1,9 @@
 <template>
   <section>
-    <div class="
-        bg-gray-100
-        text-gray-700
-        flex
-        items-center
-        justify-between
-        flex-1
-        px-4
-        py-2
-        rounded-t
-        border-b
-      ">
+    <div class="gray-div-header">
       <h4 class="text-base">{{ "File structure" }}</h4>
       <div>
-        <button @click="toggleExpand"
-          class="rounded border mr-4 px-3 py-1 border-sky-500 bg-sky-500 text-white dark:hover:bg-gray-700"
-        >
+        <button @click="toggleExpand" class="detail-blue-button">
           <i
             :class="[
               Object.keys(this.expandedKeys).length ? 'fa-angle-double-up' : 'fa-angle-double-down',
@@ -47,22 +34,8 @@
             </span>
           </template>
         </Tree>
-        <button @click="download" :disabled="!isOpen" class="
-            rounded
-            border
-            px-3
-            py-1
-            mr-4
-            ml-4
-            border-sky-500
-            bg-sky-500
-            text-white
-            dark:hover:bg-gray-700
-            whitespace-nowrap
-            max-h-9
-            disabled:bg-sky-200
-            disabled:border-sky-200
-          ">
+        <button @click="download" :disabled="!isOpen"
+          class="detail-blue-button whitespace-nowrap max-h-9">
           <i class="fas fa-download" /> {{ "Download" }}
         </button>
       </div>

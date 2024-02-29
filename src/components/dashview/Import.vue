@@ -97,20 +97,7 @@
 
           <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
           <div class="flex justify-end">
-            <button
-              type="submit"
-              class="
-                bg-sky-600
-                font-medium
-                px-4
-                py-2
-                mt-4
-                shadow-sm
-                rounded-md
-                text-white
-                hover:bg-sky-700
-              "
-            >
+            <button type="submit" class="normal-blue-button mt-4">
               Submit
             </button>
           </div>

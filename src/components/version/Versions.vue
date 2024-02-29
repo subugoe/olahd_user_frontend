@@ -1,19 +1,6 @@
 <template>
   <section>
-    <div
-      class="
-        bg-gray-100
-        text-gray-700
-        flex
-        items-center
-        justify-between
-        flex-1
-        px-4
-        py-2
-        rounded-t
-        border-b
-      "
-    >
+    <div class="gray-div-header">
       <h4 class="text-base">{{ "Other versions" }}</h4>
     </div>
     <div class="px-4 py-2 border-b">

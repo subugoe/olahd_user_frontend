@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.normal-blue-button {
+  @apply bg-sky-600 font-medium px-3 py-1 mt-1 shadow-sm text-white rounded-md;
+}
+.normal-blue-button:hover {
+  @apply hover:bg-sky-700
+}
+
+.detail-blue-button {
+    @apply rounded border mr-4 px-3 py-1 border-sky-500 bg-sky-500 text-white
+}
+
+.detail-blue-button:disabled {
+    @apply bg-sky-200 border-sky-200
+}
+
+.gray-div-header {
+    @apply text-gray-700 flex items-center justify-between px-4 py-2 rounded-t border-b
+        bg-gray-100
+}

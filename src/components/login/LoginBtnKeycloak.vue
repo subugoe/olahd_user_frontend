@@ -3,8 +3,7 @@
     <div v-if="showDashboardLink">
       <button
         type="button"
-        class="bg-sky-600 font-medium px-4 py-2 shadow-sm rounded-md text-white
-                hover:bg-sky-700"
+        class="normal-blue-button"
         id="dashboard-link-button"
         @click="$router.push('dashview/dashboard')"
       >
@@ -14,16 +13,7 @@
     <div v-else-if="!isUserLoggedIn">
       <button
         type="button"
-        class="
-            bg-sky-600
-            font-medium
-            px-4
-            py-2
-            shadow-sm
-            rounded-md
-            text-white
-            hover:bg-sky-700
-        "
+        class="normal-blue-button"
         id="user-menu-button"
         aria-expanded="false"
         aria-haspopup="true"
@@ -35,16 +25,7 @@
     <div v-else>
       <button
         type="button"
-        class="
-          bg-sky-600
-          font-medium
-          px-4
-          py-2
-          shadow-sm
-          rounded-md
-          text-white
-          hover:bg-sky-700
-        "
+        class="normal-blue-button"
         id="user-menu-button"
         aria-expanded="false"
         aria-haspopup="true"
