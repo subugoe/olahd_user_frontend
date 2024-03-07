@@ -30,7 +30,7 @@
     <button @click="showExtraFilters = !showExtraFilters"
       class="text-sm text-sky-600 hover:text-sky90"
     >
-      Advanced Search Fields
+      Advanced Search
     </button>
     <extra-filters
       v-show="showExtraFilters"

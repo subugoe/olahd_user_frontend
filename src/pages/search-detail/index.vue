@@ -153,7 +153,7 @@ export default {
           value: source.subtitle || "N/A",
         },
         {
-          label: "Creator",
+          label: "Author",
           value: source.creator || "N/A",
         },
         {

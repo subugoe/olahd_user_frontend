@@ -70,7 +70,7 @@ export default {
           value: item.subtitle || "N/A",
         },
         {
-          label: "Creator",
+          label: "Author",
           value: item.creator || "N/A",
         },
       ];

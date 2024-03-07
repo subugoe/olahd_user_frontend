@@ -124,8 +124,10 @@ export default {
       isExpanded: false,
       value: [],
       labelsMap: {
-        "Publish Year": "Year of Publication",
+        "Titles": "Titles",
+        "Creators": "Authors",
         "Place": "Place of Publication",
+        "Publish Year": "Year of Publication",
       }
     };
   },
