@@ -17,7 +17,6 @@
         <img src="@/assets/spin-1s-100px.gif" alt="Searching" />
       </div>
     </div>
-
     <div class="row mt-3" v-if="!hasResult && !loading">
       <div class="col">
         <div class="card">

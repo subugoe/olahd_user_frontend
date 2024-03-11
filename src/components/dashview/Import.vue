@@ -97,7 +97,7 @@
 
           <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
           <div class="flex justify-end">
-            <button type="submit" class="normal-blue-button mt-4">
+            <button type="submit" class="normal-blue-button mt-4" :disabled="showProgress">
               Submit
             </button>
           </div>

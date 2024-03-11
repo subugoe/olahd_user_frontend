@@ -5,8 +5,11 @@
 .normal-blue-button {
   @apply bg-sky-600 font-medium px-3 py-1 mt-1 shadow-sm text-white rounded-md;
 }
-.normal-blue-button:hover {
+.normal-blue-button:hover:enabled {
   @apply hover:bg-sky-700
+}
+.normal-blue-button:disabled {
+  @apply bg-sky-200 border-sky-200
 }
 
 .detail-blue-button {
