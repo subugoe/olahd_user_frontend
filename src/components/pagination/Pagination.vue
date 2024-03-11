@@ -51,7 +51,7 @@
             class="page-item transform rotate-45"
           >
             <span class="transform -rotate-45">
-              {{ totalPages }} a
+              {{ totalPages }}
             </span>
           </div>
         </a>
