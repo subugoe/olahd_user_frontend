@@ -73,4 +73,12 @@ export default {
         baseURL += baseURL.endsWith('/') ? '' : '/';
         return baseURL;
     },
+
+    getLatestPidForOcrdidentifier(ocrdidentifier: string) {
+        return axios.get(`/search-ocrdid`, {
+            params: {
+                id: ocrdidentifier,
+            },
+        });
+    }
 };

@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from "@/pages/home/index.vue";
 import Search from "@/pages/search/index.vue";
 import SearchDetail from "@/pages/search-detail/index.vue";
+import OcrdIdentifierRedirect from "@/pages/ocrd-identifier/index.vue";
 import DashView from '@/pages/dashview/index.vue'
 import Dashboard from '@/components/dashview/Dashboard.vue'
 import Import from '@/components/dashview/Import.vue'
@@ -64,6 +65,12 @@ const router = createRouter({
           name: "import",
         },
       ],
+    },
+    {
+      path: "/ocrd-identifier",
+      name: "ocrd-identifier-redirect",
+      component: OcrdIdentifierRedirect,
+      props: true,
     },
   ],
 });
