@@ -49,6 +49,12 @@ const router = createRouter({
         import("@/pages/imprint/index.vue"),
     },
     {
+      path: "/data_protection",
+      name: "data_protection",
+      component: () =>
+        import("@/pages/data_protection/index.vue"),
+    },
+    {
       path: "/dashview",
       name: "dashview",
       component: DashView,
