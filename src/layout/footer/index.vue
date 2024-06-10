@@ -9,9 +9,9 @@
           <router-link class="flex flex-1" as="nav" active-class="active" to="/contact">
             <span class="nav-link text-white hover:text-sky-700">Kontakt</span>
           </router-link>
-          <router-link class="flex flex-1" as="nav" active-class="active" to="/imprint">
-            <span class="nav-link text-white hover:text-sky-700">Impressum</span>
-          </router-link>
+          <div class="flex flex-1">
+            <a href="https://ocr-d.de/de/impressum" target="_blank" class="nav-link text-white hover:text-sky-700">Impressum</a>
+          </div>
           <router-link class="flex flex-1" as="nav" active-class="active" to="/data_protection">
             <span class="nav-link text-white hover:text-sky-700">Datenschutzhinweis</span>
           </router-link>

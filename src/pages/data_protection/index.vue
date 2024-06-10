@@ -1,6 +1,6 @@
 <template>
   <section id="data_protection" class="container">
-    <h1>Datenschutzkonzept für OLA-HD Service <a href="https://ola-hd.ocr-d.de/">https://ola-hd.ocr-d.de/</a></h1>
+    <h1>Datenschutzkonzept für OLA-HD Service</h1>
     <p>Datenschutzerklärung</p>
     <p>§ 1 Information über die Erhebung personenbezogener Daten</p>
     <p>(1) Im Folgenden informieren wir über die Verarbeitung
@@ -11,7 +11,7 @@
       Pflichten, insbesondere aus der EU-Datenschutzgrundverordnung (EU-DSGVO)
       nachkommen.</p>
     <p>(2) Verantwortlicher gem. Art. 4 Nr. 7 EU-DSGVO ist die Herzog August
-      Bibliothek Wolfenbüttel (siehe Impressum der Domain ocr-d.de).</p>
+      Bibliothek Wolfenbüttel (siehe <a href="https://ocr-d.de/de/impressum">Impressum der Domain ocr-d.de</a>).</p>
     <p>(3) Bei Ihrer Kontaktaufnahme mit uns per E-Mail oder über ein
       Kontaktformular werden die von Ihnen mitgeteilten Daten (Ihre
       E-Mail-Adresse, ggf. Ihr Name und Ihre Telefonnummer) von uns
@@ -47,7 +47,7 @@
       wir verschiedene Leistungen an, für die Sie sich auf unserer Webseite
       mit einem Account der Gesellschaft für wissenschaftliche
       Datenverarbeitung Göttingen (GWDG) authentifizieren müssen. Dieser
-      Account unterliegt den Richtlinien für Datenverarbeiten der GWDG.</p>
+      Account unterliegt den Richtlinien für Datenverarbeitung der GWDG.</p>
     <p>§ 5 Widerspruch oder Widerruf gegen die Verarbeitung Ihrer Daten</p>
     <p>(1) Falls Sie eine Einwilligung zur Verarbeitung Ihrer Daten erteilt
       haben, können Sie diese jederzeit widerrufen. Ein solcher Widerruf
