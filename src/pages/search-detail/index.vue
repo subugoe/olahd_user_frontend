@@ -90,7 +90,7 @@
           @click="moveArchive" >
             Move archive from tape to disk
           </button>
-          <a target="_blank" class="text-sky-500 hover:text-sky-700" :href=linkToDfgviewer>
+          <a target="_blank" class="text-sky-500 hover:text-sky-700" :href=linkToDfgviewer v-if="isOpen">
             Open in DFG viewer
         </a>
       </div>
