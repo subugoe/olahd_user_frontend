@@ -143,7 +143,8 @@ export default {
         ...el,
         values: el.values.map((val) => ({
           ...val,
-          occurences: this.currentFacets[el.name][val.value] || 0,
+          occurences: this.currentFacets[el.name][val.value] ? this.currentFacets[el.name][val.value][0] : 0,
+          limited: this.currentFacets[el.name][val.value] ? this.currentFacets[el.name][val.value][1] : false,
         })),
       }));
     },
@@ -292,7 +293,7 @@ export default {
               prev[curr.name] = {};
             }
             curr.values.forEach((el) => {
-              prev[curr.name][el.value] = el.occurences;
+              prev[curr.name][el.value] = [el.occurences, el.limited];
             });
             return prev;
           }, {});

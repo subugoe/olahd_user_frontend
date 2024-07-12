@@ -60,8 +60,8 @@
               flex
               dark:text-sky-300
             "
-            >{{ facet.value }}
-            <span>{{ facet.occurences }} </span>
+          >{{ facet.value }}
+            <span>{{ facet.limited ? "> " : "" }} {{ facet.occurences }} </span>
           </label>
         </div>
       </div>
@@ -139,13 +139,14 @@ export default {
       .split("_-_")
       .filter((el) => el);
     const valueMapping = this.value.reduce((prev, curr) => {
-      prev[curr.value] = curr.occurences;
+      prev[curr.value] = [curr.occurences, curr.limited];
       return prev;
     }, {});
 
     this.value = currentFacets.map((el) => ({
       value: el,
-      occurences: valueMapping[el] || 0,
+      occurences: valueMapping[el] ? valueMapping[el][0] : 0,
+      limited: valueMapping[el] ? valueMapping[el][1] : false,
     }));
   },
 };
