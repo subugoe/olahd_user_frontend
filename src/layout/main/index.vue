@@ -28,70 +28,23 @@
             <button class="btn btn-link mr-4" type="submit">
               <i class="fas fa-search fa-lg text-sky-500"></i>
             </button>
-            <button
+            <MultiSelect
               id="dropdownCheckboxButton"
-              data-dropdown-toggle="dropdownDefaultCheckbox"
-              class="
-                text-white
-                border-r
-                bg-sky-700
-                rounded-full rounded-l-lg
-                px-6
-                py-2
-                text-center
-              "
-              type="button"
-            >
-              Select
-              <i class="fas fa-angle-down ml-3"></i>
-            </button>
-
-            <!-- Dropdown menu -->
-            <div
-              id="dropdownDefaultCheckbox"
-              class="
-                hidden
-                z-10
-                w-48
-                bg-white
-                rounded
-                divide-y divide-gray-100
-                shadow
-              "
-            >
-              <ul class="p-3" aria-labelledby="dropdownCheckboxButton">
-                <li>
-                  <div
-                    v-for="(item, index) of filters"
-                    :key="index"
-                    class="flex items-center mb-2"
-                  >
-                    <input
-                      :id="item.label"
-                      type="checkbox"
-                      class="
-                        w-4
-                        h-4
-                        text-sky-600
-                        bg-gray-100
-                        rounded
-                        border-gray-300
-                        focus:ring-2
-                      "
-                      :name="item.name"
-                      :checked="isFilterSelected(item.name)"
-                      :value="isFilterSelected(item.name)"
-                      @change="handleFilterChange"
-                    />
-                    <label
-                      :for="item.label"
-                      class="ml-2 text-sm font-medium text-sky-900"
-                      >{{ item.label }}</label
-                    >
-                  </div>
-                </li>
-              </ul>
-            </div>
+              v-model="selectedFilters"
+              :options="[
+                {name: 'Metadata Search', code: 'meta'},
+                {name: 'Full Text Search', code: 'ft'},
+                {name: 'GT-Search', code: 'gt'},
+              ]"
+              optionLabel="name"
+              :maxSelectedLabels="0"
+              :showToggleAll="false"
+              :selectionLimit="null"
+              :highlightOnSelect="true"
+              selectedItemsLabel="Select"
+              placeholder="Select"
+              class="bg-sky-700 rounded-full w-34 rounded-l-lg px-2 h-10 text-green-200 border-r "
+            />
           </span>
         </label>
       </form>
@@ -100,14 +53,18 @@
 </template>
 
 <script>
+import MultiSelect from 'primevue/multiselect';
 export default {
+  components: {
+    MultiSelect: MultiSelect,
+  },
   data() {
     return {
       query: this.$route.query["q"],
       filter: "",
-      metadatasearch: "true",
-      fulltextsearch: "false",
-      isGT: "false",
+      selectedFilters: [
+        {name: 'Metadata Search', code: 'meta'}
+      ],
     };
   },
   methods: {
@@ -123,42 +80,13 @@ export default {
           name: "search",
           query: {
             q: this.query,
-            fulltextsearch: this.fulltextsearch,
-            metadatasearch: this.metadatasearch,
-            isGT: this.isGT,
+            fulltextsearch: this.selectedFilters.some(element => element.code === 'ft'),
+            metadatasearch: this.selectedFilters.some(element => element.code === 'meta'),
+            isGT:this.selectedFilters.some(element => element.code === 'gt'),
           },
         })
         .catch(() => {}); // To ignore the Navigation Duplicated error
     },
-    handleFilterChange(e) {
-      this[e.target.name] = this[e.target.name] === "true" ? "false" : "true";
-    },
-  },
-  computed: {
-    filters() {
-      return [
-        {
-          label: "Metadata Search",
-          name: "metadatasearch",
-        },
-        {
-          label: "Full Text Search",
-          name: "fulltextsearch",
-        },
-        {
-          label: "GT-Search",
-          name: "isGT",
-        },
-      ];
-    },
-  },
-  mounted() {
-    // to fix flowbite drop-down checkbox render bug.
-    const evt = new Event("DOMContentLoaded", {
-      bubbles: true,
-      cancelable: false,
-    });
-    document.dispatchEvent(evt);
   },
 };
 </script>
@@ -166,5 +94,10 @@ export default {
 <style scoped>
 .home-img {
   background-image: url("@/assets/archive.jpg");
+}
+
+:deep(.p-multiselect-label), :deep(.p-icon) {
+  margin: -4px;
+  color: white;
 }
 </style>
