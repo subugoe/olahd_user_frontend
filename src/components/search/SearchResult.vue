@@ -41,39 +41,38 @@ export default {
     info() {
       if (!this.item) {
         return [];
-      } else if (this.item.noData){
+      } else if (this.item.noData && ["publisher", "placeOfPublish", "subtitle", "creator"]
+        .every((prop) => !this.item[prop])) {
         return [
           {
             label: "no data available",
             value: ""
           }
         ]
+      } else {
+        return [
+          {
+            label: "Publisher",
+            value: this.item.publisher || "N/A",
+          },
+          {
+            label: "Place of Publication",
+            value: this.item.placeOfPublish || "N/A",
+          },
+          {
+            label: "Year of Publication",
+            value: this.item.yearOfPublish || "N/A",
+          },
+          {
+            label: "Subtitle",
+            value: this.item.subtitle || "N/A",
+          },
+          {
+            label: "Author",
+            value: this.item.creator || "N/A",
+          },
+        ];
       }
-
-      const item = this.item;
-
-      return [
-        {
-          label: "Publisher",
-          value: item.publisher || "N/A",
-        },
-        {
-          label: "Place of Publication",
-          value: item.placeOfPublish || "N/A",
-        },
-        {
-          label: "Year of Publication",
-          value: item.yearOfPublish || "N/A",
-        },
-        {
-          label: "Subtitle",
-          value: item.subtitle || "N/A",
-        },
-        {
-          label: "Author",
-          value: item.creator || "N/A",
-        },
-      ];
     },
     itemId() {
       return this.item.PID;
