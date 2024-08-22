@@ -3,9 +3,6 @@
     <div class="bg-gray-700">
       <div class="grid grid-cols-3 gap-4 py-2">
         <div class="flex flex-1 items-center ml-10 space-x-2 text-sm">
-          <router-link class="flex flex-1" as="nav" active-class="active" to="/about">
-            <span class="nav-link text-white hover:text-sky-700">About</span>
-          </router-link>
           <router-link class="flex flex-1" as="nav" active-class="active" to="/contact">
             <span class="nav-link text-white hover:text-sky-700">Kontakt</span>
           </router-link>
