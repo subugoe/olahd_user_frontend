@@ -27,7 +27,7 @@
             items-center
             p-2
             rounded
-            overflow-y-scroll overflow-hidden
+            overflow-hidden
             hover:bg-gray-100
             dark:hover:bg-gray-600
           "
