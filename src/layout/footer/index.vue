@@ -1,35 +1,22 @@
 <template>
-  <footer>
-    <div class="bg-gray-700">
-      <div class="grid grid-cols-2 gap-4 py-2">
-        <div class="flex flex-1 items-center ml-10 space-x-2 text-sm">
-          <router-link class="flex flex-1" as="nav" active-class="active" to="/contact">
+  <footer class="bg-gray-700">
+    <div class="container mx-auto flex flex-wrap justify-center gap-10 m-1 p-1">
+        <a class="flex" v-for="(item, index) in urls" :key="index" :href="item.to" :title="item.title" target="_blank">
+          <img width="160" :src="createImageUrl(item.image)" :alt="item.title" />
+        </a>
+    </div>
+    <div class="border-t border-gray-500 m-1 pt-1">
+      <div class="container mx-auto flex flex-wrap text-sm justify-center">
+          <router-link class="px-2" as="nav" active-class="active" to="/contact">
             <span class="nav-link text-white hover:text-sky-700">Kontakt</span>
           </router-link>
-          <div class="flex flex-1">
-            <a href="https://ocr-d.de/de/impressum" target="_blank" class="nav-link text-white hover:text-sky-700">Impressum</a>
-          </div>
-          <router-link class="flex flex-1" as="nav" active-class="active" to="/data_protection">
+          <p class="px-2 text-gray-500">-</p>
+          <a href="https://ocr-d.de/de/impressum" target="_blank"
+            class="px-2 nav-link text-white hover:text-sky-700">Impressum</a>
+          <p class="px-2 text-gray-500">-</p>
+          <router-link class="px-2" as="nav" active-class="active" to="/data_protection">
             <span class="nav-link text-white hover:text-sky-700">Datenschutzhinweis</span>
           </router-link>
-        </div>
-
-        <div class="flex flex-1 justify-between items-center">
-          <a
-            v-for="(item, index) in urls"
-            :key="index"
-            :href="item.to"
-            :title="item.title"
-            target="_blank"
-          >
-            <img
-              height="80"
-              width="160"
-              :src="createImageUrl(item.image)"
-              :alt="item.title"
-            />
-          </a>
-        </div>
       </div>
     </div>
   </footer>
