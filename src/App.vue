@@ -1,7 +1,6 @@
 <template>
   <div id="app" class="min-h-screen flex flex-col flex-1">
     <NavigationMenu />
-    <div class="h-14" />
     <Main v-if="isHeaderVisible"></Main>
     <div class="flex flex-1 flex-col">
       <Router-View v-slot="{ Component, route }">

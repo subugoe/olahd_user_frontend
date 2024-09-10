@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .normal-blue-button {
-  @apply bg-sky-600 font-medium px-3 py-1 mt-1 shadow-sm text-white rounded-md;
+  @apply bg-sky-600 font-medium px-3 py-1 shadow-sm text-white rounded-md;
 }
 .normal-blue-button:hover:enabled {
   @apply hover:bg-sky-700

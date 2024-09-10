@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container mt-2">
     <!-- Error message -->
     <div class="row my-3" v-if="error">
       <div class="col">
