@@ -4,7 +4,7 @@
     class="h-96 bg-cover bg-gray-400 bg-center p-12 home-img"
   >
     <h4 class="flex justify-center m-5 text-3xl text-gray-600">
-      OLA-HD - OCR Langzeitarchiv
+      OLA-HD - OCR Long-Term Archive
     </h4>
     <div class="col-md-6 col-sm-8 mx-auto">
       <form @submit.prevent="submit" class="grid grid-cols-7">
@@ -21,7 +21,7 @@
             "
             id="search-box"
             type="text"
-            placeholder="Suchen"
+            placeholder="Search..."
             v-model="query"
           />
           <span class="absolute inset-y-0 right-0 flex items-center">

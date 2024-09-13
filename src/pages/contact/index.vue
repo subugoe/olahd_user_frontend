@@ -3,9 +3,9 @@
     <div class="container">
       <div class="row mt-3">
         <div class="col">
-          <h2>Kontakt</h2>
+          <h2>Contact</h2>
           <hr />
-          <h4>Allgemeine Anfragen</h4>
+          <h4>General requests</h4>
           <p>
             Lilja Sautter:
             <a href="mailto:sautter@sub.uni-goettingen.de">
@@ -16,14 +16,14 @@
             href="https://github.com/subugoe/OLA-HD-IMPL/issues"
             target="_blank"
           >
-            Fehler melden
+            Report error
           </a>-->
         </div>
       </div>
       <hr />
       <div class="row">
         <div class="col">
-          <h4>Anschrift</h4>
+          <h4>Address</h4>
         </div>
       </div>
       <div class="row mb-2">

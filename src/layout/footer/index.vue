@@ -8,14 +8,14 @@
     <div class="border-t border-gray-500 m-1 pt-1">
       <div class="container mx-auto flex flex-wrap text-sm justify-center">
           <router-link class="px-2" as="nav" active-class="active" to="/contact">
-            <span class="nav-link text-white hover:text-sky-700">Kontakt</span>
+            <span class="nav-link text-white hover:text-sky-700">Contact</span>
           </router-link>
           <p class="px-2 text-gray-500">-</p>
           <a href="https://ocr-d.de/de/impressum" target="_blank"
-            class="px-2 nav-link text-white hover:text-sky-700">Impressum</a>
+            class="px-2 nav-link text-white hover:text-sky-700">Imprint</a>
           <p class="px-2 text-gray-500">-</p>
           <router-link class="px-2" as="nav" active-class="active" to="/data_protection">
-            <span class="nav-link text-white hover:text-sky-700">Datenschutzhinweis</span>
+            <span class="nav-link text-white hover:text-sky-700">Privacy notice</span>
           </router-link>
       </div>
     </div>

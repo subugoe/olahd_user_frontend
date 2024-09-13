@@ -1,31 +1,26 @@
 <template>
   <div class="m-4 space-y-4">
-    <h3 class="text-3xl">Willkommen</h3>
+    <h3 class="text-3xl">Welcome</h3>
     <p>
-      OLA-HD Service stellt einen Dienst für die Langzeitarchivierung von
-      historischen Drucken im Rahmen von
-      <a class="text-sky-500 hover:text-sky-700" href="https://ocr-d.de/"
+      OLA-HD provides a service for the long-term archiving of historical prints in the context of
+      <a class="text-sky-500 hover:text-sky-700" href="https://ocr-d.de/en"
         >OCR-D</a
-      >
-      bereit. Über die Suche auf dieser Website können Archivobjekte gefunden,
-      angesehen und heruntergeladen werden. Die Beta-Version des Dienstes wird
-      kontinuierlich erweitert und wir freuen uns über Feedback.
+      >.
+      Archive objects can be found, viewed and downloaded. We welcome feedback on the beta version
+      of the service.
     </p>
     <br />
     <p>
-      OLA-HD Service wird im Rahmen der DFG-Initiative
-      <a class="text-sky-500 hover:text-sky-700" href="https://ocr-d.de/"
+      OLA-HD is funded by the DFG initiative
+      <a class="text-sky-500 hover:text-sky-700" href="https://ocr-d.de/en"
         >OCR-D</a
-      >
-      gefördert. Das Hauptziel von OCR-D ist die konzeptionelle und technische
-      Vorbereitung der Volltexttransformation der im deutschen Sprachraum
-      erschienenen Drucke des 16.-18. Jahrhunderts. Die Aufgabe der
-      automatischen Volltexterkennung wird in ihre einzelnen Prozessschritte
-      zerlegt, die in der Open Source OCR-D-Software nachvollzogen werden
-      können. Dies ermöglicht es, optimale Workflows für die zu prozessierenden
-      Drucke zu erstellen und damit wissenschaftlich verwertbare Volltexte zu
-      generieren. OLA-HD Service bietet einen Dienst für die
-      Langzeitarchivierung dieser Ergebnisse.
+      >.
+      The main objective of OCR-D is the conceptual and technical preparation of the full-text
+      transformation of printed works published in the German-speaking world between the 16th and
+      18th centuries. The task of automatic full-text recognition is broken down into its individual
+      process steps, which can be reproduced in the open source OCR-D software. This makes it
+      possible to create optimal workflows and generate scientifically usable full texts. OLA-HD
+      offers a service for the long-term archiving of these results.
     </p>
   </div>
 </template>
