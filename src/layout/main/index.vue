@@ -3,9 +3,10 @@
     id="search-header"
     class="h-96 bg-cover bg-gray-400 bg-center p-12 home-img"
   >
-    <h4 class="flex justify-center m-5 text-3xl text-gray-600">
-      OLA-HD - OCR Long-Term Archive
-    </h4>
+    <h1 class="flex justify-center m-5 text-4xl font-bold text-blue-600">
+      OLA-HD
+    </h1>
+    <h2 class="flex justify-center m-5 text-2xl" >OCR Long-Term Archive</h2>
     <div class="mx-auto">
       <form @submit.prevent="submit" class="float">
         <div class="grid grid-cols-7">
@@ -35,7 +36,7 @@
         <div class="grid grid-cols-2 divide-x divide-black mt-2">
           <div class="justify-self-end m-1">Search in</div>
           <div class="grid grid-cols-2 m-1" style="grid-template-columns: auto 1fr;">
-            <input type="checkbox" v-model="metadatasearch" id="check-meta" class="m-1 bg-yellow-300">
+            <input type="checkbox" v-model="metadatasearch" id="check-meta" class="m-1">
             <label for="check-meta">Metadata</label>
             <input type="checkbox" v-model="fulltextsearch" id="check-fulltext" class="m-1">
             <label for="check-fulltext">Full-Text</label>
