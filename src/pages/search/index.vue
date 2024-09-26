@@ -208,12 +208,6 @@ export default {
         }
       });
     },
-    buttonClass(number) {
-      if (number !== this.page) {
-        return "px-4 py-2 text-sky-500 border-sky-500 rounded-md border";
-      }
-      return "px-4 py-2 bg-sky-500 border-sky-500 rounded-md text-white";
-    },
     handleExtraFilterChange(extraFilters) {
       for (const [key, value] of Object.entries(extraFilters)) {
         this.$route.query[key] = value
