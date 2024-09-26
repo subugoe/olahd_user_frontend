@@ -1,12 +1,12 @@
 <template>
   <div
     id="search-header"
-    class="h-96 bg-cover bg-gray-400 bg-center p-12 home-img"
+    class="h-96 bg-cover bg-gray-400 bg-center p-12 xl:home-img home-img-bright"
   >
-    <h1 class="flex justify-center m-5 text-4xl font-bold text-blue-600">
+    <h1 class="text-center m-5 text-4xl font-bold text-blue-600">
       OLA-HD
     </h1>
-    <h2 class="flex justify-center m-5 text-2xl" >OCR Long-Term Archive</h2>
+    <h2 class="text-center m-5 text-2xl" >OCR Long-Term Archive</h2>
     <div class="mx-auto">
       <form @submit.prevent="submit" class="float">
         <div class="grid grid-cols-7">
@@ -86,9 +86,7 @@ export default {
 </script>
 
 <style scoped>
-.home-img {
-  background-image: url("@/assets/archive.jpg");
-}
+
 
 :deep(.p-multiselect-label), :deep(.p-icon) {
   margin: -4px;

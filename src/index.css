@@ -24,3 +24,13 @@
     @apply text-gray-700 flex items-center justify-between px-4 py-2 rounded-t border-b
         bg-gray-100
 }
+/* custom classes with breakpoints (responsive classes dependend on width) don't work in component-scoped-styles */
+@layer utilities {
+  .home-img {
+    background-image: url("@/assets/archive.jpg");
+  }
+
+  .home-img-bright {
+    background-image: url("@/assets/archive-very-bright.jpg");
+  }
+}
