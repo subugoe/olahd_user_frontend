@@ -20,9 +20,9 @@
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
-    <div class="p-4">
-      <div class="flex">
-        <Tree v-model:expandedKeys="expandedKeys" v-model:selectionKeys="selectedKeys" :value="options" class="w-full md:w-30rem"
+    <div class="flex items-start p-4">
+        <Tree v-model:expandedKeys="expandedKeys" v-model:selectionKeys="selectedKeys" :value="options"
+          class="w-full md:w-30rem"
           selectionMode="checkbox">
           <template #default="slotProps">
             <b>{{ slotProps.node.label }} ({{ slotProps.node.children.length }})</b>
@@ -30,15 +30,16 @@
           <template #leaf="slotProps">
             {{ slotProps.node.label }}
             <span v-if="!slotProps.node.isDisabled" >
-              - <a :href="buildUrl(pid, slotProps.node.key)" target="_blank" class="text-sky-500 hover:text-slate-700">View</a>
+              - <a :href="buildUrl(pid, slotProps.node.key)" target="_blank"
+                   class="olahd-link-color"
+                >View</a>
             </span>
           </template>
         </Tree>
         <button @click="download" :disabled="!isOpen"
-          class="detail-blue-button whitespace-nowrap max-h-9">
+          class="flex-none detail-blue-button">
           <i class="fas fa-download" /> {{ "Download" }}
         </button>
-      </div>
     </div>
   </section>
 </template>

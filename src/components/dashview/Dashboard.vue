@@ -35,7 +35,7 @@
                         query: {
                           id: record.trackingInfo.pid,
                         },
-                      }" class="search-item-link text-sky-600 hover:text-sky-900">
+                      }" class="search-item-link olahd-link-color">
                         <p>{{ record.trackingInfo.pid }}</p>
                       </router-link>
                     </td>

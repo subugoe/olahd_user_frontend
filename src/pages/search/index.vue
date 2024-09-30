@@ -27,7 +27,7 @@
       </div>
     </div>
     <button @click="showExtraFilters = !showExtraFilters"
-      class="text-sm text-sky-600 hover:text-sky90"
+      class="text-sm olahd-link-color hover:text-sky90"
     >
       Advanced Search
     </button>

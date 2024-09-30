@@ -3,7 +3,7 @@
     id="search-header"
     class="h-96 bg-cover bg-gray-400 bg-center p-12 xl:home-img home-img-bright"
   >
-    <h1 class="text-center m-5 text-4xl font-bold text-blue-600">
+    <h1 class="text-center m-5 text-4xl font-bold text-custom-blue">
       OLA-HD
     </h1>
     <h2 class="text-center m-5 text-2xl" >OCR Long-Term Archive</h2>
@@ -14,7 +14,7 @@
             <input
               class="
                 w-full
-                border-3 border-sky-500
+                border-3 olahd-border-color
                 drop-shadow-md
                 rounded-full
                 py-2
@@ -28,7 +28,7 @@
             />
             <span class="absolute inset-y-0 right-0 flex items-center">
               <button class="btn btn-link mr-4" type="submit">
-                <i class="fas fa-search fa-lg text-sky-500"></i>
+                <i class="fas fa-search fa-lg olahd-link-color"></i>
               </button>
             </span>
           </label>

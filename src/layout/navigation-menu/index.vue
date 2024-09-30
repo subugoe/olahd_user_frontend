@@ -7,8 +7,8 @@
         <!-- dummy to leave left column empty -->
         <div class="basis-1/3 flex-none"></div>
         <div class="basis-1/3 flex-none flex flex-1 items-center">
-          <router-link v-if="isSearchBarVisible" as="nav" class="flex-1 px-2 flex" active-class="active" to="/" exact>
-            <span class="flex-1 text-sky-500 hover:text-slate-700 text-center">{{
+          <router-link v-if="isSearchBarVisible" as="nav" class="flex-1 px-2 flex justify-center" active-class="active" to="/" exact>
+            <span class="olahd-link-color">{{
               "OLA-HD"
             }}</span>
           </router-link>

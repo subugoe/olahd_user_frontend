@@ -26,7 +26,7 @@
             type="submit"
             class="p-1 focus:outline-none focus:shadow-outline"
           >
-            <i class="fas fa-search fa-lg text-sky-500"></i>
+            <i class="fas fa-search fa-lg olahd-link-color"></i>
           </button>
         </span>
       </div>

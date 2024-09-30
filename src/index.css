@@ -2,29 +2,48 @@
 @tailwind components;
 @tailwind utilities;
 
+  
+/* link-color us used to globally set the color of links. This is mainly text but also borders*/
+.olahd-link-color {
+  @apply text-custom-blue hover:text-blue-900 hover:underline
+}
+.olahd-border-color {
+  @apply border-custom-blue
+}
+.olahd-link-underline {
+  @apply underline decoration-custom-blue hover:decoration-blue-900 underline-offset-2
+  hover:bg-gray-300
+}
+
 .normal-blue-button {
-  @apply bg-sky-600 font-medium px-3 py-1 shadow-sm text-white rounded-md;
+  @apply bg-custom-blue font-medium px-3 py-1 shadow-sm text-white rounded-md;
 }
 .normal-blue-button:hover:enabled {
-  @apply hover:bg-sky-700
+  @apply hover:bg-blue-900
 }
 .normal-blue-button:disabled {
   @apply bg-sky-200 border-sky-200
 }
 
+/* So far this "detail"-button is only used in search details*/
 .detail-blue-button {
-    @apply rounded border mr-4 px-3 py-1 border-sky-500 bg-sky-500 text-white
+  @apply rounded border text-base/5 mr-4 px-3 py-1 border-custom-blue bg-custom-blue text-white
+}
+
+.detail-blue-button:hover:enabled {
+  @apply hover:bg-blue-900
 }
 
 .detail-blue-button:disabled {
-    @apply bg-sky-200 border-sky-200
+  @apply bg-blue-200 border-blue-200
 }
 
 .gray-div-header {
-    @apply text-gray-700 flex items-center justify-between px-4 py-2 rounded-t border-b
-        bg-gray-100
+  @apply text-gray-700 flex items-center justify-between px-4 py-2 rounded-t border-b
+  bg-gray-100
 }
-/* custom classes with breakpoints (responsive classes dependend on width) don't work in component-scoped-styles */
+/* custom classes with breakpoints (responsive classes dependend on width) don't work in
+component-scoped-styles*/
 @layer utilities {
   .home-img {
     background-image: url("@/assets/archive.jpg");

@@ -11,7 +11,7 @@
       Pflichten, insbesondere aus der EU-Datenschutzgrundverordnung (EU-DSGVO)
       nachkommen.</p>
     <p>(2) Verantwortlicher gem. Art. 4 Nr. 7 EU-DSGVO ist die Herzog August
-      Bibliothek Wolfenbüttel (siehe <a href="https://ocr-d.de/de/impressum">Impressum der Domain ocr-d.de</a>).</p>
+      Bibliothek Wolfenbüttel (siehe <a class="olahd-link-color olahd-link-underline" href="https://ocr-d.de/de/impressum">Impressum der Domain ocr-d.de</a>).</p>
     <p>(3) Bei Ihrer Kontaktaufnahme mit uns per E-Mail oder über ein
       Kontaktformular werden die von Ihnen mitgeteilten Daten (Ihre
       E-Mail-Adresse, ggf. Ihr Name und Ihre Telefonnummer) von uns
@@ -94,9 +94,6 @@
   }
   p {
     @apply mb-4
-  }
-  a {
-    @apply text-sky-500 hover:text-sky-700
   }
   ul {
     @apply list-disc ml-10 mb-4

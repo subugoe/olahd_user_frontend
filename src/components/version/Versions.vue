@@ -11,7 +11,7 @@
         <template v-if="versionInfo.previousVersion">
           <li>
             Previous version:
-            <router-link class="text-sky-500 hover:text-slate-700 m-2"
+            <router-link class="olahd-link-color hover:text-slate-700 m-2"
               :to="{
                 name: 'search-detail',
                 query: { id: versionInfo.previousVersion.pid },
@@ -26,7 +26,7 @@
             Next version:
             <ul class="list-disc list-inside px-4 py-2">
               <li v-for="value in versionInfo.nextVersions" :key="value.onlineId">
-                <router-link class="text-sky-500 hover:text-slate-700"
+                <router-link class="olahd-link-color hover:text-slate-700"
                   :to="{
                     name: 'search-detail',
                     query: { id: value.pid },

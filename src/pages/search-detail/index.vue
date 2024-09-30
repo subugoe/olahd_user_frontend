@@ -35,7 +35,7 @@
         <div class="col">
           <button
             type="button"
-            class="btn btn-link text-sky-500 hover:text-slate-700"
+            class="btn btn-link olahd-link-color"
             @click="$router.go(-1)"
           >
             &laquo; Back
@@ -86,11 +86,11 @@
       </section>
 
       <div class="grid grid-cols-1 gap-2 content-start my-5">
-        <button v-show="showExportRequestButton" class="text-sky-500 hover:text-sky-700 w-fit"
+        <button v-show="showExportRequestButton" class="olahd-link-color w-fit"
           @click="moveArchive" >
             Move archive from tape to disk
           </button>
-          <a target="_blank" class="text-sky-500 hover:text-sky-700" :href=linkToDfgviewer v-if="isOpen">
+          <a target="_blank" class="olahd-link-color inline w-fit" :href=linkToDfgviewer v-if="isOpen">
             Open in DFG viewer
         </a>
       </div>

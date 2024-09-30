@@ -7,9 +7,8 @@
           id: itemId,
         },
       }"
-      class="search-item-link text-sky-600 hover:text-sky-900"
     >
-      <h5>{{ title }}</h5>
+      <h5 class="search-item-link olahd-link-color">{{ title }}</h5>
     </router-link>
     <hr class="mt-3 mb-2" />
     <div class="space-y-2">
