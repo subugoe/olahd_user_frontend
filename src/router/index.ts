@@ -38,12 +38,6 @@ const router = createRouter({
         import("@/pages/contact/index.vue"),
     },
     {
-      path: "/imprint",
-      name: "imprint",
-      component: () =>
-        import("@/pages/imprint/index.vue"),
-    },
-    {
       path: "/data_protection",
       name: "data_protection",
       component: () =>
