@@ -36,7 +36,7 @@
             </span>
           </template>
         </Tree>
-        <button @click="download" :disabled="disableDownload"
+        <button @click="download" v-if="!disableDownload"
           class="flex-none detail-blue-button">
           <i class="fas fa-download" /> {{ "Download" }}
         </button>
