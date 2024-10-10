@@ -3,7 +3,7 @@
     <div class="gray-div-header">
       <h4 class="text-base">{{ "Other versions" }}</h4>
     </div>
-    <div class="px-4 py-2 border-b">
+    <div class="px-4 py-2">
       <span v-if="!hasOtherVersion">
         This archive does not have any other version.
       </span>
