@@ -36,7 +36,7 @@
             </span>
           </template>
         </Tree>
-        <button @click="download" :disabled="!isOpen"
+        <button @click="download" :disabled="disableDownload"
           class="flex-none detail-blue-button">
           <i class="fas fa-download" /> {{ "Download" }}
         </button>
@@ -71,7 +71,7 @@ export default {
     return {
       loading: true,
       options: [],
-      selectedKeys: [],
+      selectedKeys: {},
       archiveInfo: {},
       warnNoSelection: false,
       expandedKeys: {},
@@ -84,6 +84,13 @@ export default {
     },
     isDisabled() {
       return !this.isOpen || this.value.length < 1;
+    },
+    disableDownload() {
+      if (!this.isOpen) {
+        return true;
+      } else {
+        return Object.keys(this.selectedKeys).length === 0
+      }
     }
   },
   methods: {
