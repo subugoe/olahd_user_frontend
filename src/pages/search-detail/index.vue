@@ -52,15 +52,6 @@
               <i class="fas fa-download mr-1" />
               {{ "Export" }}
             </button>
-            <button @click="toggleExpand" class="detail-blue-button">
-              <i
-                :class="[
-                  isExpanded ? 'fa-angle-double-up' : 'fa-angle-double-down',
-                  'fas mr-1',
-                ]"
-              />
-              {{ isExpanded ? "Collapse" : "Expand" }}
-            </button>
           </div>
         </div>
         <div class="p-4 space-y-2">
@@ -119,7 +110,6 @@ export default {
       error_msg: null,
       loading: true,
       response: null,
-      isExpanded: false,
       isUserLoggedIn: this,
       listenerKey: -1,
       moveTriggered: false,
@@ -162,9 +152,9 @@ export default {
         },
         {
           label: "Year of Digitization",
-          value: source.reindexedat || "N/A",
+          value: source.yearDigitization || "N/A",
         },
-      ].slice(0, this.isExpanded ? undefined : MAX_DATA);
+      ]
     },
     title() {
       if (!this.response) {
@@ -192,9 +182,6 @@ export default {
   },
 
   methods: {
-    toggleExpand() {
-      this.isExpanded = !this.isExpanded;
-    },
     async loadData() {
       try {
         this.loading = true;
