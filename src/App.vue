@@ -15,6 +15,7 @@
 import Footer from "@/layout/footer/index.vue";
 import Main from "@/layout/main/index.vue";
 import NavigationMenu from "@/layout/navigation-menu/index.vue";
+import { mystore } from '@/store';
 
 export default {
   components: {
@@ -27,5 +28,13 @@ export default {
       return this.$router.currentRoute.value.path === "/";
     },
   },
+  created() {
+    const store = mystore()
+    store.setIsMobile(window.innerWidth < 640)
+    window.onresize = () => {
+      const isMobile = window.innerWidth < 640
+      store.setIsMobile(isMobile)
+    }
+  }
 };
 </script>
