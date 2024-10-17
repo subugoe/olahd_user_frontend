@@ -1,5 +1,5 @@
 <template>
-  <div class="container mt-2">
+  <div class="container mt-2 lg:px-10">
     <!-- Error message -->
     <div class="row my-3" v-if="error">
       <div class="col">
@@ -27,7 +27,7 @@
       </div>
     </div>
     <button @click="showExtraFilters = !showExtraFilters"
-      class="text-sm olahd-link-color hover:text-sky90"
+      class="text-sm olahd-link-color hover:text-sky90 mx-2"
     >
       Advanced Search
     </button>
@@ -48,33 +48,34 @@
     <template v-if="hasResult">
       <!-- Search result -->
 
-      <div class="mb-3 grid grid-cols-5 gap-4">
-        <div class="col-span-4 flex items-center justify-between my-6">
-          <p>
-            Showing {{ (this.page - 1) * this.maxResultsSize + 1 }} -
-            {{ maxRecord }} of {{ total }} hits
-          </p>
+      <div class=" flex mb-5">
+        <div :class="!isMobile ? 'basis-4/5' : ''">
+          <div class="flex items-center justify-between my-6">
+            <p class="mx-2">
+              Showing {{ (this.page - 1) * this.maxResultsSize + 1 }} -
+              {{ maxRecord }} of {{ total }} hits
+            </p>
 
-          <div>
-            Items per Page:
-            <select :value="maxResultsSize" @change="handlePageSizeChange($event)">
-              <option v-for="size in pageSizes" :key="size" :value="size">
-                {{ size }}
-              </option>
-            </select>
-          </div>
-        </div>
-        <div class="space-y-4 col-span-4">
-          <div v-for="(result, index) in data" :key="index">
-            <div class="col">
-              <SearchResult :item="result"></SearchResult>
+            <div class="mx-6">
+              Items per Page:
+              <select :value="maxResultsSize" @change="handlePageSizeChange($event)">
+                <option v-for="size in pageSizes" :key="size" :value="size">
+                  {{ size }}
+                </option>
+              </select>
             </div>
           </div>
-          <Pagination :current="page" :total="total" />
+          <div class="mr-2">
+            <div v-for="(result, index) in data" :key="index">
+              <div class="m-2">
+                <SearchResult :item="result"></SearchResult>
+              </div>
+            </div>
+            <Pagination :current="page" :total="total" class="mx-2" />
+          </div>
         </div>
-
-        <div class="border rounded-md bg-gray-50 flex flex-col">
-          <search-group
+        <div :class="!isMobile ? 'basis-1/5' : ''" class="border rounded-md bg-gray-50" style="margin-top: 71px;" v-if="!isMobile">
+          <SearchGroup
             :facet="facets"
             :onFacetChange="handleFacetChange"
             :selectedFacets="$route.query"
@@ -189,6 +190,9 @@ export default {
         "place": this.$route.query.place || "",
         "year": this.$route.query.year || "",
       }
+    },
+    isMobile() {
+      return false;
     },
   },
   methods: {
