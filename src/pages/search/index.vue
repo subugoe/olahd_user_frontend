@@ -1,5 +1,28 @@
 <template>
   <div class="container mt-2 lg:px-10">
+    <Dialog
+      header="Filter"
+      :append-to-body="true"
+      v-model:visible="showFilterDialog"
+      modal
+      dismissableMask
+      :pt="{
+        title: {
+          class: [ 'text-lg', 'font-medium']
+        },
+      }"
+    >
+      <SearchGroup
+        :facet="facets"
+        :onFacetChange="handleFacetChange"
+        :selectedFacets="$route.query"
+        :isGT="isGT"
+        :onFilterChange="onFilterChange"
+        :fulltextsearch="fulltextsearch"
+        :metadatasearch="metadatasearch"
+        class="max-w-[90vw]"
+      />
+    </Dialog>
     <!-- Error message -->
     <div class="row my-3" v-if="error">
       <div class="col">
@@ -36,6 +59,9 @@
       :extraFilters="extraFilters"
       :onFilterChange="handleExtraFilterChange"
     />
+    <button class="normal-blue-button" @click="showFilterDialog = true" >
+      Filter
+    </Button>
     <div class="flex justify-end">
       <button
         v-show="showExtraFilters"
@@ -74,7 +100,8 @@
             <Pagination :current="page" :total="total" class="mx-2" />
           </div>
         </div>
-        <div :class="!isMobile ? 'basis-1/5' : ''" class="border rounded-md bg-gray-50" style="margin-top: 71px;" v-if="!isMobile">
+        <div :class="!isMobile ? 'basis-1/5' : ''" class="border rounded-md bg-gray-50 pt-2" style="margin-top: 71px;" v-if="!isMobile">
+          <label class="facet-label m-1 font-medium text-sky-900">Filter: </label>
           <SearchGroup
             :facet="facets"
             :onFacetChange="handleFacetChange"
@@ -96,6 +123,8 @@ import Pagination from "@/components/pagination/Pagination.vue";
 import SearchGroup from "@/components/search/SearchGroup.vue";
 import ExtraFilters from "@/components/search/ExtraFilters.vue";
 import SearchResult from "@/components/search/SearchResult.vue";
+import Dialog from 'primevue/dialog';
+
 import { mystore } from '@/store';
 import { mapWritableState } from 'pinia';
 
@@ -105,6 +134,7 @@ export default {
     SearchResult,
     SearchGroup,
     ExtraFilters,
+    Dialog,
   },
   data() {
     return {
@@ -117,6 +147,7 @@ export default {
       results: null,
       scrolls: [""],
       time: 0,
+      showFilterDialog: false,
     };
   },
   computed: {
@@ -192,7 +223,7 @@ export default {
       }
     },
     isMobile() {
-      return false;
+      return true;
     },
   },
   methods: {
@@ -337,6 +368,5 @@ export default {
   },*/
 };
 </script>
-
 <style scoped>
 </style>

@@ -1,7 +1,5 @@
 <template>
   <div class="w-full relative">
-    <label class="facet-label m-2 font-medium text-sky-900">Filter: </label>
-
     <div class="m-2">
       <div
         v-for="(item, index) in filters"
