@@ -12,7 +12,7 @@
         },
       }"
     >
-      <SearchGroup
+      <SearchFilter
         :facet="facets"
         :onFacetChange="handleFacetChange"
         :selectedFacets="$route.query"
@@ -20,6 +20,10 @@
         :onFilterChange="onFilterChange"
         :fulltextsearch="fulltextsearch"
         :metadatasearch="metadatasearch"
+        :author="author"
+        :title="title"
+        :year="year"
+        :place="place"
         class="max-w-[90vw]"
       />
     </Dialog>
@@ -49,28 +53,10 @@
         </div>
       </div>
     </div>
-    <button @click="showExtraFilters = !showExtraFilters"
-      class="text-sm olahd-link-color hover:text-sky90 mx-2"
-    >
-      Advanced Search
-    </button>
-    <extra-filters
-      v-show="showExtraFilters"
-      :extraFilters="extraFilters"
-      :onFilterChange="handleExtraFilterChange"
-    />
-    <button v-if="isMobile" class="normal-blue-button" @click="showFilterDialog = true" >
+    <SearchInput class="m-1 my-4 sm:w-4/5 sm:pr-5 "/>
+    <button v-if="true" class="filter-button m-1" @click="showFilterDialog = true" >
       Filter
     </Button>
-    <div class="flex justify-end">
-      <button
-        v-show="showExtraFilters"
-        class="normal-blue-button"
-        @click="search"
-      >
-        Search
-      </button>
-    </div>
     <template v-if="hasResult">
       <!-- Search result -->
 
@@ -91,9 +77,9 @@
               </select>
             </div>
           </div>
-          <div class="mr-2">
+          <div class="sm:mr-2">
             <div v-for="(result, index) in data" :key="index">
-              <div class="m-2">
+              <div class="m-1 sm:m-2">
                 <SearchResult :item="result"></SearchResult>
               </div>
             </div>
@@ -101,8 +87,7 @@
           </div>
         </div>
         <div :class="!isMobile ? 'basis-1/5' : ''" class="border rounded-md bg-gray-50 pt-2" style="margin-top: 71px;" v-if="!isMobile">
-          <label class="facet-label m-1 font-medium text-sky-900">Filter: </label>
-          <SearchGroup
+          <SearchFilter
             :facet="facets"
             :onFacetChange="handleFacetChange"
             :selectedFacets="$route.query"
@@ -110,6 +95,10 @@
             :onFilterChange="onFilterChange"
             :fulltextsearch="fulltextsearch"
             :metadatasearch="metadatasearch"
+            :author="author"
+            :title="title"
+            :year="year"
+            :place="place"
           />
         </div>
       </div>
@@ -120,21 +109,22 @@
 <script>
 import lzaApi from "@/services/lzaApi";
 import Pagination from "@/components/pagination/Pagination.vue";
-import SearchGroup from "@/components/search/SearchGroup.vue";
-import ExtraFilters from "@/components/search/ExtraFilters.vue";
+import SearchFilter from "@/components/search/SearchFilter.vue";
 import SearchResult from "@/components/search/SearchResult.vue";
+import SearchInput from "../../components/search/SearchInput.vue";
+
 import Dialog from 'primevue/dialog';
 
 import { mystore } from '@/store';
-import { mapWritableState, mapState } from 'pinia';
+import { mapState } from 'pinia';
 
 export default {
   components: {
     Pagination,
     SearchResult,
-    SearchGroup,
-    ExtraFilters,
+    SearchFilter,
     Dialog,
+    SearchInput,
   },
   data() {
     return {
@@ -151,7 +141,6 @@ export default {
     };
   },
   computed: {
-    ...mapWritableState(mystore, ['showExtraFilters']),
     ...mapState(mystore, ['isMobile']),
     maxResultsSize() {
       return Number(this.$route.query.perPageRecords || 10);
@@ -215,14 +204,19 @@ export default {
       }
       return this.results.hits;
     },
-    extraFilters() {
-      return {
-        "author": this.$route.query.author || "",
-        "title": this.$route.query.title || "",
-        "place": this.$route.query.place || "",
-        "year": this.$route.query.year || "",
-      }
+    author() {
+      return this.$route.query.author;
     },
+    title() {
+      return this.$route.query.title;
+      
+    },
+    place() {
+      return this.$route.query.place;
+    },
+    year() {
+      return this.$route.query.year;
+    }
   },
   methods: {
     onFilterChange(name, value) {
@@ -305,10 +299,10 @@ export default {
             searchterm: this.query,
             limit: this.maxResultsSize,
             offset: (this.page - 1) * this.maxResultsSize,
-            author: this.extraFilters['author'] || "",
-            title: this.extraFilters['title'] || "",
-            place: this.extraFilters['place'] || "",
-            year: this.extraFilters['year'] || "",
+            author: this.author,
+            title: this.title,
+            place: this.place,
+            year: this.year
           },
           facetQuery.join("&")
         )
@@ -343,10 +337,10 @@ export default {
             metadatasearch: this.metadatasearch,
             isGT: this.isGT,
             searchterm: q,
-            author: this.extraFilters['author'] || "",
-            title: this.extraFilters['title'] || "",
-            place: this.extraFilters['place'] || "",
-            year: this.extraFilters['year'] || "",
+            author: this.author,
+            title: this.title,
+            place: this.place,
+            year: this.year,
             limit: this.maxResultsSize,
             offset: 0,
           },

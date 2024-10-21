@@ -62,6 +62,10 @@ export default {
       metadatasearch: "true",
       fulltextsearch: "false",
       gtsearch: "false",
+      author: "",
+      title: "",
+      year: "",
+      place: "",
     };
   },
   methods: {
@@ -77,6 +81,10 @@ export default {
             fulltextsearch: this.fulltextsearch,
             metadatasearch: this.metadatasearch,
             isGT: this.gtsearch,
+            author: this.author,
+            title: this.title,
+            year: this.year,
+            place: this.place,
           },
         })
         .catch(() => {}); // To ignore the Navigation Duplicated error

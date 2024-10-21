@@ -1,6 +1,14 @@
 <template>
   <div class="w-full relative">
     <div class="m-2">
+      <label
+        class="mt-2 mb-2 inline-block w-full font-medium text-sky-900 rounded dark:text-sky-300"
+        for="searchoptions">
+        Search Options:
+      </label>
+      <hr style="border: 1px solid lightgray" />
+    </div>
+    <div class="mb-6 m-2" id="searchotpions">
       <div
         v-for="(item, index) in filters"
         :key="index"
@@ -23,13 +31,28 @@
         </label>
       </div>
     </div>
+    <div class="m-2">
+      <label
+        class="mt-2 mb-2 inline-block w-full font-medium text-sky-900 rounded dark:text-sky-300"
+        for="textsearch">
+        Search in Fields:
+      </label>
+      <hr style="border: 1px solid lightgray" />
+    </div>
+    <div class="pr-4" id="textsearch">
+      <input type="text" class="w-full px-1 m-2 border rounded" name="author" :value="author"
+        @change="handleFilterChange" label="Search for Author" placeholder="Author" />
+      <input type="text" class="w-full px-1 m-2 border rounded" name="title" :value="title"
+        @change="handleFilterChange" label="Search for Title" placeholder="Title" />
+      <input type="text" class="w-full px-1 m-2 border rounded" name="place" :value="place"
+        @change="handleFilterChange" label="Search for Place" placeholder="Place" />
+      <input type="text" class="w-full px-1 m-2 border rounded" name="year" :value="year"
+        @change="handleFilterChange" label="Search for Year" placeholder="Year" />
+    </div>
 
     <div v-for="(facets, index) in data" :key="index" class="m-2 flex flex-col">
-      <FacetField
-        :facets="facets"
-        :onFacetChange="onFacetChange"
-        :selectedFacets="selectedFacets"
-      />
+      <FacetField :facets="facets" :onFacetChange="onFacetChange"
+        :selectedFacets="selectedFacets" />
     </div>
   </div>
 </template>
@@ -64,6 +87,22 @@ export default {
     fulltextsearch: {
       type: Boolean,
       default: false,
+    },
+    author: {
+      type: String,
+      default: ""
+    },
+    title: {
+      type: String,
+      default: ""
+    },
+    place: {
+      type: String,
+      default: ""
+    },
+    year: {
+      type: String,
+      default: ""
     },
     onFacetChange: {
       type: Function,
@@ -112,7 +151,11 @@ export default {
       this.value.push(tag);
     },
     handleFilterChange(e) {
-      this.onFilterChange(e.target.name, String(e.target.checked));
+      if (e.target.type === "checkbox") {
+        this.onFilterChange(e.target.name, String(e.target.checked));
+      } else {
+        this.onFilterChange(e.target.name, String(e.target.value));
+      }
     },
   },
 };

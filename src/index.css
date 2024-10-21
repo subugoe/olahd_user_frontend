@@ -25,6 +25,16 @@
   @apply bg-sky-200 border-sky-200
 }
 
+.filter-button {
+  @apply px-2 py-0.5 border border-gray-400 rounded-md p-2 mr-2 shadow-sm
+}
+.filter-button:hover:enabled {
+  @apply hover:bg-gray-400
+}
+.filter-button:disabled {
+  @apply bg-white text-gray-400 border-gray-100
+}
+
 /* So far this "detail"-button is only used in search details*/
 .detail-blue-button {
   @apply rounded border text-base/5 mr-4 px-3 py-1 border-custom-blue bg-custom-blue text-white

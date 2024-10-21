@@ -8,10 +8,12 @@
           id="search-input"
           class="
             py-1.5
+            olahd-border-color
             text-sm text-black
             bg-white
             pl-2
             pr-8
+            w-full
             rounded-md
             focus:outline-none focus:bg-white focus:text-gray-900
             border
