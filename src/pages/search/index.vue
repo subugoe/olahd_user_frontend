@@ -59,7 +59,7 @@
       :extraFilters="extraFilters"
       :onFilterChange="handleExtraFilterChange"
     />
-    <button class="normal-blue-button" @click="showFilterDialog = true" >
+    <button v-if="isMobile" class="normal-blue-button" @click="showFilterDialog = true" >
       Filter
     </Button>
     <div class="flex justify-end">
@@ -126,7 +126,7 @@ import SearchResult from "@/components/search/SearchResult.vue";
 import Dialog from 'primevue/dialog';
 
 import { mystore } from '@/store';
-import { mapWritableState } from 'pinia';
+import { mapWritableState, mapState } from 'pinia';
 
 export default {
   components: {
@@ -152,6 +152,7 @@ export default {
   },
   computed: {
     ...mapWritableState(mystore, ['showExtraFilters']),
+    ...mapState(mystore, ['isMobile']),
     maxResultsSize() {
       return Number(this.$route.query.perPageRecords || 10);
     },
@@ -221,9 +222,6 @@ export default {
         "place": this.$route.query.place || "",
         "year": this.$route.query.year || "",
       }
-    },
-    isMobile() {
-      return true;
     },
   },
   methods: {
