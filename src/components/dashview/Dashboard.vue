@@ -44,11 +44,11 @@
                         {{ record.trackingInfo.status }}
                       </span>
                     </td>
-                    <div class="px-6 py-4 max-w-3xl overflow-scroll">
-                      <td>
+                    <td>
+                      <div class="px-6 py-4 max-w-3xl overflow-scroll">
                         {{ record.trackingInfo.message }}
-                      </td>
-                    </div>
+                      </div>
+                    </td>
                   </tr>
                 </template>
                 <template v-else>
