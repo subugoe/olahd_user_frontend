@@ -110,7 +110,7 @@ export default {
       error_msg: null,
       loading: true,
       response: null,
-      isUserLoggedIn: this,
+      isUserLoggedIn: false,
       listenerKey: -1,
       moveTriggered: false,
     };
@@ -198,9 +198,14 @@ export default {
         this.loading = false;
       }
     },
+
     async loadArchiveInfo() {
-      let response = await lzaApi.getArchiveInfo(this.id, 0, 0, false);
-      this.archiveInfo = response.data;
+      try {
+        let response = await lzaApi.getArchiveInfo(this.id, 0, 0, false);
+        this.archiveInfo = response.data;
+      } catch (error) {
+        this.archiveInfo = {}
+      }
     },
 
     exportArchive() {
@@ -277,8 +282,14 @@ export default {
     },
   },
   async created() {
-    await this.loadData();
-    await this.loadArchiveInfo();
+    if (!this.id) {
+      this.error = true;
+      this.error_msg = "PID is missing";
+      this.loading = false;
+    } else {
+      await this.loadData();
+      await this.loadArchiveInfo();
+    }
   },
   async unmounted() {
     authService.removeLoggedInListener(this.listenerKey);
