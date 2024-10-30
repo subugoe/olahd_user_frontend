@@ -8,7 +8,7 @@
       dismissableMask
       :pt="{
         title: {
-          class: [ 'text-lg', 'font-medium']
+          class: ['text-lg', 'font-medium'],
         },
       }"
       @hide="onSearchdialogClose"
@@ -54,19 +54,17 @@
         </div>
       </div>
     </div>
-    <SearchInput class="m-1 my-4 sm:w-4/5 sm:pr-5 "/>
-    <button v-if="true" class="filter-button m-1" @click="showFilterDialog = true" >
-      Filter
-    </Button>
+    <SearchInput class="m-1 my-4 sm:w-4/5 sm:pr-5" />
+    <button v-if="true" class="filter-button m-1" @click="showFilterDialog = true">Filter</button>
     <template v-if="hasResult">
       <!-- Search result -->
 
-      <div class=" flex mb-5">
+      <div class="flex mb-5">
         <div :class="!isMobile ? 'basis-4/5' : ''">
           <div class="flex items-center justify-between my-6">
             <p class="mx-2">
-              Showing {{ (this.page - 1) * this.maxResultsSize + 1 }} -
-              {{ maxRecord }} of {{ total }} hits
+              Showing {{ (this.page - 1) * this.maxResultsSize + 1 }} - {{ maxRecord }} of
+              {{ total }} hits
             </p>
 
             <div class="mx-6">
@@ -87,7 +85,12 @@
             <Pagination :current="page" :total="total" class="mx-2" />
           </div>
         </div>
-        <div :class="!isMobile ? 'basis-1/5' : ''" class="border rounded-md bg-gray-50 pt-2" style="margin-top: 71px;" v-if="!isMobile">
+        <div
+          :class="!isMobile ? 'basis-1/5' : ''"
+          class="border rounded-md bg-gray-50 pt-2"
+          style="margin-top: 71px"
+          v-if="!isMobile"
+        >
           <SearchFilter
             :facet="facets"
             :onFacetChange="handleFacetChange"
@@ -114,10 +117,10 @@ import SearchFilter from "@/components/search/SearchFilter.vue";
 import SearchResult from "@/components/search/SearchResult.vue";
 import SearchInput from "../../components/search/SearchInput.vue";
 
-import Dialog from 'primevue/dialog';
+import Dialog from "primevue/dialog";
 
-import { mystore } from '@/store';
-import { mapState } from 'pinia';
+import { mystore } from "@/store";
+import { mapState } from "pinia";
 
 export default {
   components: {
@@ -141,12 +144,12 @@ export default {
       showFilterDialog: false,
       // When users select something in the filter-dialog, this is temporarily stored here
       filterDialogValues: {
-        'facets': {}
+        facets: {},
       },
     };
   },
   computed: {
-    ...mapState(mystore, ['isMobile']),
+    ...mapState(mystore, ["isMobile"]),
     maxResultsSize() {
       return Number(this.$route.query.perPageRecords || 10);
     },
@@ -170,8 +173,12 @@ export default {
         ...el,
         values: el.values.map((val) => ({
           ...val,
-          occurences: this.currentFacets[el.name][val.value] ? this.currentFacets[el.name][val.value][0] : 0,
-          limited: this.currentFacets[el.name][val.value] ? this.currentFacets[el.name][val.value][1] : false,
+          occurences: this.currentFacets[el.name][val.value]
+            ? this.currentFacets[el.name][val.value][0]
+            : 0,
+          limited: this.currentFacets[el.name][val.value]
+            ? this.currentFacets[el.name][val.value][1]
+            : false,
         })),
       }));
     },
@@ -193,9 +200,7 @@ export default {
       return this.$route.query.fulltextsearch === "true";
     },
     metadatasearch() {
-      return this.$route.query.metadatasearch
-        ? this.$route.query.metadatasearch === "true"
-        : true;
+      return this.$route.query.metadatasearch ? this.$route.query.metadatasearch === "true" : true;
     },
     query() {
       return this.$route.query.q;
@@ -214,14 +219,13 @@ export default {
     },
     title() {
       return this.$route.query.title;
-      
     },
     place() {
       return this.$route.query.place;
     },
     year() {
       return this.$route.query.year;
-    }
+    },
   },
   methods: {
     onFilterChange(name, value) {
@@ -237,7 +241,7 @@ export default {
         query: {
           ...query,
           page: 1,
-        }
+        },
       });
     },
 
@@ -256,34 +260,34 @@ export default {
         name: "search",
         query: {
           ...JSON.parse(JSON.stringify(query)),
-          page: 1
-        }
+          page: 1,
+        },
       });
     },
 
     /**
      * Handle a change in the filter-dialog (onMobile)
-     * 
+     *
      * When a checkbox or textfield of a filter value is changed in the dialog it is stored in the
      * temporary storage filterDialogValue. This is used when executing the search on dialog close
      */
     onFilterDialogChange(name, value) {
-      this.filterDialogValues[name] = value
+      this.filterDialogValues[name] = value;
     },
 
     /**
      * Handle a facet change in the filter-dialog (onMobile)
      */
     handleFilterDialogFacetChange(name, selectedFacets) {
-      this.filterDialogValues['facets'][name] = selectedFacets
+      this.filterDialogValues["facets"][name] = selectedFacets;
     },
 
     /**
      * Search on filter-dialog close
-     * 
+     *
      * The dialog was implemented after the search was implemented. Therefore what was done
      * directly on facet/filter select is done on dialog close. The code was simply transfered from
-     * the facet and filter change handler (the one without the dialog) and put together 
+     * the facet and filter change handler (the one without the dialog) and put together
      */
     onSearchdialogClose() {
       const query = {
@@ -291,9 +295,9 @@ export default {
       };
 
       for (const [key, value] of Object.entries(this.filterDialogValues)) {
-        if (key == 'facets') {
+        if (key == "facets") {
           for (const [fkey, fvalue] of Object.entries(value)) {
-            console.log(`fvalue: ${fvalue}`)
+            console.log(`fvalue: ${fvalue}`);
             if (!fvalue.length) {
               delete query[fkey];
             } else {
@@ -301,7 +305,7 @@ export default {
             }
           }
         } else {
-          query[key] = value
+          query[key] = value;
         }
       }
 
@@ -313,7 +317,7 @@ export default {
         query: {
           ...query,
           page: 1,
-        }
+        },
       });
     },
 
@@ -335,7 +339,13 @@ export default {
 
       let facetQuery = [];
       const nonFacetFields = [
-        "isGT", "fulltextsearch", "metadatasearch", "author", "title", "place", "year"
+        "isGT",
+        "fulltextsearch",
+        "metadatasearch",
+        "author",
+        "title",
+        "place",
+        "year",
       ];
 
       Object.entries(rest).forEach(([field, values]) => {
@@ -359,7 +369,7 @@ export default {
             author: this.author,
             title: this.title,
             place: this.place,
-            year: this.year
+            year: this.year,
           },
           facetQuery.join("&")
         )
@@ -417,5 +427,4 @@ export default {
   },*/
 };
 </script>
-<style scoped>
-</style>
+<style scoped></style>
