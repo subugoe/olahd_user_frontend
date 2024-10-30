@@ -11,13 +11,14 @@
           class: [ 'text-lg', 'font-medium']
         },
       }"
+      @hide="onSearchdialogClose"
     >
       <SearchFilter
         :facet="facets"
-        :onFacetChange="handleFacetChange"
+        :onFacetChange="handleFilterDialogFacetChange"
         :selectedFacets="$route.query"
         :isGT="isGT"
-        :onFilterChange="onFilterChange"
+        :onFilterChange="onFilterDialogChange"
         :fulltextsearch="fulltextsearch"
         :metadatasearch="metadatasearch"
         :author="author"
@@ -138,6 +139,10 @@ export default {
       scrolls: [""],
       time: 0,
       showFilterDialog: false,
+      // When users select something in the filter-dialog, this is temporarily stored here
+      filterDialogValues: {
+        'facets': {}
+      },
     };
   },
   computed: {
@@ -235,12 +240,7 @@ export default {
         }
       });
     },
-    handleExtraFilterChange(extraFilters) {
-      for (const [key, value] of Object.entries(extraFilters)) {
-        this.$route.query[key] = value
-        this.extraFilters[key] = value
-      }
-    },
+
     handleFacetChange(name, selectedFacets) {
       const query = { ...this.$route.query };
       if (!selectedFacets.length) {
@@ -260,6 +260,63 @@ export default {
         }
       });
     },
+
+    /**
+     * Handle a change in the filter-dialog (onMobile)
+     * 
+     * When a checkbox or textfield of a filter value is changed in the dialog it is stored in the
+     * temporary storage filterDialogValue. This is used when executing the search on dialog close
+     */
+    onFilterDialogChange(name, value) {
+      this.filterDialogValues[name] = value
+    },
+
+    /**
+     * Handle a facet change in the filter-dialog (onMobile)
+     */
+    handleFilterDialogFacetChange(name, selectedFacets) {
+      this.filterDialogValues['facets'][name] = selectedFacets
+    },
+
+    /**
+     * Search on filter-dialog close
+     * 
+     * The dialog was implemented after the search was implemented. Therefore what was done
+     * directly on facet/filter select is done on dialog close. The code was simply transfered from
+     * the facet and filter change handler (the one without the dialog) and put together 
+     */
+    onSearchdialogClose() {
+      const query = {
+        ...this.$route.query,
+      };
+
+      for (const [key, value] of Object.entries(this.filterDialogValues)) {
+        if (key == 'facets') {
+          for (const [fkey, fvalue] of Object.entries(value)) {
+            console.log(`fvalue: ${fvalue}`)
+            if (!fvalue.length) {
+              delete query[fkey];
+            } else {
+              query[fkey] = fvalue.map((el) => el.value).join("_-_");
+            }
+          }
+        } else {
+          query[key] = value
+        }
+      }
+
+      if (JSON.stringify(query) === JSON.stringify(this.$route.query)) {
+        return;
+      }
+      this.$router.push({
+        name: "search",
+        query: {
+          ...query,
+          page: 1,
+        }
+      });
+    },
+
     handlePageSizeChange(event) {
       this.$router.push({
         name: "search",
