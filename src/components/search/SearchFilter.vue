@@ -1,18 +1,17 @@
 <template>
   <div class="w-full relative">
-    <div class="m-2">
+    <div class="ml-2 mt-2">
       <label
-        class="mt-2 mb-2 inline-block w-full font-medium text-sky-900 rounded dark:text-sky-300"
+        class="mb-1 inline-block w-full font-medium rounded dark:text-sky-300"
         for="searchoptions">
         Search Options:
       </label>
-      <hr style="border: 1px solid lightgray" />
     </div>
     <div class="mb-6 m-2" id="searchotpions">
       <div
         v-for="(item, index) in filters"
         :key="index"
-        class="m-2 font-medium flex flex-row"
+        class="m-1.5 font-medium flex items-start"
       >
         <input
           :id="item.label"
@@ -21,32 +20,32 @@
           :checked="isFilterSelected(item.name)"
           :value="isFilterSelected(item.name)"
           @change="handleFilterChange"
-          class="mr-2"
+          class="mr-2 mt-1"
         />
         <label
           :for="item.label"
-          class="w-full font-medium text-sky-900 rounded dark:text-sky-300"
+          class="w-full font-medium text-sm text-sky-900 rounded dark:text-sky-300"
         >
           {{ item.label }}
         </label>
       </div>
     </div>
     <div class="m-2">
+      <hr class="filter-hr" />
       <label
-        class="mt-2 mb-2 inline-block w-full font-medium text-sky-900 rounded dark:text-sky-300"
+        class="mt-2 mb-0.5 inline-block w-full font-medium rounded dark:text-sky-300"
         for="textsearch">
         Search in Fields:
       </label>
-      <hr style="border: 1px solid lightgray" />
     </div>
     <div class="pr-4" id="textsearch">
-      <input type="text" class="w-full px-1 m-2 border rounded" name="author" :value="author"
+      <input type="text" class="w-full p-1 m-1 border rounded text-sm" name="author" :value="author"
         @change="handleFilterChange" label="Search for Author" placeholder="Author" />
-      <input type="text" class="w-full px-1 m-2 border rounded" name="title" :value="title"
+      <input type="text" class="w-full p-1 m-1 border rounded text-sm" name="title" :value="title"
         @change="handleFilterChange" label="Search for Title" placeholder="Title" />
-      <input type="text" class="w-full px-1 m-2 border rounded" name="place" :value="place"
+      <input type="text" class="w-full p-1 m-1 border rounded text-sm" name="place" :value="place"
         @change="handleFilterChange" label="Search for Place" placeholder="Place" />
-      <input type="text" class="w-full px-1 m-2 border rounded" name="year" :value="year"
+      <input type="text" class="w-full p-1 m-1 border rounded text-sm" name="year" :value="year"
         @change="handleFilterChange" label="Search for Year" placeholder="Year" />
     </div>
 

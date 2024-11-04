@@ -63,3 +63,8 @@ component-scoped-styles*/
     background-image: url("@/assets/archive-very-bright.jpg");
   }
 }
+
+.filter-hr {
+  @apply border-gray-300
+  my-2
+}

@@ -1,41 +1,37 @@
 <template>
-  <div class="mt-4">
+  <hr class="filter-hr" />
+  <div class="">
     <label
       class="
-        mt-2
-        mb-2
+        mt-2.5
+        mb-1
         inline-block
         w-full
         font-medium
-        text-sky-900
         rounded
-        dark:text-sky-300
       "
       >{{ to_facet_label(facets) }}:
     </label>
-    <hr style="border: 1px solid lightgray" />
     <div class="mt-1 search-results">
       <div
         v-for="(facet, index) in results"
         :key="index"
-        class="mt-2 cursor-pointer hover:bg-gray-200 cursor-pointer"
+        class="cursor-pointer hover:bg-gray-200 cursor-pointer"
         @click="toggleFacetSelect(facet, selectedFacetsMapping[facet.value])"
       >
         <div
           class="
             flex
-            items-center
-            p-2
-            rounded
-            overflow-hidden
+            p-1
             hover:bg-gray-100
-            dark:hover:bg-gray-600
+            items-start
           "
         >
           <input
             type="checkbox"
             :checked="selectedFacetsMapping[facet.value]"
             class="
+              mt-0.5
               w-4
               h-4
               text-sky-600
@@ -43,9 +39,7 @@
               rounded
               border-gray-300
               focus:ring-sky-500
-              dark:focus:ring-sky-600 dark:ring-offset-gray-700
               focus:ring-2
-              dark:bg-gray-600 dark:border-gray-500
             "
           />
           <label
@@ -58,20 +52,19 @@
               rounded
               justify-between
               flex
-              dark:text-sky-300
             "
           >{{ facet.value }}
-            <span>{{ facet.limited ? "> " : "" }} {{ facet.occurences }} </span>
+            <span class="ml-2">{{ facet.limited ? "> " : "" }} {{ facet.occurences }} </span>
           </label>
         </div>
       </div>
     </div>
     <button
       v-if="facets.values.length > 5"
-      class="outline-none border-none"
+      class="outline-none border-none ml-1 mt-1.5"
       @click="toggleExpanded"
     >
-      <span class="text-sky-900 text-sm">
+      <span class="text-sm">
         {{ this.isExpanded ? "Show less" : "Show more" }}
       </span>
     </button>
