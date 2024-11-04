@@ -1,68 +1,35 @@
 <template>
   <section
-    class="
-      flex
-      justify-between
-      bg-white
-      rounded-lg
-      border border-gray-200
-      px-6
-      py-3
-      text-gray-700
-      font-montserrat
-    "
+    class="flex flex-wrap justify-between bg-white rounded-lg border border-gray-200 px-6 py-3 text-gray-700 font-montserrat"
   >
     <ul class="flex items-center">
-      <li class="pr-4" v-if="hasPrev()">
+      <li class="pr-3 sm:pr-4" v-if="hasPrev()">
         <a href="#" @click.prevent="changePage(prevPage)">
-          <div
-            class="page-item"
-          >
-            <i class="fas fa-angle-left"></i>
-          </div>
+          <i class="page-item fas fa-angle-left"></i>
         </a>
       </li>
-      <li class="pr-4" v-if="hasFirst()">
+      <li class="pr-3 sm:pr-4" v-if="hasFirst()">
         <a href="#" @click.prevent="changePage(1)">
-          <div
-            class="page-item transform rotate-45"
-          >
-            <span class="transform -rotate-45"> 1 </span>
-          </div>
+          <span class="page-item font-light"> 1 </span>
         </a>
       </li>
-      <li class="pr-4" v-if="hasFirst()">...</li>
-      <li class="pr-4" v-for="page in pages" :key="page">
+      <li class="pr-3 sm:pr-4" v-if="hasFirst() && this.rangeStart != 2">...</li>
+      <li class="pr-3 sm:pr-4" v-for="page in pages" :key="page">
         <a href="#" @click.prevent="changePage(page)">
-          <div
-            :class="{
-              'bg-gradient-to-r from-sky-200 to-sky-600': current == page,
-            }"
-            class="page-item transform rotate-45"
-          >
-            <span class="transform -rotate-45">{{ page }}</span>
-          </div>
+          <span class="page-item font-light" :class="{ 'current-item': current == page }">{{
+            page
+          }}</span>
         </a>
       </li>
-      <li class="pr-4" v-if="hasLast()">...</li>
-      <li class="pr-4" v-if="hasLast()">
+      <li class="pr-3 sm:pr-4" v-if="hasLast() && this.rangeEnd != totalPages - 1">...</li>
+      <li class="pr-3 sm:pr-4" v-if="hasLast()">
         <a href="#" @click.prevent="changePage(totalPages)">
-          <div
-            class="page-item transform rotate-45"
-          >
-            <span class="transform -rotate-45">
-              {{ totalPages }}
-            </span>
-          </div>
+          <span class="page-item font-light">{{ totalPages }}</span>
         </a>
       </li>
-      <li class="pr-4" v-if="hasNext()">
+      <li class="pr-3 sm:pr-4" v-if="hasNext()">
         <a href="#" @click.prevent="changePage(nextPage)">
-          <div
-            class="page-item"
-          >
-            <i class="fas fa-angle-right"></i>
-          </div>
+          <i class="page-item fas fa-angle-right"></i>
         </a>
       </li>
     </ul>
@@ -73,22 +40,20 @@
           {{ textBeforeInput }}
         </span>
       </div>
-      <div class="w-14 rounded-md border border-indigo-400 px-1 py-1">
-        <input
-          v-model.number="input"
-          @keyup.enter="changePage(input)"
-          class="w-12 focus:outline-none px-2"
-          type="text"
-        />
-      </div>
+      <input
+        v-model.number="input"
+        @keyup.enter="changePage(input)"
+        class="p-1 olahd-border-color text-sm text-black w-14 bg-white rounded-md focus:outline-none focus:bg-white focus:text-gray-900 border focus:ring"
+        type="text"
+      />
       <div
         @click.prevent="changePage(input)"
         class="flex items-center pl-4 font-medium cursor-pointer"
       >
-        <span id="text-after-input" class="mr-1">
+        <span id="text-after-input" class="mr-1 page-item">
           {{ textAfterInput }}
         </span>
-        <i class="fas fa-angle-right items-center"></i>
+        <i class="fas fa-angle-right items-center text-custom-blue"></i>
       </div>
     </div>
   </section>
@@ -189,10 +154,9 @@ export default {
 
 <style scoped>
 .page-item {
-    @apply flex items-center justify-center hover:bg-gray-200 rounded-md h-6 w-6
+  @apply text-custom-blue hover:text-blue-900 hover:underline;
 }
-
-.page-item:hover {
-    @apply bg-gray-200
+.current-item {
+  @apply font-bold text-lg;
 }
 </style>
