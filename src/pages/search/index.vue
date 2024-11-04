@@ -64,10 +64,11 @@
       <div class="flex mb-5">
         <div :class="!isMobile ? 'basis-4/5' : ''">
           <div class="flex items-center justify-between my-6">
-            <p class="mx-2">
+            <p class="mx-2" v-if="total > 0">
               Showing {{ (this.page - 1) * this.maxResultsSize + 1 }} - {{ maxRecord }} of
               {{ total }} hits
             </p>
+            <p class="mx-2" v-else>No results found</p>
 
             <div class="mx-6">
               Items per Page:
