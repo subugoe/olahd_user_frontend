@@ -55,7 +55,9 @@
       </div>
     </div>
     <SearchInput class="m-1 my-4 sm:w-4/5 sm:pr-5" />
-    <button v-if="true" class="filter-button m-1" @click="showFilterDialog = true">Filter</button>
+    <div class="flex justify-center" v-if="isMobile">
+      <button class="filter-button mt-1 px-4" @click="showFilterDialog = true">Filter</button>
+    </div>
     <template v-if="hasResult">
       <!-- Search result -->
 

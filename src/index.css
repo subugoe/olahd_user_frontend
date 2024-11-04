@@ -26,7 +26,7 @@
 }
 
 .filter-button {
-  @apply px-2 py-0.5 border border-gray-400 rounded-md p-2 mr-2 shadow-sm
+  @apply py-0.5 border border-gray-400 rounded-md mr-2 shadow-sm
 }
 .filter-button:hover:enabled {
   @apply hover:bg-gray-400
