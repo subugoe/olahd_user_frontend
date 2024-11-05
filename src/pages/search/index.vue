@@ -1,4 +1,9 @@
 <template>
+  <div class="row" v-if="loading">
+    <div class="col text-center">
+      <img src="@/assets/spin-1s-100px.gif" alt="Searching" style="position: fixed; z-index:10;" />
+    </div>
+  </div>
   <div class="container mt-2 lg:px-10">
     <Dialog
       header="Filter"
@@ -40,11 +45,6 @@
       </div>
     </div>
 
-    <div class="row" v-if="loading">
-      <div class="col text-center">
-        <img src="@/assets/spin-1s-100px.gif" alt="Searching" />
-      </div>
-    </div>
     <div class="row mt-3" v-if="!hasResult && !loading">
       <div class="col">
         <div class="card">
