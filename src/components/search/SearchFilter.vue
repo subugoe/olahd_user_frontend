@@ -2,7 +2,7 @@
   <div class="w-full relative">
     <div class="ml-2 mt-2">
       <label
-        class="mb-1 inline-block w-full font-medium rounded dark:text-sky-300"
+        class="mb-1 inline-block w-full font-medium rounded"
         for="searchoptions">
         Search Options:
       </label>
@@ -24,7 +24,7 @@
         />
         <label
           :for="item.label"
-          class="w-full font-medium text-sm text-sky-900 rounded dark:text-sky-300"
+          class="w-full font-medium text-sm text-sky-900 rounded"
         >
           {{ item.label }}
         </label>
@@ -33,7 +33,7 @@
     <div class="m-2">
       <hr class="filter-hr" />
       <label
-        class="mt-2 mb-0.5 inline-block w-full font-medium rounded dark:text-sky-300"
+        class="mt-2 mb-0.5 inline-block w-full font-medium rounded"
         for="textsearch">
         Search in Fields:
       </label>
