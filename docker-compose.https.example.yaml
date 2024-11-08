@@ -3,7 +3,7 @@ version: '3.5'
 # enable https
 # To use this the service could be started like this:
 # docker-compose -f docker-compose.yaml docker-compose.https.example.yaml up -d
-# For usage email and URL in Host-Rule have to be adapted
+# For usage the URL in Host-Rule has to be adapted
 
 services:
   olahds_user_frontend:
