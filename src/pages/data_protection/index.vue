@@ -1,5 +1,5 @@
 <template>
-  <section id="data_protection" class="container">
+  <section id="data_protection" class="container m-2 sm:m-10">
     <h1>Datenschutzkonzept für OLA-HD Service</h1>
     <p>Datenschutzerklärung</p>
     <p>§ 1 Information über die Erhebung personenbezogener Daten</p>
@@ -90,7 +90,7 @@
 </template>
 <style scoped>
   h1 {
-    @apply text-3xl mb-6 mt-2
+    @apply text-4xl mb-6 mt-2 font-semibold text-slate-700
   }
   p {
     @apply mb-4
