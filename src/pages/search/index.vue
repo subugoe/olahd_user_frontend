@@ -301,7 +301,6 @@ export default {
       for (const [key, value] of Object.entries(this.filterDialogValues)) {
         if (key == "facets") {
           for (const [fkey, fvalue] of Object.entries(value)) {
-            console.log(`fvalue: ${fvalue}`);
             if (!fvalue.length) {
               delete query[fkey];
             } else {
