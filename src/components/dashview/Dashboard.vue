@@ -1,10 +1,10 @@
 <template>
   <div class="container">
     <!-- Page Heading -->
-    <span class="text-xl font-bold px-6 py-4">Dashboard</span>
+    <h1 class="text-xl font-bold px-6 py-4">Dashboard</h1>
 
     <div class="m-4">
-      <h6 class="text-lg font-medium px-6 py-4">Import Status</h6>
+      <h2 class="text-lg font-medium px-6 py-4">Import Status</h2>
 
       <div class="flex flex-col">
         <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">

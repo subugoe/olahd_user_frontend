@@ -1,4 +1,5 @@
 <template>
+  <h1 class="hidden">OLA-HD search results list</h1>
   <div class="row" v-if="loading">
     <div class="col text-center">
       <img src="@/assets/spin-1s-100px.gif" alt="Searching" style="position: fixed; z-index:10;" />
@@ -49,7 +50,7 @@
       <div class="col">
         <div class="card">
           <div class="card-body">
-            <h3 class="text-center">No Result Found!</h3>
+            <h2 class="text-center">No Result Found!</h2>
           </div>
         </div>
       </div>

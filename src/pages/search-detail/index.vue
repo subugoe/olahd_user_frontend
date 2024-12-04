@@ -46,7 +46,7 @@
       <!-- Full details -->
       <section class="border rounded">
         <div class="gray-div-header" >
-          <h4 class="text-base">{{ title }}</h4>
+          <h1 class="text-base">{{ title }}</h1>
           <div>
             <button @click="exportArchive" class="detail-blue-button" :disabled="!isOpen">
               <i class="fas fa-download mr-1" />
@@ -57,7 +57,7 @@
         <div class="p-4 space-y-2">
           <div class="grid grid-cols-6" v-for="item in info" :key="item.label">
             <div class="col-span-2">
-              <h5 class="text-gray-800 font-semibold">{{ item.label }}</h5>
+              <h2 class="text-gray-800 font-semibold">{{ item.label }}</h2>
             </div>
             <div class="col-span-4">
               <p class="text-gray-600">{{ item.value }}</p>

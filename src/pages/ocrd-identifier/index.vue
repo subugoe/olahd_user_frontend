@@ -1,10 +1,13 @@
 <template>
-  <span class="ml-4" v-if="showErrorMsg">
-    Ocrd-Identifier: <strong>{{ id }}</strong> not found
-  </span>
-  <router-link class="max-w-fit olahd-link-color m-4" :to="{ name: 'home' }">
-    Go back to main page
-  </router-link>
+  <div class="grid ml-4">
+    <h1>Forward to latest OCRD-ZIP of Ocrd-Identifier</h1>
+    <span v-if="showErrorMsg">
+      Ocrd-Identifier: <strong>{{ id }}</strong> not found
+    </span>
+    <router-link class="max-w-fit olahd-link-color mt-2" :to="{ name: 'home' }">
+      Go back to main page
+    </router-link>
+  </div>
 </template>
 
 <script setup>
@@ -31,3 +34,8 @@
     showErrorMsg.value=true
   })
 </script>
+<style scoped>
+  h1 {
+    @apply mb-4 text-xl font-semibold text-slate-700
+  }
+</style>

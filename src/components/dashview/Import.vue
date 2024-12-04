@@ -1,14 +1,14 @@
 <template>
   <div class="container">
     <!-- Page Heading -->
-    <span class="text-xl font-bold m-4">Import Your Data Here</span>
+    <h1 class="text-xl font-bold my-8">Import Your Data Here</h1>
 
     <div
       v-if="isSuccess"
-      class="alert alert-success alert-dismissible fade show m-4"
+      class="alert alert-success alert-dismissible fade show"
       role="alert"
     >
-      <h4 class="alert-heading">Success!</h4>
+      <h2 class="alert-heading">Success!</h2>
       <p>Your data is valid and being processed by the system.</p>
       <p>
         Your PID: <strong>{{ newPid }}</strong>
@@ -28,7 +28,7 @@
       class="alert alert-danger alert-dismissible fade show"
       role="alert"
     >
-      <h4 class="alert-heading">Failed!</h4>
+      <h2 class="alert-heading">Failed!</h2>
       <p>The system cannot process your data. Please check the error below:</p>
       <hr />
       <p>{{ errorMessage }}</p>
@@ -42,9 +42,7 @@
       </button>
     </div>
 
-    <div class="m-4">
-      <h6 class="text-lg font-medium py-4">Import Status</h6>
-
+    <div class="">
       <div class="grid grid-cols-3">
         <form class="col-span-2" @submit.prevent="onSubmit">
           <div>
@@ -80,10 +78,10 @@
           </div>
 
           <template v-if="showProgress">
-            <h4 class="small font-weight-bold">
+            <h2 class="small font-weight-bold">
               Upload progress
               <span class="float-right">{{ uploadPercentage }}%</span>
-            </h4>
+            </h2>
             <div class="progress mb-4">
               <div
                 class="progress-bar bg-info"

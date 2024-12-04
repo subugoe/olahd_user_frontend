@@ -42,7 +42,7 @@
       </router-link>
     </ul>
     <hr class="bg-white mt-4" />
-    <h4 class="text-white/60 font-semibold mt-4 px-3 text-center">Tools</h4>
+    <span class="text-white/60 font-semibold mt-4 px-3 text-center">Tools</span>
     <ul class="mt-4">
       <router-link
         to="/dashview/import"
