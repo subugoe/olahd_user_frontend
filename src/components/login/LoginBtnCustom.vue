@@ -23,7 +23,22 @@
       >
         Sign In
       </button>
-      <LoginModal :open="isOpen" :onClose="onClose" />
+      <Dialog
+        header="OLA-HD Login"
+        :append-to-body="true"
+        v-model:visible="isOpen"
+        modal
+        dismissableMask
+        @hide=""
+        :pt="{
+          title: {
+            class: ['text-lg', 'font-medium'],
+          },
+        }"
+        :class="{ 'w-1/2' : !isMobile }"
+      >
+        <Login :open="isOpen" :onSuccess="closeDialog" />
+      </Dialog>
     </div>
     <div v-else>
       <button
@@ -40,9 +55,13 @@
   </div>
 </template>
 <script>
-import LoginModal from '../../components/login/Login.vue'
+import Login from '../../components/login/Login.vue'
+import Dialog from "primevue/dialog";
+import { mystore } from "@/store";
+import { mapState } from "pinia";
+
 export default {
-  components: { LoginModal },
+  components: { Login, Dialog },
   data() {
     return {
       isOpen: false,
@@ -52,7 +71,8 @@ export default {
   computed: {
     showDashboardLink() {
       return this.isUserLoggedIn && !this.$router.currentRoute.value.path.includes("dashview")
-    }
+    },
+    ...mapState(mystore, ["isMobile"]),
   },
   methods: {
     onClose() {
@@ -60,6 +80,9 @@ export default {
     },
     openLoginModal() {
       this.isOpen = true;
+    },
+    closeDialog() {
+      this.isOpen = false;
     },
     logout() {
       this.authService.logoutCustom()
