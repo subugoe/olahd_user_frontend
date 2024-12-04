@@ -3,10 +3,10 @@
   <div
     :class="
       'bg-sky-600 py-4 flex flex-col flex-1 duration-200 ' +
-      (isExpanded ? 'w-72' : 'w-32')
+      (isExpanded ? 'w-72' : '')
     "
   >
-    <router-link
+    <RouterLink
       to="/dashview/dashboard"
       class="text-3xl font-semibold text-center text-sky-800"
       exact
@@ -17,17 +17,15 @@
         </div>
         <div class="text-white text-2xl" v-if="isExpanded">OLA-HD</div>
       </div>
-    </router-link>
+    </RouterLink>
     <hr class="bg-white mt-4" />
     <ul class="mt-4">
-      <router-link
+      <RouterLink
         to="/dashview/dashboard"
         tag="li"
-        :class="
-          'flex items-center rounded-md px-3 text-white/50 hover:text-white/100 ' +
-          (isExpanded ? 'text-left' : 'text-center')
-        "
-        active-class="text-white/100"
+        :class="(isExpanded ? 'text-left' : 'text-center')"
+        active-class="!text-white"
+        class="flex items-center rounded-md px-3 text-white/50"
         exact
       >
         <a
@@ -39,19 +37,17 @@
           <i class="fas fa-fw fa-tachometer-alt" />
           <span class="text-inherit" v-if="isExpanded">Dashboard</span>
         </a>
-      </router-link>
+      </RouterLink>
     </ul>
     <hr class="bg-white mt-4" />
     <span class="text-white/60 font-semibold mt-4 px-3 text-center">Tools</span>
     <ul class="mt-4">
-      <router-link
+      <RouterLink
         to="/dashview/import"
         tag="li"
-        :class="
-          'flex items-center rounded-md px-3 text-white/50 hover:text-white/100 ' +
-          (isExpanded ? 'text-left' : 'text-center')
-        "
-        active-class="text-white/100"
+        :class="(isExpanded ? 'text-left' : 'text-center')"
+        class="flex items-center rounded-md px-3 text-white/50"
+        active-class="!text-white"
         exact
       >
         <a
@@ -63,7 +59,7 @@
           <i class="fas fa-fw fa-upload" />
           <span v-if="isExpanded">Import</span>
         </a>
-      </router-link>
+      </RouterLink>
     </ul>
     <hr class="bg-white mt-4" />
     <button
