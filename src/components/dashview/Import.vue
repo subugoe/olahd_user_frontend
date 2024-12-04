@@ -18,6 +18,7 @@
         class="close"
         data-dismiss="alert"
         aria-label="Close"
+        @click="isSuccess = false"
       >
         <span aria-hidden="true">&times;</span>
       </button>
@@ -37,6 +38,7 @@
         class="close"
         data-dismiss="alert"
         aria-label="Close"
+        @click="isError = false; errorMessage = null"
       >
         <span aria-hidden="true">&times;</span>
       </button>
