@@ -22,9 +22,11 @@
           placeholder="Search..."
           autocomplete="off"
           v-model="query"
+          aria-label="Searchterm"
         />
         <span class="absolute inset-y-0 right-1 flex items-center">
           <button
+            aria-label="Run the search"
             type="submit"
             class="p-1 focus:outline-none focus:shadow-outline"
           >

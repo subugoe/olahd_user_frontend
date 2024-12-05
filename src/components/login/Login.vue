@@ -5,6 +5,7 @@
       placeholder="Username"
       v-model="username"
       required
+      aria-label="Username"
     />
     <input
       placeholder="Password"
@@ -12,6 +13,7 @@
       v-model="password"
       type="password"
       required
+      aria-label="Password"
     />
     <div class="mb-3 text-red-500" v-if="isFailed">
       Login failed. Please check your credentials.

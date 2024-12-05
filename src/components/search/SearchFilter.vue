@@ -40,13 +40,13 @@
     </div>
     <div class="pr-4" id="textsearch">
       <input type="text" class="w-full p-1 m-1 border rounded text-sm" name="author" :value="author"
-        @change="handleFilterChange" label="Search for Author" placeholder="Author" />
+        @change="handleFilterChange" aria-label="Searchterm for Author" placeholder="Author" />
       <input type="text" class="w-full p-1 m-1 border rounded text-sm" name="title" :value="title"
-        @change="handleFilterChange" label="Search for Title" placeholder="Title" />
+        @change="handleFilterChange" aria-label="Searchterm for Title" placeholder="Title" />
       <input type="text" class="w-full p-1 m-1 border rounded text-sm" name="place" :value="place"
-        @change="handleFilterChange" label="Search for Place" placeholder="Place" />
+        @change="handleFilterChange" aria-label="Searchtem for Place" placeholder="Place" />
       <input type="text" class="w-full p-1 m-1 border rounded text-sm" name="year" :value="year"
-        @change="handleFilterChange" label="Search for Year" placeholder="Year" />
+        @change="handleFilterChange" aria-label="Searchterm for Year" placeholder="Year" />
     </div>
 
     <div v-for="(facets, index) in data" :key="index" class="m-2 flex flex-col">

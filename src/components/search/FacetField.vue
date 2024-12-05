@@ -28,6 +28,7 @@
           "
         >
           <input
+            :id="facet.value + '-' + index"
             type="checkbox"
             :checked="selectedFacetsMapping[facet.value]"
             class="
@@ -43,6 +44,7 @@
             "
           />
           <label
+            :for="facet.value + '-' + index"
             class="
               ml-2
               w-full

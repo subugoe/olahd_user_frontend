@@ -10,7 +10,7 @@
     <div class="mx-auto">
       <form @submit.prevent="submit" class="float">
         <div class="grid grid-cols-7">
-          <label class="relative block col-start-1 col-span-7 sm:col-start-2 sm:col-span-5 md:col-start-3 md:col-span-3">
+          <span class="relative block col-start-1 col-span-7 sm:col-start-2 sm:col-span-5 md:col-start-3 md:col-span-3">
             <input
               class="
                 w-full
@@ -25,13 +25,14 @@
               type="text"
               placeholder="Search..."
               v-model="query"
+              aria-label="Searchterm"
             />
             <span class="absolute inset-y-0 right-0 flex items-center">
-              <button class="btn btn-link mr-4" type="submit">
+              <button class="btn btn-link mr-4" type="submit" aria-label="Start the search">
                 <i class="fas fa-search fa-lg olahd-link-color"></i>
               </button>
             </span>
-          </label>
+          </span>
         </div>
         <div class="grid grid-cols-2 divide-x divide-black mt-2">
           <div class="justify-self-end m-1">Search in</div>

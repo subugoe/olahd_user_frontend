@@ -14,7 +14,7 @@
             type="button"
             class="close"
             data-dismiss="alert"
-            aria-label="Close"
+            aria-label="Dismiss error message"
             @click="error = null; error_msg = null"
           >
             <span aria-hidden="true">&times;</span>

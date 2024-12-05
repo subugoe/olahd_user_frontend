@@ -65,6 +65,7 @@
     <button
       class="bg-white/30 h-12 w-12 rounded-full mx-auto mt-4 hover:bg-white/40"
       @click="toggleSidebar"
+      aria-label="Toggle sidebar"
     >
       <i
         :class="

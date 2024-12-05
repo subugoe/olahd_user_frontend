@@ -16,7 +16,7 @@
     </div>
     <div class="mx-4 mt-2 text-yellow-600" role="alert" v-if="warnNoSelection">
       Please select the files to be downloaded
-      <button class="close" aria-label="Close" @click="warnNoSelection = false">
+      <button class="close" aria-label="Dismiss warn message" @click="warnNoSelection = false">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>

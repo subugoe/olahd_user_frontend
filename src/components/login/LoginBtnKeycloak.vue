@@ -5,6 +5,7 @@
         type="button"
         class="normal-blue-button"
         id="dashboard-link-button"
+        aria-label="Go to dashboard"
         @click="$router.push('dashview/dashboard')"
       >
       Dashboard

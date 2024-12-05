@@ -17,7 +17,7 @@
         type="button"
         class="close"
         data-dismiss="alert"
-        aria-label="Close"
+        aria-label="Dismiss success message"
         @click="isSuccess = false"
       >
         <span aria-hidden="true">&times;</span>
@@ -37,7 +37,7 @@
         type="button"
         class="close"
         data-dismiss="alert"
-        aria-label="Close"
+        aria-label="Dismiss error message"
         @click="isError = false; errorMessage = null"
       >
         <span aria-hidden="true">&times;</span>
@@ -47,9 +47,9 @@
     <form class="max-w-[480px]" @submit.prevent="onSubmit">
       <div>
         <input
+          id="file-upload"
           type="file"
           class="border px-3 py-2.5 mb-2 rounded-md w-full"
-          aria-describedby="help-text"
           @change="processFile($event)"
         />
         <label
@@ -66,13 +66,14 @@
           >PID of the previous version</label
         >
         <input
+          id="prev-version"
           type="text"
           placeholder="PID of the previous version"
           class="border px-3 py-2.5 mt-4 rounded-md w-full"
-          aria-describedby="help-text"
+          aria-describedby="help-text-1"
           v-model="prevPid"
         />
-        <small id="help-text" class="text-sm text-gray-500">
+        <small id="help-text-1" class="text-sm text-gray-500">
           Leave this blank if there is no previous version.
         </small>
       </div>

@@ -39,7 +39,7 @@
       <div class="col">
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
           <strong>Error!</strong> An error has occurred. Please try again.
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Dismiss error message">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -57,7 +57,11 @@
     </div>
     <SearchInput class="m-1 my-4 sm:w-4/5 sm:pr-5" />
     <div class="flex justify-center" v-if="isMobile">
-      <button class="filter-button mt-1 px-4" @click="showFilterDialog = true">Filter</button>
+      <button
+        class="filter-button mt-1 px-4"
+        aria-haspopup="true"
+        @click="showFilterDialog = true"
+      >Filter</button>
     </div>
     <template v-if="hasResult">
       <!-- Search result -->
@@ -73,8 +77,8 @@
 
             <div class="mx-6">
               Items per Page:
-              <select :value="maxResultsSize" @change="handlePageSizeChange($event)">
-                <option v-for="size in pageSizes" :key="size" :value="size">
+              <select aria-label="Items per Page" :value="maxResultsSize" @change="handlePageSizeChange($event)">
+                <option v-for="size in pageSizes" :key="size" :value="size" :aria-label="size + ' items per page'">
                   {{ size }}
                 </option>
               </select>

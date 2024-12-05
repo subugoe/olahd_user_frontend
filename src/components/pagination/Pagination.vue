@@ -36,11 +36,12 @@
 
     <div class="flex items-center">
       <div class="pr-2 text-gray-400 font-medium">
-        <span id="text-before-input">
+        <label id="text-before-input" for="go-to-page">
           {{ textBeforeInput }}
-        </span>
+        </label>
       </div>
       <input
+        id="go-to-page"
         v-model.number="input"
         @keyup.enter="changePage(input)"
         class="p-1 olahd-border-color text-sm text-black w-14 bg-white rounded-md focus:outline-none focus:bg-white focus:text-gray-900 border focus:ring"
