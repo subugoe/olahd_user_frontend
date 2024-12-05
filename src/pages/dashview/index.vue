@@ -1,11 +1,9 @@
 <template>
-  <div class="flex border-r flex-grow" :class="{ 'flex-wrap' : isMobile }" v-if="isUserLoggedIn">
-    <div class="flex flex-col flex-shrink" v-if="!isMobile">
+  <div class="flex border-r flex-grow" v-if="isUserLoggedIn">
+    <div class="flex flex-col flex-shrink">
       <Sidebar/>
     </div>
-    <MobileDashbar class="w-screen" v-if="isMobile"/>
-
-    <div class="flex-1 p-4">
+    <div class="flex-1 sm:m-4">
       <router-view />
     </div>
   </div>
@@ -13,7 +11,6 @@
 
 <script>
 import Sidebar from "@/components/dashview/Sidebar.vue";
-import MobileDashbar from "@/components/dashview/MobileDashbar.vue";
 import { authService } from "../../auth/auth"
 import $ from "jquery";
 import "jquery.easing";
@@ -23,7 +20,6 @@ import { mapState } from "pinia";
 export default {
   components: {
     Sidebar,
-    MobileDashbar,
   },
   data() {
     return {

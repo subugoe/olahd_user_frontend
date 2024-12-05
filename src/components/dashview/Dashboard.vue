@@ -1,108 +1,83 @@
 <template>
-  <div class="container">
-    <!-- Page Heading -->
-    <h1 class="text-xl font-bold px-6 py-4">Dashboard</h1>
+  <!-- Page Heading -->
+  <h1 class="text-xl font-bold mx-2 py-4">Import Status</h1>
 
-    <div class="m-4">
-      <h2 class="text-lg font-medium px-6 py-4">Import Status</h2>
+  <DataTable class="" :value="records" stripedRows>
+    <template #empty>There is no data to show</template>
+    <Column header="Timestamp">
+      <template #body="col">
+        {{ formatDate(col.data.trackingInfo.timestamp) }}
+      </template>
+    </Column>
+    <Column header="PID">
+      <template #body="col">
+        <router-link :to="{
+            name: 'search-detail',
+            query: {
+              id: col.data.trackingInfo.pid,
+            }
+          }" class="search-item-link olahd-link-color"
+        >
+          <p>{{ col.data.trackingInfo.pid }}</p>
+        </router-link>
+      </template>
+    </Column>
+    <Column header="Status">
+      <template #body="col">
+        <span :class="getCssState(col.data.trackingInfo.status)">
+          {{ col.data.trackingInfo.status}}
+        </span>
+    </template>
+    </Column>
+    <Column field="trackingInfo.message" class="w-96" header="Note"></Column>
+  </DataTable>
 
-      <div class="flex flex-col">
-        <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
-          <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
-            <table class="min-w-full">
-              <thead class="border-b">
-                <tr class="text-sm font-medium text-gray-900 text-left">
-                  <th class="px-6 py-4">Timestamp</th>
-                  <th class="px-6 py-4">PID</th>
-                  <th class="px-6 py-4">Status</th>
-                  <th class="px-6 py-4">Note</th>
-                </tr>
-              </thead>
-              <tbody>
-                <template v-if="this.records.length > 0">
-                  <tr v-for="(record, index) in records" :key="index" class="
-                      border-b
-                      text-sm text-gray-900
-                      font-light
-                      whitespace-nowrap
-                    ">
-                    <td class="px-6 py-4">
-                      {{ formatDate(record.trackingInfo.timestamp) }}
-                    </td>
-                    <td class="px-6 py-4">
-                      <router-link :to="{
-                        name: 'search-detail',
-                        query: {
-                          id: record.trackingInfo.pid,
-                        },
-                      }" class="search-item-link olahd-link-color">
-                        <p>{{ record.trackingInfo.pid }}</p>
-                      </router-link>
-                    </td>
-                    <td class="px-6 py-4">
-                      <span :class="getCssState(record.trackingInfo.status)">
-                        {{ record.trackingInfo.status }}
-                      </span>
-                    </td>
-                    <td>
-                      <div class="px-6 py-4 max-w-3xl overflow-scroll">
-                        {{ record.trackingInfo.message }}
-                      </div>
-                    </td>
-                  </tr>
-                </template>
-                <template v-else>
-                  <tr>
-                    <td colspan="6" class="text-center">
-                      <h3>There is no data to show</h3>
-                    </td>
-                  </tr>
-                </template>
-              </tbody>
-            </table>
-          </div>
-        </div>
+  <!-- this div is needed to get pager to the bottom on big screens-->
+  <div class="flex-1"></div>
+
+  <section class="
+      flex
+      justify-end
+      rounded-lg
+      border border-gray-200
+      px-6
+      m-4
+      py-3
+      text-gray-700
+      font-montserrat
+      align-bottom
+    ">
+    <ul class="flex items-center">
+      <div class="flex flex-1 justify-around items-center">
+        <li>
+          <button class="pr-4 text-gray-700 font-medium" aria-label="Previous"
+            @click="switchPage(-1)" v-if="hasPreviousPage">
+            <span aria-hidden="true">&laquo; Previous</span>
+            <span class="sr-only">Previous</span>
+          </button>
+        </li>
+        <li>
+          <button class="pr-4 text-gray-700 font-medium" aria-label="Next" @click="switchPage(1)"
+            v-if="hasNextPage">
+            <span aria-hidden="true">Next &raquo;</span>
+            <span class="sr-only">Next</span>
+          </button>
+        </li>
       </div>
-    </div>
-    <section class="
-        flex
-        justify-end
-        rounded-lg
-        border border-gray-200
-        px-6
-        m-4
-        py-3
-        text-gray-700
-        font-montserrat
-      ">
-      <ul class="flex items-center">
-        <div class="flex flex-1 justify-around items-center">
-          <li>
-            <button class="pr-4 text-gray-700 font-medium" aria-label="Previous"
-              @click="switchPage(-1)" v-if="hasPreviousPage">
-              <span aria-hidden="true">&laquo; Previous</span>
-              <span class="sr-only">Previous</span>
-            </button>
-          </li>
-          <li>
-            <button class="pr-4 text-gray-700 font-medium" aria-label="Next" @click="switchPage(1)"
-              v-if="hasNextPage">
-              <span aria-hidden="true">Next &raquo;</span>
-              <span class="sr-only">Next</span>
-            </button>
-          </li>
-        </div>
-      </ul>
-    </section>
-  </div>
+    </ul>
+  </section>
 </template>
 
 <script>
 import axios from "../../axios-config";
 import moment from "moment";
-import { authService } from "../../auth/auth"
+import { authService } from "../../auth/auth";
+import DataTable from "primevue/datatable";
+import Column from "primevue/column";
+import ScrollPanel from "primevue/scrollpanel";
 
 export default {
+  components: { DataTable, Column },
   data() {
     return {
       records: [],
