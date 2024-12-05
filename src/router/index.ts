@@ -102,4 +102,22 @@ router.beforeEach(async (to, from, next) => {
   }
 })
 
+router.afterEach((to, from) => {
+  setTimeout(() => {
+    const h1 = document.querySelector('h1')
+    const defaultTitle = 'OLA-HD - OCR Long-Term Archive'
+    if (to.path === '/') {
+      document.title = defaultTitle
+    } else if (to.path === '/search-detail') {
+      const id = to.query["id"]
+      document.title = id ? `Details for PID: ${id} | OLA-HD` : "Search-Details | OLA-HD"
+    } else if (to.path === '/search') {
+      const searchterm = to.query["q"]
+      document.title = searchterm ? `Search: ${searchterm} | OLA-HD` : "Search | OLA-HD"
+    } else {
+      document.title = h1 ? `${h1.innerText} | OLA-HD` : defaultTitle
+    }
+  }, 0)
+})
+
 export default router
