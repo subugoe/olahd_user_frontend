@@ -29,7 +29,7 @@
         </span>
     </template>
     </Column>
-    <Column field="trackingInfo.message" class="w-96" header="Note"></Column>
+    <Column field="trackingInfo.message" header="Note"></Column>
   </DataTable>
 
   <!-- this div is needed to get pager to the bottom on big screens-->
