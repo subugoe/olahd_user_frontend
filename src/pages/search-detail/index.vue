@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" v-if="!showTify">
     <!-- Error message -->
     <div class="row my-3" v-if="error">
       <div class="col">
@@ -31,16 +31,14 @@
     </div>
 
     <template v-if="!loading">
-      <div class="row mt-4 mb-4">
-        <div class="col">
-          <button
-            type="button"
-            class="btn btn-link olahd-link-color"
-            @click="$router.go(-1)"
-          >
-            &laquo; Back
-          </button>
-        </div>
+      <div class="flex justify-between mt-4 mb-4">
+        <button
+          type="button"
+          class="btn btn-link olahd-link-color"
+          @click="$router.go(-1)"
+        >
+          &laquo; Back
+        </button>
       </div>
 
       <!-- Full details -->
@@ -78,14 +76,24 @@
 
       <div class="grid grid-cols-1 gap-2 content-start my-5">
         <button v-show="showExportRequestButton" class="olahd-link-color w-fit"
-          @click="moveArchive" >
-            Move archive from tape to disk
-          </button>
-          <a target="_blank" class="olahd-link-color inline w-fit" :href=linkToDfgviewer v-if="isOpen">
-            Open in DFG viewer
+          @click="moveArchive"
+        >
+          Move archive from tape to disk
+        </button>
+        <a target="_blank" class="olahd-link-color inline w-fit" :href=linkToDfgviewer v-if="isOpen">
+          Open in DFG viewer
         </a>
+        <button class="olahd-link-color w-fit" @click="toggleShowTify">
+          Open TIFY
+        </button>
       </div>
     </template>
+  </div>
+  <div class="container" v-if="showTify">
+    <button class="olahd-link-color my-4" @click="toggleShowTify" v-if="showTify">
+      &laquo; Back
+    </button>
+    <Tify :id="this.$route.query['id']" class="mb-10"/>
   </div>
 </template>
 
@@ -93,6 +101,7 @@
 import lzaApi from "@/services/lzaApi";
 import Download from "../../components/download-files/Download.vue";
 import Versions from "../../components/version/Versions.vue";
+import Tify from "../../components/tify/Tify.vue";
 import { WritableStream } from "web-streams-polyfill/ponyfill";
 import streamSaver from "streamsaver";
 import { authService } from "../../auth/auth";
@@ -101,9 +110,11 @@ export default {
   components: {
     Download,
     Versions,
+    Tify,
   },
   data() {
     return {
+      showTify: false,
       versionInfo: {},
       archiveInfo: {},
       error: null,
@@ -280,6 +291,9 @@ export default {
 
       pump();
     },
+    toggleShowTify() {
+      this.showTify = !this.showTify;
+    }
   },
   async created() {
     if (!this.id) {
