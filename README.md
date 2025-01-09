@@ -1,7 +1,7 @@
 OLA-HD frontend
 ===============
 
-The OLA-HD frontend is the frontend for the [OLA-HD Service](https://github.com/subugoe/olahd_backend) build with [Vue.js](https.//vuejs.org).
+The OLA-HD frontend is the frontend for the [OLA-HD Service](https://github.com/subugoe/olahd_backend) build with [Vue.js](https://vuejs.org/).
 
 <details>
   <summary>Table of Contents</summary>
