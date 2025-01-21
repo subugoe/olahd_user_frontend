@@ -8,7 +8,7 @@
         },
       }"
     >
-      <h5 class="search-item-link olahd-link-color">{{ title }}</h5>
+      <h2 class="search-item-link olahd-link-color">{{ title }}</h2>
     </router-link>
     <hr class="mt-3 mb-2" />
     <div class="space-y-2">
@@ -18,7 +18,7 @@
         :key="item.label"
       >
         <div class="col-span-2">
-          <h5 class="text-sm text-gray-700 w-36">{{ item.label }}</h5>
+          <h3 class="text-sm text-gray-700 w-36">{{ item.label }}</h3>
         </div>
         <div class="col-span-4">
           <p class="flex-1 text-sm">{{ item.value }}</p>
