@@ -39,6 +39,26 @@
         </a>
       </RouterLink>
     </ul>
+    <ul class="mt-4">
+      <RouterLink
+        to="/dashview/operandi"
+        tag="li"
+        :class="(isSidebarExpanded ? 'text-left' : 'text-center')"
+        active-class="!text-white"
+        class="flex items-center rounded-md px-3 text-white/50"
+        exact
+      >
+        <a
+          :class="
+            'space-x-3 font-medium text-inherit hover:text-white/100 w-full ' +
+            (isSidebarExpanded ? 'text-lg' : 'text-2xl')
+          "
+        >
+          <i class="fas fa-fw fa-scroll" />
+          <span class="text-inherit" v-if="isSidebarExpanded">Operandi Jobs</span>
+        </a>
+      </RouterLink>
+    </ul>
     <hr class="bg-white mt-4" />
     <span class="text-white/60 font-semibold mt-4 px-3 text-center">Tools</span>
     <ul class="mt-4">

@@ -6,6 +6,7 @@ import OcrdIdentifierRedirect from "@/pages/ocrd-identifier/index.vue";
 import DashView from '@/pages/dashview/index.vue'
 import Dashboard from '@/components/dashview/Dashboard.vue'
 import Import from '@/components/dashview/Import.vue'
+import OperandiJob from '@/components/dashview/OperandiJob.vue'
 import { authService } from '../auth/auth'
 
 const router = createRouter({
@@ -58,6 +59,11 @@ const router = createRouter({
           path: "import",
           component: Import,
           name: "import",
+        },
+        {
+          path: "operandi",
+          component: OperandiJob,
+          name: "operandi",
         },
       ],
     },
