@@ -80,5 +80,21 @@ export default {
                 id: ocrdidentifier,
             },
         });
-    }
+    },
+
+    runOperandiWorkflow(pid: string) {
+        return axios.post(`/operandi/run-workflow`, {}, {
+            params: {
+                id: pid,
+            },
+        });
+    },
+
+    areOperandiJobsRunning(pid: string) {
+        return axios.get(`/operandi/unfinished-jobs`, {
+            params: {
+                id: pid,
+            },
+        });
+    },
 };

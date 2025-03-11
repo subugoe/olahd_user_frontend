@@ -77,6 +77,7 @@
       </section>
 
       <div class="grid grid-cols-1 gap-2 content-start my-5">
+        <OperandiButton :pid="this.id" :isUserLoggedIn="this.isUserLoggedIn" :archiveState="this.archiveInfo.state"/>
         <button v-show="showExportRequestButton" class="olahd-link-color w-fit"
           @click="moveArchive" >
             Move archive from tape to disk
@@ -93,6 +94,7 @@
 import lzaApi from "@/services/lzaApi";
 import Download from "../../components/download-files/Download.vue";
 import Versions from "../../components/version/Versions.vue";
+import OperandiButton from "../../components/operandi/OperandiButton.vue";
 import { WritableStream } from "web-streams-polyfill/ponyfill";
 import streamSaver from "streamsaver";
 import { authService } from "../../auth/auth";
@@ -101,6 +103,7 @@ export default {
   components: {
     Download,
     Versions,
+    OperandiButton,
   },
   data() {
     return {
