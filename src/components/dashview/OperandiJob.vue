@@ -16,6 +16,24 @@
         {{ formatDate(col.data.created) }}
       </template>
     </Column>
+    <Column header="Last status update">
+      <template #body="col">
+        {{ formatDate(col.data.updated) }}
+      </template>
+    </Column>
+    <Column header="Processed Workspace">
+      <template #body="col">
+        <router-link :to="{
+            name: 'search-detail',
+            query: {
+              id: col.data.pid,
+            }
+          }" class="search-item-link olahd-link-color"
+        >
+          <p>{{ col.data.pid }}</p>
+        </router-link>
+      </template>
+    </Column>
     <Column header="Created Workspace">
       <template #body="col">
         <router-link :to="{
@@ -146,7 +164,7 @@ export default {
           cssClass =
             "bg-green-100 text-green-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded";
           break;
-        case "PROCESSING":
+        case "RUNNING":
           cssClass =
             "bg-yellow-100 text-yellow-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded";
           break;
