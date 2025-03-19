@@ -7,6 +7,7 @@ import DashView from '@/pages/dashview/index.vue'
 import Dashboard from '@/components/dashview/Dashboard.vue'
 import Import from '@/components/dashview/Import.vue'
 import OperandiJob from '@/components/dashview/OperandiJob.vue'
+import Tify from '@/components/tify/Tify.vue'
 import { authService } from '../auth/auth'
 
 const router = createRouter({
@@ -71,6 +72,12 @@ const router = createRouter({
       path: "/ocrd-identifier",
       name: "ocrd-identifier-redirect",
       component: OcrdIdentifierRedirect,
+      props: true,
+    },
+    {
+      path: "/tify",
+      name: "tify",
+      component: Tify,
       props: true,
     },
   ],
