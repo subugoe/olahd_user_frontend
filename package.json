@@ -22,10 +22,10 @@
     "primevue": "^3.42.0",
     "streamsaver": "^2.0.3",
     "tailwindcss": "^3.0.24",
+    "tify": "^0.31.0",
     "vue": "^3.1.0",
     "vue-router": "^4.0.0",
-    "web-streams-polyfill": "^2.0.5",
-    "tify": "^0.31.0"
+    "web-streams-polyfill": "^2.0.5"
   },
   "devDependencies": {
     "@tsconfig/node18": "^18.2.2",
