@@ -11,7 +11,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.10.2",
     "autoprefixer": "10.4.5",
-    "axios": "^1.7.4",
+    "axios": "^1.8.2",
     "flowbite": "^1.5.4",
     "jquery": "^3.4.1",
     "jquery.easing": "^1.4.1",
