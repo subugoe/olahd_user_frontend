@@ -85,7 +85,7 @@
           <a target="_blank" class="olahd-link-color inline w-fit" :href=linkToDfgviewer v-if="isOpen">
             Open in DFG viewer
         </a>
-        <router-link class="hidden" :to="{ name: 'tify', query: { id: this.id } }" >
+        <router-link :to="{ name: 'tify', query: { id: this.id } }" >
           <p class="search-item-link olahd-link-color">Open TIFY</p>
         </router-link>
       </div>
