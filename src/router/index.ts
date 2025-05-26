@@ -33,12 +33,12 @@ const router = createRouter({
       component: SearchDetail,
       props: true,
     },
-    {
+    /*{
       path: "/contact",
       name: "contact",
       component: () =>
         import("@/pages/contact/index.vue"),
-    },
+    },*/
     {
       path: "/data_protection",
       name: "data_protection",

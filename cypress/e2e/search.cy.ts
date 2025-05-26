@@ -6,13 +6,13 @@ describe("Search", () => {
   });
 
   it("Should not visible search header on other pages", () => {
-    cy.visit('/contact').then(() => {
+    cy.visit('/data_protection').then(() => {
       cy.get("#search-header").should("not.exist");
     });
   });
 
   it("Should display small search header on other pages", () => {
-    cy.visit("/contact").then(() => {
+    cy.visit("/data_protection").then(() => {
       cy.get("#search-header-small").should("be.visible");
     });
   });
@@ -27,7 +27,7 @@ describe("Search", () => {
   })
 
   it("Should redirect to correct page after performing query on small search header", () => {
-    cy.visit('/contact').then(() => {
+    cy.visit('/data_protection').then(() => {
       cy.get("#search-header-small").should("be.visible");
       cy.get('#search-header-small input').type('berlin');
       cy.get("#search-header-small button[type='submit']").click();

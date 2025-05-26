@@ -4,16 +4,16 @@
       <div class="text-left">
         <h2 class="text-xl font-bold">General requests</h2>
         <p>
-          Lilja Sautter:
-          <a href="mailto:sautter@sub.uni-goettingen.de" class="olahd-link-color">
-            sautter@sub.uni-goettingen.de
+          Name Placeholder:
+          <a href="mailto:test@example.com" class="olahd-link-color">
+            test@example.com
           </a>
         </p>
         <h2>Address</h2>
         <p class="mb-3">
-          Niedersächsische Staats- und Universitätsbibliothek<br />
-          Platz der Göttinger Sieben 1<br />
-          37073 Göttingen
+          Test-Name<br />
+          Test-Street<br />
+          12345 Test-Town
         </p>
       </div>
   </section>
