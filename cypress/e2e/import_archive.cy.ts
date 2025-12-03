@@ -2,7 +2,7 @@
 function uploadArchive(path_to_ocrdzip: string) {
   cy.visit("/")
   cy.get("button[id='user-menu-button']").click()
-  cy.get("input[placeholder='Username']").type("admin")
+  cy.get("input[placeholder='Username']").clear().type("admin")
   expect(Cypress.env("PASSWORD"), "PASSWORD not available as ENV").to.exist
   cy.get("input[placeholder='Password']").type(Cypress.env("PASSWORD"))
   cy.get("button").contains("Login").click()
