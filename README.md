@@ -33,8 +33,7 @@ Run the application:
 --------------------
 
 ### Prerequisites
-To run, the OLA-HD Service currently uses the classic [yarn package
-manager](https://classic.yarnpkg.com/lang/en/). This must be installed to run the frontend.
+To run, the OLA-HD Service currently uses the npm package manager. This must be installed to run the frontend.
 
 ### Install and run the application
 Clone this repository
@@ -44,7 +43,7 @@ cd olahd_user_frontend
 ```
 
 ### Install the project dependencies
-`yarn install`
+`npm install`
 
 ### Set OLA-HD Service backend URL
 The frontend needs the backend to query search results and other data. The connection is set in the
@@ -54,7 +53,7 @@ be available at path `api`. For development purposes, this could be changed to a
 OLA-HD backend: `http://localhost:8080` or to the running service: `https://ola-hd.ocr-d.de/api`.
 
 ### Local startup
-`yarn run dev` starts the frontend on the local machine.
+`npm run dev` starts the frontend on the local machine.
 
 ### Docker startup
 The frontend is supposed to be run together with the
@@ -77,7 +76,7 @@ Service application. Therefore the service must run locally. It is also possible
 the tests on a remote-running instance of the service. The URL of the service (where the frontend is
 available) must be set to `baseUrl` in the file `cypress.config.js`.
 
-The tests can be started with `yarn run cypress open` which starts Cypress in a browser for running
+The tests can be started with `npx cypress open` which starts Cypress in a browser for running
 the tests.
 
 For some of the tests environment variables are needed. The password is necessary to upload data to

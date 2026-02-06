@@ -1,10 +1,10 @@
 # Build
-FROM node:lts-alpine as build
+FROM node:lts-alpine AS build
 WORKDIR /app
-COPY package*.json yarn.lock ./
-RUN yarn install
+COPY package*.json ./
+RUN npm install
 COPY . .
-RUN yarn build
+RUN npm run build
 
 # Run
 FROM nginx:stable-alpine
