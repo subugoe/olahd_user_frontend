@@ -16,7 +16,7 @@
     <div>
       <p class="mb-4">The workspace is transferred to operandi.ocr-d.de and then a workflow is started to process
          the workspace. Once the workflow has finished, the processed workspace is uploaded back to OLA-HD and
-         saved as a next version. 
+         saved as a next version.
          Depending on the complexity of the workspace to be processed, this can take several hours
          until the job is completed</p>
       <div class="flex place-content-center">
@@ -40,6 +40,8 @@
 <script>
 import lzaApi from "@/services/lzaApi";
 import Dialog from "primevue/dialog";
+import { useSettingsStore } from '@/stores/settings';
+import { mapState } from "pinia";
 
 export default {
   components: { Dialog },
@@ -70,7 +72,8 @@ export default {
     show() {
       let res = this.isUserLoggedIn && this.archiveState == "open"
       return res;
-    }
+    },
+    ...mapState(useSettingsStore, ["isMobile"]),
   },
   methods: {
     operandiButtonClicked() {

@@ -99,7 +99,7 @@
 
 <script>
 import $ from "jquery";
-import { mystore } from "@/store";
+import { useSettingsStore } from "@/stores/settings";
 import { mapState } from "pinia";
 
 export default {
@@ -114,11 +114,11 @@ export default {
     });
   },
   computed: {
-    ...mapState(mystore, ["isSidebarExpanded"]),
+    ...mapState(useSettingsStore, ["isSidebarExpanded"]),
   },
   methods: {
     toggleSidebar() {
-      const store = mystore()
+      const store = useSettingsStore()
       store.setIsSidebarExpanded(!store.isSidebarExpanded)
     },
   },

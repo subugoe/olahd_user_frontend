@@ -14,7 +14,7 @@ import Sidebar from "@/components/dashview/Sidebar.vue";
 import { authService } from "../../auth/auth"
 import $ from "jquery";
 import "jquery.easing";
-import { mystore } from "@/store";
+import { useSettingsStore } from "@/stores/settings";
 import { mapState } from "pinia";
 
 export default {
@@ -28,7 +28,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(mystore, ["isMobile"]),
+    ...mapState(useSettingsStore, ["isMobile"]),
   },
   async unmounted() {
     authService.removeLoggedInListener(this.listenerKey);

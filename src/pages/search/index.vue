@@ -127,7 +127,7 @@ import SearchInput from "../../components/search/SearchInput.vue";
 
 import Dialog from "primevue/dialog";
 
-import { mystore } from "@/store";
+import { useSettingsStore } from "@/stores/settings";
 import { mapState } from "pinia";
 
 export default {
@@ -157,7 +157,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(mystore, ["isMobile"]),
+    ...mapState(useSettingsStore, ["isMobile"]),
     maxResultsSize() {
       return Number(this.$route.query.perPageRecords || 10);
     },

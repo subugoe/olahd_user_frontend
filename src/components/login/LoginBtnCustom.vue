@@ -57,7 +57,7 @@
 <script>
 import Login from '../../components/login/Login.vue'
 import Dialog from "primevue/dialog";
-import { mystore } from "@/store";
+import { useSettingsStore } from "@/stores/settings";
 import { mapState } from "pinia";
 
 export default {
@@ -72,7 +72,7 @@ export default {
     showDashboardLink() {
       return this.isUserLoggedIn && !this.$router.currentRoute.value.path.includes("dashview")
     },
-    ...mapState(mystore, ["isMobile"]),
+    ...mapState(useSettingsStore, ["isMobile"]),
   },
   methods: {
     onClose() {

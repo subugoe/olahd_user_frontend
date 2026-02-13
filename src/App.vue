@@ -15,7 +15,7 @@
 import Footer from "@/layout/footer/index.vue";
 import Main from "@/layout/main/index.vue";
 import NavigationMenu from "@/layout/navigation-menu/index.vue";
-import { mystore } from '@/store';
+import { useSettingsStore } from '@/stores/settings';
 
 export default {
   components: {
@@ -29,7 +29,7 @@ export default {
     },
   },
   created() {
-    const store = mystore()
+    const store = useSettingsStore()
     store.setIsMobile(window.innerWidth < 640)
     window.onresize = () => {
       const isMobile = window.innerWidth < 640
