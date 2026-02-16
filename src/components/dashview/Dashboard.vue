@@ -70,12 +70,12 @@
 
 <script>
 import axios from "../../axios-config";
-import moment from "moment";
 import { authService } from "../../auth/auth";
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
 import ScrollPanel from "primevue/scrollpanel";
 import { useTokenStore } from '@/stores/token';
+import { format } from 'date-fns';
 
 export default {
   components: { DataTable, Column },
@@ -101,9 +101,7 @@ export default {
   },
   methods: {
     formatDate(value) {
-      if (value) {
-        return moment(String(value)).format("DD/MM/YYYY HH:mm");
-      }
+      return format(value, "dd/MM/yyyy HH:mm");
     },
     async fetchData(page, limit) {
       // Init state

@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import urls from "../../utilities/urls";
+import urls from "../../utils/urls";
 import packageInfo from "../../../package.json";
 
 export default {

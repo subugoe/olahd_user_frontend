@@ -97,7 +97,7 @@
 
 <script>
 import axios from "../../axios-config";
-import moment from "moment";
+import { format } from "date-fns";
 import { authService } from "../../auth/auth";
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
@@ -128,9 +128,7 @@ export default {
   },
   methods: {
     formatDate(value) {
-      if (value) {
-        return moment(String(value)).format("DD/MM/YYYY HH:mm");
-      }
+      return format(value, "dd/MM/yyyy HH:mm");
     },
     async fetchData(page, limit) {
       // Init state

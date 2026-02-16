@@ -24,7 +24,6 @@ export default {
   },
   data() {
     return {
-      isUserLoggedIn: false,
       listenerKey: -1,
     }
   },
