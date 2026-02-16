@@ -1,5 +1,5 @@
 import axios from "../axios-config";
-
+import { useTokenStore } from '@/stores/token';
 /**
  * This app currently offers two ways of authentification: custom and keyloak. The custom login uses
  * the backend for log-in. The keyloak service an external Keyloak server not managed by us.
@@ -13,30 +13,8 @@ import axios from "../axios-config";
 class CustomAuthService {
 
   constructor() {
-    this._loggedIn = false;
-    this._loggedInListeners = new Map();
     this.listenerKeyGenerator = 0
-    this.token = null;
-    this.username = null;
     this.expiredTime = 0;
-  }
-
-  set loggedIn(value) {
-    this._loggedIn = value
-    this._loggedInListeners.forEach(fn => fn(value))
-  }
-
-  addLoggedInListener(fn) {
-    this._loggedInListeners.set(++this.listenerKeyGenerator, fn)
-    return this.listenerKeyGenerator
-  }
-
-  removeLoggedInListener(key) {
-    this._loggedInListeners.delete(key)
-  }
-
-  isUserLoggedIn() {
-    return this._loggedIn
   }
 
   async loginCustom(username, password) {
@@ -49,34 +27,25 @@ class CustomAuthService {
       .post("/login", formData, { headers: { 'Content-Type': 'multipart/form-data' } })
       .then((response) => {
         // Save the information
-        this.token = response.data.accessToken,
-        this.expiredTime = response.data.expiredTime,
-        this.username = username,
-        this.loggedIn = true;
+        const tokenStore = useTokenStore()
+        tokenStore.setToken(response.data.accessToken)
+        tokenStore.setUsername(username)
       });
   }
 
   logoutCustom() {
-    this.token = null;
-    this.username = null;
-    this.expiredTime = 0;
-    this.loggedIn = false;
-  }
-
-  getAccessToken() {
-    if (!this.token || Date.now() >= this.expiredTime) {
-      return null
-    } else {
-      return this.token
-    }
-  }
-
-  getUsername() {
-    return this.username;
+    const tokenStore = useTokenStore()
+    tokenStore.clearToken()
+    tokenStore.clearUsername()
   }
 
   isKeycloak() {
     return false;
   }
+
+  init() {
+    //pass
+  }
+
 }
 export const customAuthService = new CustomAuthService()

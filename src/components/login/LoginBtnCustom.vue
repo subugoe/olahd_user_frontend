@@ -59,13 +59,13 @@ import Login from '../../components/login/Login.vue'
 import Dialog from "primevue/dialog";
 import { useSettingsStore } from "@/stores/settings";
 import { mapState } from "pinia";
+import { useTokenStore } from '@/stores/token'
 
 export default {
   components: { Login, Dialog },
   data() {
     return {
-      isOpen: false,
-      isUserLoggedIn: false,
+      isOpen: false
     };
   },
   computed: {
@@ -73,6 +73,9 @@ export default {
       return this.isUserLoggedIn && !this.$router.currentRoute.value.path.includes("dashview")
     },
     ...mapState(useSettingsStore, ["isMobile"]),
+    isUserLoggedIn() {
+      return useTokenStore().isAuthenticated
+    },
   },
   methods: {
     onClose() {
@@ -93,11 +96,5 @@ export default {
   props: [
     "authService"
   ],
-  created() {
-    this.authService.addLoggedInListener((newVal) => {
-      this.isUserLoggedIn = newVal
-    })
-    this.isUserLoggedIn = this.authService.isUserLoggedIn();
-  }
 }
 </script>

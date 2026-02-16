@@ -1,141 +1,72 @@
-import { UserManager, WebStorageStateStore } from 'oidc-client'
+import Keycloak from 'keycloak-js'
+import { useTokenStore } from '@/stores/token'
 
 const settings = {
+  // TODO: Re-work variables: Some old ones are not used any more, some are missing like "realm" or
+  // "host" which are derived from the pre-existing variables but should become new variables
   authority: import.meta.env.VITE_KEYCLOAK_AUTHORITY,
   client_id: import.meta.env.VITE_KEYCLOAK_CLIENT_ID,
-  redirect_uri: import.meta.env.VITE_KEYCLOAK_REDIRECT_URI,
-  post_logout_redirect_uri: import.meta.env.VITE_KEYCLOAK_LOGOUT_REDIRECT_URI,
-  response_type: 'code',
-  scope: 'openid profile email offline_access',
-  automaticSilentRenew: true,
 }
 
-settings.userStore = new WebStorageStateStore({ store: window.sessionStorage })
-const userManager = new UserManager(settings)
+const keycloak = new Keycloak({
+  url: new URL(settings.authority).origin,
+  clientId: settings.client_id,
+  realm: new URL(settings.authority).pathname.split('/').filter(Boolean).pop(),
+})
+
+keycloak.onTokenExpired = async () => {
+  const tokenStore = useTokenStore()
+  try {
+    let refreshed = await keycloak.updateToken(30);
+    if (refreshed) {
+      tokenStore.setToken(keycloak.token)
+    }
+  } catch (err) {
+    console.error("Token refresh failed", err)
+    tokenStore.clearToken()
+  }
+}
+
 
 /**
  * Class to encapsulate all authentication related logic.
  */
 class KeycloakAuthService {
 
-  constructor() {
-    this._loggedIn = false;
-    this._loggedInListeners = new Map();
-    this.listenerKeyGenerator = 0
-  }
-
-  set loggedIn(value) {
-    this._loggedIn = value
-    this._loggedInListeners.forEach(fn => fn(value))
-  }
-
-  addLoggedInListener(fn) {
-    this._loggedInListeners.set(++this.listenerKeyGenerator, fn)
-    return this.listenerKeyGenerator
-  }
-
-  removeLoggedInListener(key) {
-    this._loggedInListeners.delete(key)
-  }
-
-  /**
-   * Checks whether or not a user is currently logged in.
-   *
-   * Returns a promise which will be resolved to true/false or be rejected with an error.
-   */
-  async isUserLoggedIn () {
-    try {
-      let user = await userManager.getUser();
-      this.loggedIn = (user !== null)
-    } catch (error) {
-      this.loggedIn = false
-    }
-    return this._loggedIn
-  }
-
-  /**
-   * Initate the login process.
-   */
-  loginKeycloak () {
-    userManager.signinRedirect()
-  }
-
-  logoutKeycloak () {
-    userManager.signoutRedirect()
-  }
-
-  /**
-   * Handles the redirect from the OAuth server after a user logged in.
-   */
-  handleLoginRedirect () {
-    // Returns a promise
-    try {
-      return userManager.signinRedirectCallback()
-    } catch (error) {
-      throw error
-    }
-  }
-
-  /**
-   * Handles the redirect from the OAuth server after a user logged out.
-   */
-  handleLogoutRedirect () {
-    return userManager.signoutRedirectCallback()
-  }
-
-  /**
-   * Get the access token.
-   *
-   * Can be used to make requests to the backend.
-   */
-  async getAccessToken () {
-    return new Promise((resolve, reject) => {
-      userManager.getUser()
-        .then(user => {
-          if (user != null) {
-            resolve(user.access_token)
-          } else {
-            reject("User not logged in. Cannot read Access Token")
-          }
-        })
-        .catch(error => {
-          reject(error);
-        })
-    })
-  }
-
-  /**
-   * Get the profile data for the currently authenticated user.
-   *
-   * Returns an empty object if no user is logged in.
-   */
-  async getProfile () {
-    return new Promise((resolve, reject) => {
-      userManager.getUser()
-        .then(user => {
-          if (user === null) {
-            resolve(null)
-          } else {
-            resolve(user.profile)
-          }
-        })
-        .catch(error => reject(error))
-    })
-  }
-
   isKeycloak() {
     return true;
   }
 
-  async getUsername() {
-    let profile = await this.getProfile();
-    if (profile) {
-      return profile["sub"];
-    }
-    //return this.username;
-    return null;
+  init() {
+    const tokenStore = useTokenStore()
+    const authenticated = keycloak.init({
+      onLoad: "check-sso",
+    }).then(authenticated => {
+      if (authenticated) {
+        const token = keycloak.token
+        tokenStore.setToken(keycloak.token)
+        const tokenPayload = JSON.parse(atob(token.split('.')[1]));
+        const userId = tokenPayload.sub;
+        tokenStore.setUsername(userId);
+      } else {
+        tokenStore.clearToken()
+      }
+    }).catch(err => {
+      console.error(`Keycloak init failed: ${err}`)
+      tokenStore.clearToken()
+    })
   }
 
+  async loginKeycloak(event) {
+    await keycloak.login({
+      redirectUri: window.location.origin + '/dashview/dashboard',
+    })
+  }
+  logoutKeycloak(event) {
+    keycloak.logout({
+      redirectUri: window.location.origin + '/',
+    })
+  }
 }
 
 /**

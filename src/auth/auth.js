@@ -1,9 +1,9 @@
 import { keycloakAuthService } from "./authKeycloak";
 import { customAuthService } from "./authCustom";
 import axios from "../axios-config";
+import { useTokenStore } from '@/stores/token'
 
 export let authService;
-
 if (import.meta.env.VITE_USE_KEYCLOAK && import.meta.env.VITE_USE_KEYCLOAK.toUpperCase() == "TRUE") {
   authService = keycloakAuthService;
 } else {
@@ -13,9 +13,8 @@ if (import.meta.env.VITE_USE_KEYCLOAK && import.meta.env.VITE_USE_KEYCLOAK.toUpp
 function setBearerInterceptor () {
   // Add the bearer token to all outgoing requests if available
   axios.interceptors.request.use(async (config) => {
-    let accessToken;
     try {
-      accessToken = await authService.getAccessToken()
+      const accessToken = useTokenStore().token
       if (accessToken != null) {
         config.headers['Authorization'] = 'Bearer ' + accessToken
       }

@@ -45,7 +45,7 @@ export default {
       return this.$router.currentRoute.value.path !== "/";
     },
     isSearchBarVisible() {
-      return this.$router.currentRoute.value.path !== "/" 
+      return this.$router.currentRoute.value.path !== "/"
         && this.$router.currentRoute.value.path !== "/search";
     },
     isCustomLogin() {

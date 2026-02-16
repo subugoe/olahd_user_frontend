@@ -38,26 +38,18 @@
   </div>
 </template>
 <script>
+import { useTokenStore } from '@/stores/token'
 export default {
-  data() {
-    return {
-      isUserLoggedIn: false,
-    };
-  },
   props: [
     "authService"
   ],
   computed: {
+    isUserLoggedIn() {
+      return useTokenStore().isAuthenticated
+    },
     showDashboardLink() {
       return this.isUserLoggedIn && !this.$router.currentRoute.value.path.includes("dashview")
     }
-  },
-
-  async created() {
-    this.authService.addLoggedInListener((newVal) => {
-      this.isUserLoggedIn = newVal
-    })
-    this.isUserLoggedIn = await this.authService.isUserLoggedIn();
   },
 }
 </script>

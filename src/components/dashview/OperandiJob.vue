@@ -102,6 +102,7 @@ import { authService } from "../../auth/auth";
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
 import ScrollPanel from "primevue/scrollpanel";
+import { useTokenStore } from '@/stores/token';
 
 export default {
   components: { DataTable, Column },
@@ -137,11 +138,10 @@ export default {
       this.error = false;
 
       // Fetch data
-      let username = await authService.getUsername()
       axios
         .get("/operandi/jobs", {
           params: {
-            username: username,
+            username: useTokenStore().username,
             page,
             limit,
           },

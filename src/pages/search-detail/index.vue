@@ -101,6 +101,7 @@ import OperandiButton from "../../components/operandi/OperandiButton.vue";
 import { WritableStream } from "web-streams-polyfill/ponyfill";
 import streamSaver from "streamsaver";
 import { authService } from "../../auth/auth";
+import { useTokenStore } from '@/stores/token'
 
 export default {
   components: {
@@ -116,7 +117,6 @@ export default {
       error_msg: null,
       loading: true,
       response: null,
-      isUserLoggedIn: false,
       listenerKey: -1,
       moveTriggered: false,
     };
@@ -185,6 +185,9 @@ export default {
       return this.archiveInfo.state == "open"
         || (this.archiveInfo.state == "locked" && this.isUserLoggedIn);
     },
+    isUserLoggedIn() {
+      return useTokenStore().isAuthenticated
+    }
   },
 
   methods: {
@@ -296,16 +299,6 @@ export default {
       await this.loadData();
       await this.loadArchiveInfo();
     }
-  },
-  async unmounted() {
-    authService.removeLoggedInListener(this.listenerKey);
-  },
-  async mounted() {
-    var self = this
-    this.listenerKey = authService.addLoggedInListener((newVal) => {
-      self.isUserLoggedIn = newVal
-    })
-    this.isUserLoggedIn = await authService.isUserLoggedIn();
   },
   watch: {
     "$route.params.id": "loadData",

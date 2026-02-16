@@ -11,11 +11,12 @@
 
 <script>
 import Sidebar from "@/components/dashview/Sidebar.vue";
-import { authService } from "../../auth/auth"
+import { authService } from "../../auth/auth";
 import $ from "jquery";
 import "jquery.easing";
 import { useSettingsStore } from "@/stores/settings";
 import { mapState } from "pinia";
+import { useTokenStore } from '@/stores/token'
 
 export default {
   components: {
@@ -29,16 +30,12 @@ export default {
   },
   computed: {
     ...mapState(useSettingsStore, ["isMobile"]),
-  },
-  async unmounted() {
-    authService.removeLoggedInListener(this.listenerKey);
+    isUserLoggedIn() {
+      return useTokenStore().isAuthenticated
+    }
   },
   async mounted() {
     var self = this
-    this.listenerKey = authService.addLoggedInListener((newVal) => {
-      self.isUserLoggedIn = newVal
-    })
-    this.isUserLoggedIn = await authService.isUserLoggedIn();
     // Close any open menu accordions when window is resized below 768px
     $(window).resize(function () {
       if ($(window).width() < 768) {

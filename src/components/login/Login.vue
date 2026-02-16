@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { authService } from "../../auth/auth"
+import { authService } from "../../auth/auth";
 export default {
   data() {
     return {
@@ -65,7 +65,8 @@ export default {
           this.onSuccess();
           this.$router.replace("/dashview/dashboard");
         })
-        .catch(() => {
+        .catch((err) => {
+          console.error(`Login error: ${err}`)
           this.isFailed = true;
         });
     },
