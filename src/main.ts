@@ -9,7 +9,6 @@ import Tooltip from 'primevue/tooltip';
 import { authService } from './auth/auth';
 
 import "./index.css";
-import 'flowbite';
 const app = createApp(App).use(router)
 app.use(PrimeVue)
 app.use(createPinia())
