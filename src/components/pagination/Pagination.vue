@@ -5,7 +5,7 @@
     <ul class="flex items-center">
       <li class="pr-3 sm:pr-4" v-if="hasPrev()">
         <a href="#" @click.prevent="changePage(prevPage)">
-          <i class="page-item fas fa-angle-left"></i>
+          <i class="page-item fa-solid fa-angle-left"></i>
         </a>
       </li>
       <li class="pr-3 sm:pr-4" v-if="hasFirst()">
@@ -29,7 +29,7 @@
       </li>
       <li class="pr-3 sm:pr-4" v-if="hasNext()">
         <a href="#" @click.prevent="changePage(nextPage)">
-          <i class="page-item fas fa-angle-right"></i>
+          <i class="page-item fa-solid fa-angle-right"></i>
         </a>
       </li>
     </ul>
@@ -54,7 +54,7 @@
         <span id="text-after-input" class="mr-1 page-item">
           {{ textAfterInput }}
         </span>
-        <i class="fas fa-angle-right items-center text-custom-blue"></i>
+        <i class="fa-solid fa-angle-right items-center text-custom-blue"></i>
       </div>
     </div>
   </section>

@@ -29,7 +29,7 @@
             />
             <span class="absolute inset-y-0 right-0 flex items-center">
               <button class="btn btn-link mr-4" type="submit" aria-label="Start the search">
-                <i class="fas fa-search fa-lg olahd-link-color"></i>
+                <i class="fa-solid fa-search fa-lg olahd-link-color"></i>
               </button>
             </span>
           </span>

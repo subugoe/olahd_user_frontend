@@ -29,7 +29,7 @@
     <button :disabled="disable" @click="operandiButtonClicked" class="w-fit detail-blue-button"
       v-tooltip="tooltip"
       v-show="show">
-      <i class="fas fa-newspaper mr-1" />
+      <i class="fa-solid fa-newspaper mr-1" />
       {{ "Run Operandi" }}
     </button>
     <span v-if="jobId">Operandi Job submitted</span>

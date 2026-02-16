@@ -13,7 +13,7 @@
     >
       <div class="flex items-center justify-center space-x-2">
         <div class="flex flex-col">
-          <i class="fas fa-cogs text-white" />
+          <i class="fa-solid fa-cogs text-white" />
         </div>
         <div class="text-white text-2xl" v-if="isSidebarExpanded">OLA-HD</div>
       </div>
@@ -34,7 +34,7 @@
             (isSidebarExpanded ? 'text-lg' : 'text-2xl')
           "
         >
-          <i class="fas fa-fw fa-tachometer-alt" />
+          <i class="fa-solid fa-tachometer-alt" />
           <span class="text-inherit" v-if="isSidebarExpanded">Dashboard</span>
         </a>
       </RouterLink>
@@ -54,7 +54,7 @@
             (isSidebarExpanded ? 'text-lg' : 'text-2xl')
           "
         >
-          <i class="fas fa-fw fa-scroll" />
+          <i class="fa-solid fa-scroll" />
           <span class="text-inherit" v-if="isSidebarExpanded">Operandi Jobs</span>
         </a>
       </RouterLink>
@@ -76,7 +76,7 @@
             (isSidebarExpanded ? 'text-lg' : 'text-2xl')
           "
         >
-          <i class="fas fa-fw fa-upload" />
+          <i class="fa-solid fa-upload" />
           <span v-if="isSidebarExpanded">Import</span>
         </a>
       </RouterLink>
@@ -89,7 +89,7 @@
     >
       <i
         :class="
-          'fas fa-fw text-white/70 text-xl ' +
+          'fa-solid text-white/70 text-xl ' +
           (isSidebarExpanded ? 'fa-chevron-left' : 'fa-chevron-right')
         "
       />

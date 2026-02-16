@@ -49,7 +49,7 @@
           <h1 class="text-base">{{ title }}</h1>
           <div>
             <button @click="exportArchive" class="detail-blue-button" :disabled="!isOpen">
-              <i class="fas fa-download mr-1" />
+              <i class="fa-solid fa-download mr-1" />
               {{ "Export" }}
             </button>
           </div>

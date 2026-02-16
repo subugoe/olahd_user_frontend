@@ -30,7 +30,7 @@
             type="submit"
             class="p-1 focus:outline-none focus:shadow-outline"
           >
-            <i class="fas fa-search fa-lg olahd-link-color"></i>
+            <i class="fa-solid fa-search fa-lg olahd-link-color"></i>
           </button>
         </span>
       </div>

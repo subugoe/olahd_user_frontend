@@ -7,7 +7,7 @@
           <i
             :class="[
               Object.keys(this.expandedKeys).length ? 'fa-angle-double-up' : 'fa-angle-double-down',
-              'fas mr-1',
+              'fa-solid mr-1',
             ]"
           />
           {{ Object.keys(this.expandedKeys).length ? "Collapse" : "Expand" }}
@@ -38,7 +38,7 @@
         </Tree>
         <button @click="download" v-if="!disableDownload"
           class="flex-none detail-blue-button">
-          <i class="fas fa-download" /> {{ "Download" }}
+          <i class="fa-solid fa-download" /> {{ "Download" }}
         </button>
     </div>
   </section>
@@ -168,6 +168,7 @@ export default {
 
       pump();
     },
+
     async loadData() {
       const limit = 1000;
       let offset = 0;
