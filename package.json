@@ -16,7 +16,7 @@
     "jquery": "^3.4.1",
     "jquery.easing": "^1.4.1",
     "keycloak-js": "^26.2.3",
-    "pinia": "^2.1.7",
+    "pinia": "^3.0.4",
     "postcss": "^8.4.33",
     "primevue": "^3.42.0",
     "streamsaver": "^2.0.3",
