@@ -20,7 +20,7 @@
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
-    <div class="flex items-start p-4">
+    <div class="flex items-start p-2">
         <Tree v-model:expandedKeys="expandedKeys" v-model:selectionKeys="selectedKeys" :value="options"
           class="w-full md:w-30rem"
           selectionMode="checkbox">
@@ -50,7 +50,6 @@ import emojiService from "@/services/emojiService";
 import { WritableStream } from "web-streams-polyfill/ponyfill";
 import streamSaver from "streamsaver";
 import Tree from 'primevue/tree';
-import 'primevue/resources/themes/lara-light-blue/theme.css'
 import treeService from "@/services/treeService";
 
 export default {
@@ -327,25 +326,16 @@ export default {
 };
 </script>
 <style>
-.p-checkbox {
-  background-color: lightgray;
-  border-width: 2px;
+.p-checkbox .p-checkbox-box {
+  margin-top: 3px;
   border-radius: 0px;
-}
-.p-checkbox-box {
-  border-radius: 0px;
-  height: 19px;
-}
-.p-tree-toggler {
-  height: 1.5rem;
-}
-.p-tree .p-tree-container .p-treenode .p-treenode-content {
-  padding: 0.2rem;
+  height: 20px;
+  width: 20px;
 }
 .p-tree {
-  padding: 1px;
+  padding: 0px !important;
 }
-ul.p-treenode-children {
-  margin-left: 2rem;
+.p-tree-node-content {
+  padding: 0px !important;
 }
 </style>

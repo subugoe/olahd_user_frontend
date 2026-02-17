@@ -51,11 +51,7 @@
 </template>
 
 <script>
-import MultiSelect from 'primevue/multiselect';
 export default {
-  components: {
-    MultiSelect: MultiSelect,
-  },
   data() {
     return {
       query: this.$route.query["q"],
@@ -93,12 +89,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-
-
-:deep(.p-multiselect-label), :deep(.p-icon) {
-  margin: -4px;
-  color: white;
-}
-</style>

@@ -101,7 +101,6 @@ import { format } from "date-fns";
 import { authService } from "../../auth/auth";
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
-import ScrollPanel from "primevue/scrollpanel";
 import { useTokenStore } from '@/stores/token';
 
 export default {
