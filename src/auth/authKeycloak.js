@@ -4,29 +4,32 @@ import { useTokenStore } from '@/stores/token'
 const settings = {
   // TODO: Re-work variables: Some old ones are not used any more, some are missing like "realm" or
   // "host" which are derived from the pre-existing variables but should become new variables
+  use_keycloak: import.meta.env.VITE_USE_KEYCLOAK,
   authority: import.meta.env.VITE_KEYCLOAK_AUTHORITY,
   client_id: import.meta.env.VITE_KEYCLOAK_CLIENT_ID,
 }
 
-const keycloak = new Keycloak({
-  url: new URL(settings.authority).origin,
-  clientId: settings.client_id,
-  realm: new URL(settings.authority).pathname.split('/').filter(Boolean).pop(),
-})
+let keycloak
+if (settings.use_keycloak === 'true') {
+  keycloak = new Keycloak({
+    url: new URL(settings.authority).origin,
+    clientId: settings.client_id,
+    realm: new URL(settings.authority).pathname.split('/').filter(Boolean).pop(),
+  })
 
-keycloak.onTokenExpired = async () => {
-  const tokenStore = useTokenStore()
-  try {
-    let refreshed = await keycloak.updateToken(30);
-    if (refreshed) {
-      tokenStore.setToken(keycloak.token)
+  keycloak.onTokenExpired = async () => {
+    const tokenStore = useTokenStore()
+    try {
+      let refreshed = await keycloak.updateToken(30);
+      if (refreshed) {
+        tokenStore.setToken(keycloak.token)
+      }
+    } catch (err) {
+      console.error("Token refresh failed", err)
+      tokenStore.clearToken()
     }
-  } catch (err) {
-    console.error("Token refresh failed", err)
-    tokenStore.clearToken()
   }
 }
-
 
 /**
  * Class to encapsulate all authentication related logic.
