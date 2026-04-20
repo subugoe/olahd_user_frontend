@@ -82,9 +82,9 @@
           @click="moveArchive" >
             Move archive from tape to disk
           </button>
-          <a target="_blank" class="olahd-link-color inline w-fit" :href=linkToDfgviewer v-if="isOpen">
+          <!-- <a target="_blank" class="olahd-link-color inline w-fit" :href=linkToDfgviewer v-if="isOpen">
             Open in DFG viewer
-        </a>
+          </a> -->
         <router-link :to="{ name: 'tify', query: { id: this.id } }" >
           <p class="search-item-link olahd-link-color">Open TIFY</p>
         </router-link>
