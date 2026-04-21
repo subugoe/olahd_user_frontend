@@ -26,7 +26,6 @@
             hover:bg-gray-100
             items-start
           "
-          v-if="facet.occurrences > 0"
         >
           <input
             :id="facet.value + '-' + index"
