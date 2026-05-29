@@ -32,7 +32,7 @@
     "@types/node": "^24.10.13",
     "@vitejs/plugin-vue": "^6.0.4",
     "@vue/tsconfig": "^0.8.1",
-    "cypress": "14",
+    "cypress": "^15.16.0",
     "depcheck": "^1.4.7",
     "npm-run-all2": "^8.0.4",
     "typescript": "~5.9.3",
