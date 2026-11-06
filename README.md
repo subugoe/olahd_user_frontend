@@ -49,8 +49,13 @@ cd olahd_user_frontend
 The frontend needs the backend to query search results and other data. The connection is set in the
 file `src/axios-config.ts`. By default, the application is supposed to run with Docker, so the
 `baseURL` is set to '/api/'. This is because the backend is expected to run on the same host and to
-be available at path `api`. For development purposes, this could be changed to a local running
-OLA-HD backend: `http://localhost:8080` or to the running service: `https://ola-hd.ocr-d.de/api`.
+be available at path `api`.
+
+When the app is served via HTTPS, absolute backend or Keycloak URLs must not be configured as
+`http://...` for the same host, otherwise browsers will block the requests as mixed content. Prefer
+relative `/api/` URLs or set the configured URLs to HTTPS. For local development, a backend URL such
+as `http://localhost:8080` is fine only when the frontend itself is also served over HTTP. In HTTPS
+setups, use `https://localhost:8080` or the same HTTPS origin with a reverse proxy.
 
 ### Local startup
 `npm run dev` starts the frontend on the local machine.

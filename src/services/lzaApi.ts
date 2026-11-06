@@ -1,4 +1,4 @@
-import axios from '../axios-config';
+import axios, { normalizeApiBaseUrl } from '../axios-config';
 
 export default {
     search(params: Record<string, any> = {}, facets: string) {
@@ -69,7 +69,7 @@ export default {
     },
 
     getBaseUrl() {
-        let baseURL = axios.defaults.baseURL ? axios.defaults.baseURL : '/api/';
+        let baseURL = normalizeApiBaseUrl(axios.defaults.baseURL || '/api/');
         baseURL += baseURL.endsWith('/') ? '' : '/';
         return baseURL;
     },

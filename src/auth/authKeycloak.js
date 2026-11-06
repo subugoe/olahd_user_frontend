@@ -1,11 +1,25 @@
 import Keycloak from 'keycloak-js'
 import { useTokenStore } from '@/stores/token'
 
+function normalizeHttpUrl(url) {
+  if (!url) return url
+
+  try {
+    const parsedUrl = new URL(url)
+    if (window.location.protocol === 'https:' && parsedUrl.protocol === 'http:') {
+      parsedUrl.protocol = 'https:'
+    }
+    return parsedUrl.toString()
+  } catch (error) {
+    return url
+  }
+}
+
 const settings = {
   // TODO: Re-work variables: Some old ones are not used any more, some are missing like "realm" or
   // "host" which are derived from the pre-existing variables but should become new variables
   use_keycloak: import.meta.env.VITE_USE_KEYCLOAK,
-  authority: import.meta.env.VITE_KEYCLOAK_AUTHORITY,
+  authority: normalizeHttpUrl(import.meta.env.VITE_KEYCLOAK_AUTHORITY),
   client_id: import.meta.env.VITE_KEYCLOAK_CLIENT_ID,
 }
 
